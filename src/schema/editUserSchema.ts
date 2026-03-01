@@ -13,4 +13,3 @@ export const EditUserSchema = zod.object({
 })
 
 export type EditUserFormData = zod.infer<typeof EditUserSchema>
-export type EditUserFormData = zod.infer<typeof EditUserSchema>
