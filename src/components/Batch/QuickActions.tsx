@@ -1,14 +1,11 @@
 'use client'
-import React from 'react'
-import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog"
-import { BatchType, CreateMedicineType, MedicineType } from '@/interfaces'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useDeleteBatch } from '@/hooks/inventory/useBatch'
+import { BatchType } from '@/interfaces'
 import { Trash } from "lucide-react"
+import { useState } from 'react'
 import { toast } from 'sonner'
 import AddBatch from './AddBatch'
-import { useDeleteMedicine } from '@/hooks/inventory/useMedicine'
-import EditMedicine from './EditBatch'
-import { useDeleteBatch } from '@/hooks/inventory/useBatch'
 import EditBatch from './EditBatch'
 import ViewBatch from './ViewBatch'
 

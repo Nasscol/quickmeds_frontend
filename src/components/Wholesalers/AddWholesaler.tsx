@@ -1,15 +1,15 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { ContactField, InputField } from "../Global/Form"
+import { useAddWholesaler } from "@/hooks/inventory/useWholesalers"
 import { WholesalerType } from "@/interfaces"
+import { WholesalerFormData, wholesalerSchema } from "@/schema/wholesalerSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ContactField, InputField } from "../Global/Form"
 import CountryDropDown from "../Global/Form/CountryDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
-import { useState } from "react"
-import { toast } from "sonner"
-import { WholesalerFormData, wholesalerSchema } from "@/schema/wholesalerSchema"
-import { useAddWholesaler } from "@/hooks/inventory/useWholesalers"
 
 interface AddWholesalerFormProps {
   defaultValues?: Partial<WholesalerFormData>

@@ -4,6 +4,8 @@ import Wholesalers from "./Wholesalers"
 import Medicine from "./Medicine";
 import Batch from "./Batch";
 import Staff from "./Staff";
+import Roles from './Roles'
+import Login from "./Login";
 
 export {
     Dashboard,
@@ -11,5 +13,7 @@ export {
     Wholesalers,
     Medicine,
     Batch,
-    Staff
+    Staff,
+    Roles,
+    Login,
 }

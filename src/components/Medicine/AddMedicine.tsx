@@ -1,17 +1,17 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, NumberField, Dropdown, TextField, ImageField, ReactNumberField } from "../Global/Form"
-import { useManufacturers } from "@/hooks/inventory/useManufacturers"
-import { CreateMedicineType } from "@/interfaces"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { useState } from "react"
-import { toast } from "sonner"
-import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
-import { useAddMedicine } from "@/hooks/inventory/useMedicine"
 import { useDosageForms } from "@/hooks/inventory/useDosageForms"
+import { useManufacturers } from "@/hooks/inventory/useManufacturers"
+import { useAddMedicine } from "@/hooks/inventory/useMedicine"
 import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
+import { CreateMedicineType } from "@/interfaces"
+import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 
 interface AddMedicineFormProps {
@@ -21,7 +21,6 @@ interface AddMedicineFormProps {
 }
 
 export default function AddMedicine({ defaultValues, onCancel, onSave }: AddMedicineFormProps) {
-  //const [name, setName] = useState<string | null>("")
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined)
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
   const [image, setImage] = useState<File>();
@@ -55,8 +54,6 @@ const onSubmit = async (data: CreateMedicineType) => {
   if(image){
     formData.append("image", image)
   }
-
-  console.log("creating data: ", formData)
 
     addMedicine.mutate(formData, {
         onSuccess: () => {
@@ -132,8 +129,7 @@ const onSubmit = async (data: CreateMedicineType) => {
             </div>
 
         </div>
-        
-        {/* <Dropdown onSearch={setSearchQuery} onSelect={setSelectedId} placeholder="Select a Manufacturer" options={options ?? []} value={selectedOption}/> */}
+      
 
         <div className="flex justify-end gap-2 mt-4">
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">

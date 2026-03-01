@@ -3,8 +3,10 @@ import {TopMedicineTable, WelcomeScreen } from '@/components/DashBoard'
 import { DashHeading } from '@/components/Global'
 
 const Dashboard = () => {
+  
   return (
     <section>
+      
       <DashHeading Title='Dashboard' />
       <WelcomeScreen />
 

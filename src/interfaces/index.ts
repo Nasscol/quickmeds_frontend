@@ -6,6 +6,7 @@ export interface SidebarLink {
   icon: StaticImageData
   isActive?: boolean;
   options?: {link_name: string, link: string}[]
+  adminOnly?: boolean
 }
 
 export interface PaginatedResponse<T> {
@@ -14,6 +15,17 @@ export interface PaginatedResponse<T> {
   previous: string | null
   results: T[]
 }
+
+// export interface AuthContextType {
+//   accessToken: string | null
+//   setAccessToken: (token: string | null) => void
+// }
+
+export interface AuthContextType {
+  user: User | undefined;
+  loading: boolean;
+}
+
 
 
 export type TopMedicineDataType = {
@@ -161,6 +173,15 @@ export type User = {
   updated_at?: string
 }
 
+export interface LoginData {
+  username: string
+  password: string
+}
+
+export interface TokenResponse {
+  access: string
+}
+
 export type UserSearchQuery = {
   page?: number
   search?: string
@@ -170,4 +191,14 @@ export type UserSearchQuery = {
   email?: string
   phone_number?: string
   gender?: "male" | "female" | string | null
+}
+
+export type UserRoleType = {
+  id?: string
+  name?: string
+}
+
+export type UserRoleQuery = {
+  page?: number
+  role?: string
 }

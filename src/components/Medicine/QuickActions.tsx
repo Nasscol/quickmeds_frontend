@@ -1,12 +1,11 @@
 'use client'
-import React from 'react'
-import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog"
-import { CreateMedicineType, MedicineType } from '@/interfaces'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useDeleteMedicine } from '@/hooks/inventory/useMedicine'
+import { CreateMedicineType } from '@/interfaces'
 import { Trash } from "lucide-react"
+import { useState } from 'react'
 import { toast } from 'sonner'
 import AddMedicine from './AddMedicine'
-import { useDeleteMedicine } from '@/hooks/inventory/useMedicine'
 import EditMedicine from './EditMedicine '
 
 interface EditMedicineDialogProps {

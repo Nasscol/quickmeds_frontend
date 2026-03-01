@@ -28,11 +28,13 @@ interface DropdownList {
 const RolesDropDown = ({required, name, label, control, errors, register, onSelect,  onSearch, placeholder = "Select a role"}: DropdownList) => {
 
     const { data: roles, isLoading } = useUserRoles()
-    const Roles = roles?.roles
+    const Roles = roles?.results
+
+    console.log("roles data: ", Roles)
   
     const options = Roles?.map((r: any) => ({
-      label: r,
-      value: r,
+      label: r.name,
+      value: r.name,
     }));
     
     const error = errors?.[name]

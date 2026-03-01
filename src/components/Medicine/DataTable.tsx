@@ -1,17 +1,15 @@
 'use client'
 
-import { PaginationState} from '@tanstack/react-table'
-import {columns} from './Columns'
-import { ManufacturerSearchQuery, ManufacturersType, MedicineSearchQuery, MedicineType, WholesalerType } from '@/interfaces'
-import {ManufacturesDummydata} from "./data"
-import { useState } from 'react'
-import { AddMedicineDialog } from './QuickActions'
-import TextSearchFields, { NumberSearchFields, ReactNumberSearchField } from './SearchFields'
+import { MedicineSearchQuery, MedicineType } from '@/interfaces'
+import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
+import { useState } from 'react'
+import { columns } from './Columns'
+import { AddMedicineDialog } from './QuickActions'
+import TextSearchFields, { ReactNumberSearchField } from './SearchFields'
 
-import Datatable from '../Global/Datatable'
 import { useMedicines } from '@/hooks/inventory/useMedicine'
-import { ReactNumberField } from '../Global/Form'
+import Datatable from '../Global/Datatable'
 
 export default function MedicineTable() {
   const [name, setName] = useState<string | undefined>(undefined)

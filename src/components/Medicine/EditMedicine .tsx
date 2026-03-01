@@ -1,19 +1,17 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, NumberField, Dropdown, TextField, ImageField, ReactNumberField } from "../Global/Form"
-import { manufacturerSchema, ManufacturerFormData } from "../../schema/manufacturerSchema"
-import { useState } from "react"
-import { CreateMedicineType } from "@/interfaces"
-import { toast } from "sonner"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
-import { useUpdateMedicine } from "@/hooks/inventory/useMedicine"
-import { useAddMedicine } from "@/hooks/inventory/useMedicine"
 import { useDosageForms } from "@/hooks/inventory/useDosageForms"
-import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
 import { useManufacturers } from "@/hooks/inventory/useManufacturers"
+import { useUpdateMedicine } from "@/hooks/inventory/useMedicine"
+import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
+import { CreateMedicineType } from "@/interfaces"
+import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 interface EditMedicineFormProps {
   defaultValues?: Partial<CreateMedicineType>
@@ -32,8 +30,6 @@ export default function EditMedicine({ defaultValues, onCancel, onSave }: EditMe
       image: undefined},
     resolver: zodResolver(medicineSchema),
   })
-
-  console.log("IMAGE TO EDIT: ", image)
 
   const editMedicine = useUpdateMedicine();
   const { data, isLoading } = useManufacturers({ name: searchQuery})
@@ -72,8 +68,6 @@ const onSubmit = async (data: CreateMedicineType) => {
   }
   )
 }
-
-console.log("Errors:", errors)
 
   return (
       <form onSubmit={handleSubmit(onSubmit)} className="relative overflow-hidden flex flex-col gap-4 w-full mx-auto px-4 py-8 bg-white border rounded-lg shadow-sm ">
@@ -140,9 +134,6 @@ console.log("Errors:", errors)
 
         </div>
         
-        
-        
-        {/* <Dropdown onSearch={setSearchQuery} onSelect={setSelectedId} placeholder="Select a Manufacturer" options={options ?? []} value={selectedOption}/> */}
 
         <div className="flex justify-end gap-2 mt-4">
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">

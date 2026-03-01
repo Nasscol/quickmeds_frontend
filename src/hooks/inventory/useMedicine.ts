@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { api } from "@/lib/axios"
-import { CreateMedicineType, MedicineSearchQuery, MedicineType, PaginatedResponse } from "@/interfaces"
 import { env } from "@/config/env"
+import { MedicineSearchQuery, MedicineType, PaginatedResponse } from "@/interfaces"
+import { api } from "@/lib/axios"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 const inventoryAPI = env.inventoryApi
 

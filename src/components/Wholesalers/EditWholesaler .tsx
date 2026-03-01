@@ -1,15 +1,15 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { ContactField, InputField } from "../Global/Form"
-import { useState } from "react"
-import { WholesalerType } from "@/interfaces"
-import { toast } from "sonner"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import CountryDropDown from "../Global/Form/CountryDropDown"
-import { WholesalerFormData, wholesalerSchema } from "@/schema/wholesalerSchema"
 import { useUpdateWholesaler } from "@/hooks/inventory/useWholesalers"
+import { WholesalerType } from "@/interfaces"
+import { WholesalerFormData, wholesalerSchema } from "@/schema/wholesalerSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ContactField, InputField } from "../Global/Form"
+import CountryDropDown from "../Global/Form/CountryDropDown"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 interface EditWholesalerFormProps {
   defaultValues?: Partial<WholesalerType>
@@ -28,7 +28,6 @@ export default function EditWholesalers({ defaultValues, onCancel, onSave }: Edi
 
 const onSubmit = async (data: WholesalerType) => {
   const updatedData = { ...data, id: defaultValues?.id }
-  console.log("Data being updated: ", updatedData)
     editWholesaler.mutate(updatedData, {
         onSuccess: () => {
           toast.success("Wholesaler updated successfully")

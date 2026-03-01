@@ -1,13 +1,12 @@
 'use client'
-import React from 'react'
-import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useDeleteUser } from '@/hooks/users/useUsers'
 import { User } from '@/interfaces'
 import { Trash } from "lucide-react"
+import { useState } from 'react'
 import { toast } from 'sonner'
-import EditMedicine from './EditStaff'
 import AddUser from './AddStaff'
-import { useDeleteUser } from '@/hooks/users/useUsers'
+import EditStaff from './EditStaff'
 
 interface EditUserDialogProps {
   open: boolean
@@ -58,7 +57,7 @@ export function EditUserDialog({ open, setOpen, user }: EditUserDialogProps) {
             <DialogTitle>Edit User</DialogTitle>
           </DialogHeader>
 
-          <EditMedicine
+          <EditStaff
             defaultValues={user ?? undefined}
             onCancel={() => setOpen(false)}
             onSave={() => setOpen(false)}

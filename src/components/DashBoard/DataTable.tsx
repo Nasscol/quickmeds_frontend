@@ -1,8 +1,7 @@
 'use client'
 
-import {flexRender,getCoreRowModel, getPaginationRowModel, useReactTable,} from '@tanstack/react-table'
 import { TopMedicineDataType } from '@/interfaces'
-import { useState } from 'react'
+import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from '@tanstack/react-table'
 import { columns } from './Columns'
 
 export default function DataTable({ data }: { data: TopMedicineDataType[] }) {

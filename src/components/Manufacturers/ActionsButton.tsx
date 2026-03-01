@@ -1,10 +1,10 @@
-import { Pencil } from "lucide-react"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover"
 import { ManufacturersType } from "@/interfaces"
+import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteManufacturesDialog, EditManufacturesDialog } from "./QuickActions"
 

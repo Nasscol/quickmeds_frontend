@@ -1,8 +1,17 @@
-import Dashboard from "@/componentPages/Dashboard";
-import Image from "next/image";
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
-export default function Home() {
-  return (
-    <Dashboard />
-  );
+export default async function Page() {
+  const cookieStore = await cookies();
+  
+  const hasAccess = cookieStore.has('access_token');
+  const hasRefresh = cookieStore.has('refresh_token');
+
+  if (hasAccess || hasRefresh) {
+    redirect('/dashboard');
+  } else {
+    redirect('/login');
+  }
+
 }
+

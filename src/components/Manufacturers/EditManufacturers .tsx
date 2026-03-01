@@ -1,15 +1,15 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { manufacturerSchema, ManufacturerFormData } from "../../schema/manufacturerSchema"
-import { ContactField, InputField } from "../Global/Form"
-import { useState } from "react"
 import { useUpdateManufacturer } from "@/hooks/inventory/useManufacturers"
 import { ManufacturersType } from "@/interfaces"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import LoadingSpinner from "../Global/LoadingSpinner"
+import { ManufacturerFormData, manufacturerSchema } from "../../schema/manufacturerSchema"
+import { ContactField, InputField } from "../Global/Form"
 import CountryDropDown from "../Global/Form/CountryDropDown"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 interface EditManufacturerFormProps {
   defaultValues?: Partial<ManufacturersType>

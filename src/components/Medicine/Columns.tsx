@@ -59,7 +59,7 @@ export const columns: ColumnDef<MedicineType>[] = [
       const backendDate = row.original.updated_at;
       if (!backendDate) return "-"; 
       const date = parseISO(backendDate);
-      return format(date, "MMM dd, yyyy HH:mm"); // e.g., Jan 26, 2026 07:24
+      return format(date, "MMM dd, yyyy HH:mm");
     },
   },
   {

@@ -1,18 +1,20 @@
-import React from 'react'
+"use client"
 import DashBoardVector from "@/assets/dashboard/quickmeds-dash-1.jpg"
-import Image from 'next/image'
-import KpiCard from './KPICard'
 import Cash from "@/assets/Icons/cash-1.png"
 import Medicine from "@/assets/Icons/medicine-2.png"
 import Expired from "@/assets/Icons/poison.png"
+import { useAuth } from '@/context/authContext'
+import Image from 'next/image'
+import KpiCard from './KPICard'
 
 const WelcomeScreen = () => {
+  const { user } = useAuth();
   return (
     <div className='bg-white rounded-lg shadow p-6 flex flex-col lg:flex-row justify-between'>
         <div>
           <h6 className='text-sm'>Welcome Back!</h6>
-          <h1 className='lg:text-2xl capitalize text-blue-500 lg:mt-1 font-semibold'>Simon Chainbers</h1>
-          <h6 className='text-xs'>Admin</h6>
+          <h1 className='lg:text-2xl capitalize text-blue-500 lg:mt-1 font-semibold'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h1>
+          <h6 className='text-xs'>{user ? `${user.groups}` : "Unknown"}</h6>
 
           <div className='flex flex-col md:flex-row gap-x-5 mt-10 justify-center lg:justify-start'>
               <KpiCard label="Today's Revenue" value={"550,000"} icon={Cash} bgColor='bg-(--light-purple)' textColor='text-blue-600' isMoney={true}/>

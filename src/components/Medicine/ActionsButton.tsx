@@ -1,10 +1,10 @@
-import { Pencil } from "lucide-react"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover"
-import { CreateMedicineType, MedicineType } from "@/interfaces"
+import { CreateMedicineType } from "@/interfaces"
+import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteMedicineDialog, EditMedicineDialog } from "./QuickActions"
 

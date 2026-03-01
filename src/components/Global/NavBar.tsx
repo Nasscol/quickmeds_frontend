@@ -1,12 +1,13 @@
 "use client"
-import React from 'react'
-import Image from 'next/image'
+import Logo from "@/assets/Logo/Logo.png";
+import Profile_Pic from "@/assets/profile pics/profile_placeholder.png";
+import { useAuth } from "@/context/authContext";
+import Image from 'next/image';
 import { useEffect, useState } from "react";
-import Logo from "@/assets/Logo/Logo.png"
-import Profile_Pic from "@/assets/profile pics/dummy-pic.webp"
 
 const DateAndTime = () => {
     const [now, setNow] = useState(new Date());
+    
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,6 +33,7 @@ const DateAndTime = () => {
 
 
 const NavBar = () => {
+    const { user, loading } = useAuth();
   return (
     <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5 z-9999'>
         <div className='flex items-center gap-x-2'>
@@ -45,9 +47,9 @@ const NavBar = () => {
 
         <div>
             <div className='flex items-center gap-x-4 pl-4 rounded-full bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors'>
-                <h6 className='text-sm'>Simon Chainbers</h6>
-                <div className='rounded-full size-10 overflow-hidden'>
-                    <Image src={Profile_Pic} alt='Simon Chainbers' className='w-full h-full'/>
+                <h6 className='text-sm'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h6>
+                <div className='relative rounded-full size-10 overflow-hidden'>
+                    <Image src={user?.profile_image as string ?? Profile_Pic} alt={user?.username ?? "unknown user"} fill  className='object-cover'/>
                 </div>
             </div>
         </div>

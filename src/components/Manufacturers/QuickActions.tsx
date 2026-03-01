@@ -1,13 +1,12 @@
 'use client'
-import React from 'react'
-import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog"
-import AddManufacturers from './AddManufacturers'
-import EditManufacturers from './EditManufacturers '
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useDeleteManufacturer } from '@/hooks/inventory/useManufacturers'
 import { ManufacturersType } from '@/interfaces'
 import { Trash } from "lucide-react"
-import { useDeleteManufacturer } from '@/hooks/inventory/useManufacturers'
+import { useState } from 'react'
 import { toast } from 'sonner'
+import AddManufacturers from './AddManufacturers'
+import EditManufacturers from './EditManufacturers '
 
 interface EditManufacturesDialogProps {
   open: boolean

@@ -1,16 +1,6 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, NumberField, Dropdown, TextField, ImageField, DateField, ReactNumberField } from "../Global/Form"
-import { useState } from "react"
-import { BatchType, MedicineType, WholesalerType } from "@/interfaces"
-import { toast } from "sonner"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { useMedicines } from "@/hooks/inventory/useMedicine"
-import { BatchFormData, batchSchema } from "@/schema/batchSchema"
-import { useBatch, useUpdateBatch } from "@/hooks/inventory/useBatch"
-import { useWholesalers } from "@/hooks/inventory/useWholesalers"
+import { BatchType } from "@/interfaces"
 import Image from "next/image"
 
 interface EditBatchFormProps {
@@ -20,13 +10,6 @@ interface EditBatchFormProps {
 }
 
 export default function ViewBatch({ defaultValues, onCancel, onSave }: EditBatchFormProps) {
-
-  const { register, handleSubmit, control, formState: { errors } } = useForm<BatchFormData>({
-    defaultValues,
-    resolver: zodResolver(batchSchema),
-  })
-
-  const {data: batch, isLoading} = useBatch(defaultValues?.id ?? "");
 
   return (
       <div>

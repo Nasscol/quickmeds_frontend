@@ -1,14 +1,13 @@
 'use client'
 
-import { PaginationState} from '@tanstack/react-table'
-import {columns} from './Columns'
-import { ManufacturerSearchQuery, ManufacturersType, WholesalerType } from '@/interfaces'
-import {ManufacturesDummydata} from "./data"
+import { useWholesalers } from '@/hooks/inventory/useWholesalers'
+import { ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
+import { PaginationState } from '@tanstack/react-table'
+import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
+import { columns } from './Columns'
 import { AddWholesalerDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
-import { Search, XCircle } from 'lucide-react'
-import { useWholesalers } from '@/hooks/inventory/useWholesalers'
 
 import Datatable from '../Global/Datatable'
 
@@ -20,7 +19,7 @@ export default function WholesalerTable() {
   const [searchQuery, setSearchQuery] = useState<ManufacturerSearchQuery>({name: undefined, country: undefined, email: undefined, contact: undefined});
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
 
-  const { data, isLoading, isError } = useWholesalers({page: pagination.pageIndex + 1, ...searchQuery})
+  const { data, isLoading } = useWholesalers({page: pagination.pageIndex + 1, ...searchQuery})
   const wholesalers: WholesalerType[] = data?.results ?? []
   const totalItems = data?.count ?? 0
 

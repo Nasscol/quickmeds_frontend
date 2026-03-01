@@ -33,6 +33,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
 
         <div className="overflow-x-auto ">
             <Table className="table-auto border border-gray-200 bg-white">
+        
               <TableHeader>
                 {table.getHeaderGroups().map(headerGroup => (
                   <TableRow key={headerGroup.id}>
@@ -44,6 +45,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
                   </TableRow>
                 ))}
               </TableHeader>
+
 
               {isLoading ? (
                 <TableBody>
@@ -66,11 +68,13 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
                   ))}
                 </TableBody>
               ) : (
+                 <TableBody>
                 <TableRow>
                   <TableCell colSpan={table.getAllColumns().length} className="text-center p-4 text-gray-500">
                     Backend is not yet deployed!
                   </TableCell>
                 </TableRow>
+                </TableBody>
               )
               }
             </Table>

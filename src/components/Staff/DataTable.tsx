@@ -1,16 +1,15 @@
 'use client'
 
-import { PaginationState} from '@tanstack/react-table'
-import {columns} from './Columns'
 import { User, UserSearchQuery } from '@/interfaces'
+import { PaginationState } from '@tanstack/react-table'
+import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
+import { columns } from './Columns'
 import { AddUserDialog } from './QuickActions'
 import TextSearchFields, { ContactSearchField } from './SearchFields'
-import { Search, XCircle } from 'lucide-react'
 
-import Datatable from '../Global/Datatable'
 import { useUsers } from '@/hooks/users/useUsers'
-import GenderDropDown from '../Global/Form/GenderDropdown'
+import Datatable from '../Global/Datatable'
 
 export default function UserTable() {
   const [search, setSearch] = useState<string | undefined>(undefined)
@@ -25,9 +24,6 @@ export default function UserTable() {
   const { data, isLoading, isError } = useUsers({page: pagination.pageIndex + 1, ...searchQuery})
   const users: User[] = data?.results ?? []
   const totalItems = data?.count ?? 0
-
-  console.log("User DATA: ", users)
-  console.log("search query: ", searchQuery)
 
   const clearSearchQueries = () => {
     setSearch(undefined)
@@ -46,7 +42,6 @@ export default function UserTable() {
           <div className='flex justify-between items-end mb-5'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({search, first_name, last_name, phone_number, email, username, gender})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end'>
-                  {/* <TextSearchFields label='Full Name' name='fullname' value={search} onChange={setSearch}/> */}
                   <TextSearchFields label='First Name' name='first_name' value={first_name} onChange={setFirstName}/>
                   <TextSearchFields label='Last Name' name='last_name' value={last_name} onChange={setLastName}/>
                   <TextSearchFields label='Username' name='username' value={username} onChange={setUsername}/>

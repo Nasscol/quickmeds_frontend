@@ -1,25 +1,17 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, NumberField, Dropdown, TextField, ImageField, ReactNumberField, ContactField } from "../Global/Form"
-import { manufacturerSchema, ManufacturerFormData } from "../../schema/manufacturerSchema"
-import { useState } from "react"
-import { CreateMedicineType, User } from "@/interfaces"
-import { toast } from "sonner"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
-import { useUpdateMedicine } from "@/hooks/inventory/useMedicine"
-import { useAddMedicine } from "@/hooks/inventory/useMedicine"
-import { useDosageForms } from "@/hooks/inventory/useDosageForms"
-import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
-import { useManufacturers } from "@/hooks/inventory/useManufacturers"
 import { useUpdateUser } from "@/hooks/users/useUsers"
-import RolesDropDown from "../Global/Form/RolesDropDown"
+import { User } from "@/interfaces"
+import { EditUserFormData, EditUserSchema } from "@/schema/editUserSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ContactField, ImageField, InputField } from "../Global/Form"
 import GenderDropDown from "../Global/Form/GenderDropdown"
-import { EditUserFormData } from "@/schema/editUserSchema"
-import { EditUserSchema } from "@/schema/editUserSchema"
 import IsActiveDropDown from "../Global/Form/Is_ActiveDropDown"
+import RolesDropDown from "../Global/Form/RolesDropDown"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 interface EditUserFormProps {
   defaultValues?: Partial<User>
@@ -30,7 +22,6 @@ interface EditUserFormProps {
 export default function EditStaff({ defaultValues, onCancel, onSave }: EditUserFormProps) {
   const [image, setImage] = useState<File | string | undefined>(defaultValues?.profile_image ?? undefined);
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
-  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined)
   const { register, handleSubmit, control, formState: { errors } } = useForm<EditUserFormData>({
     defaultValues: {...defaultValues, profile_image: undefined, role: defaultValues?.groups?.[0]},
     resolver: zodResolver(EditUserSchema),
@@ -51,9 +42,6 @@ const onSubmit = async (data: User) => {
   if(image && image instanceof File){
     formData.append("image", image)
   }
-
-  console.log("Updated Data: ", formData)
-
 
   editUser.mutate({id: defaultValues?.id, data: formData}, {
     
@@ -109,8 +97,7 @@ console.log("Errors:", errors)
         
         
         </div>
-        
-        {/* <Dropdown onSearch={setSearchQuery} onSelect={setSelectedId} placeholder="Select a Manufacturer" options={options ?? []} value={selectedOption}/> */}
+      
 
         <div className="flex justify-end gap-2 mt-4">
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">

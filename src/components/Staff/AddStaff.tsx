@@ -1,17 +1,17 @@
 'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, ImageField, ContactField, PasswordField } from "../Global/Form"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { useState } from "react"
-import { toast } from "sonner"
-import { UserFormData, CreateUserSchema } from "@/schema/createUserSchema"
 import { useAddUser } from "@/hooks/users/useUsers"
-import GenderDropDown from "../Global/Form/GenderDropdown"
-import RolesDropDown from "../Global/Form/RolesDropDown"
 import { User } from "@/interfaces"
+import { CreateUserSchema, UserFormData } from "@/schema/createUserSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ContactField, ImageField, InputField, PasswordField } from "../Global/Form"
+import GenderDropDown from "../Global/Form/GenderDropdown"
 import IsActiveDropDown from "../Global/Form/Is_ActiveDropDown"
+import RolesDropDown from "../Global/Form/RolesDropDown"
+import LoadingSpinner from "../Global/LoadingSpinner"
 
 
 interface AddUserFormProps {
@@ -21,7 +21,6 @@ interface AddUserFormProps {
 }
 
 export default function AddUser({ defaultValues, onCancel, onSave }: AddUserFormProps) {
-  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined)
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
   const [image, setImage] = useState<File>();
   
@@ -45,8 +44,6 @@ const onSubmit = async (data: User) => {
   if(image){
     formData.append("image", image)
   }
-
-  console.log("creating data: ", formData)
 
     addUser.mutate(formData, {
         onSuccess: () => {
@@ -100,8 +97,7 @@ const onSubmit = async (data: User) => {
         
         
         </div>
-        
-        {/* <Dropdown onSearch={setSearchQuery} onSelect={setSelectedId} placeholder="Select a Manufacturer" options={options ?? []} value={selectedOption}/> */}
+      
 
         <div className="flex justify-end gap-2 mt-4">
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
