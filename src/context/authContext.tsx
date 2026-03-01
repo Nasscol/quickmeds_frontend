@@ -37,7 +37,7 @@ export const AuthProvider = ({ children, initialUser, token }: { children: React
     if (!initialUser) {
       fetchUser();
     }
-  }, []);
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ user, loading }}>

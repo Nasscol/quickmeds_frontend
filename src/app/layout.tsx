@@ -40,9 +40,7 @@ export default async function RootLayout({
     try {
       // Direct call to Django using the cookie
       const res = await fetch(`${env.api}${env.usersApi}/me/`, {
-        headers: {
-          Cookie: `access_token=${accessToken.value}`,
-        },
+        credentials: "include",
         cache: 'no-store',
       });
       if (res.ok){
