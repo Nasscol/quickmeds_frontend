@@ -42,6 +42,7 @@ export default async function RootLayout({
         headers: {
           Cookie: `access_token=${token.value}`,
         },
+        cache: 'no-store',
       });
       if (res.ok){
         user = await res.json();

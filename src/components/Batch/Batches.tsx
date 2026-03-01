@@ -16,10 +16,11 @@ interface BatchCardProps {
   batch: Partial<BatchType>
 }
 
-export const BatchCards = ({batch, }: BatchCardProps) => {
+export const BatchCards = ({batch }: BatchCardProps) => {
   const [editOpen, setEditOpen] = useState<boolean>(false)
   const [viewOpen, setViewOpen] = useState<boolean>(false)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   const Price = Number(batch.selling_price_per_unit)
 
@@ -27,7 +28,14 @@ export const BatchCards = ({batch, }: BatchCardProps) => {
     <div className='flex flex-col gap-y-2 w-60 bg-white rounded-lg shadow p-5'>
       <h6 className='text-xs text-gray-700'>{batch.batch_number}</h6>
       <div className='size-40 mx-auto rounded-lg overflow-hidden border-2 border-gray-200 mb-2 relative'>
-        <Image src={batch?.medicine_details?.image ?? ""} alt={batch?.medicine_details?.name ?? ""} fill className='w-full h-full object-cover'/>
+        {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+        <Image 
+        src={batch?.medicine_details?.image ?? ""} 
+        alt={batch?.medicine_details?.name ?? ""} 
+        fill 
+        className={`w-full h-full object-cover 
+        ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} 
+        onLoad={() => setIsLoaded(true)}/>
       </div>
       <div>
         <h5 className='text-center'>{batch?.medicine_details?.name ?? ""}</h5>

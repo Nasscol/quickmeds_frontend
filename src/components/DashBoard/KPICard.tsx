@@ -1,4 +1,5 @@
-import React from "react"
+"use client"
+import React, { useState } from "react"
 import Image, { StaticImageData } from "next/image"
 type KpiCardProps = {
   label: string
@@ -10,13 +11,16 @@ type KpiCardProps = {
 }
 
 const KpiCard = ({ label, value, icon, bgColor, textColor, isMoney }: KpiCardProps) => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   return (
     <div className={`flex flex-row gap-x-4 items-center justify-center rounded-xl ${bgColor ? bgColor : "bg-white"} px-6 py-3 w-max cursor-pointer hover:-translate-y-1 transition-all`}>
-      <div className="size-10 xl:size-15">
+      <div className="size-10 xl:size-15 relative">
+         {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
         <Image
           src={icon}
           alt={label}
-          className="h-full w-full object-contain"
+          className={`h-full w-full object-contain ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+          onLoad={() => setIsLoaded(true)}
         />
       </div>
 

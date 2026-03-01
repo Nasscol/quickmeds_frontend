@@ -23,12 +23,17 @@ export const AuthProvider = ({ children, initialUser }: { children: React.ReactN
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (initialUser) {
+      setUser(initialUser);
+      setLoading(false);
+    }
+  }, [initialUser]);
 
   useEffect(() => {
+    // Only fetch if we don't have an initial user from the server
     if (!initialUser) {
       fetchUser();
-    } else {
-      setLoading(false);
     }
   }, []);
 

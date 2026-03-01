@@ -6,15 +6,19 @@ import Expired from "@/assets/Icons/poison.png"
 import { useAuth } from '@/context/authContext'
 import Image from 'next/image'
 import KpiCard from './KPICard'
+import { useState } from "react"
 
 const WelcomeScreen = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   return (
     <div className='bg-white rounded-lg shadow p-6 flex flex-col lg:flex-row justify-between'>
         <div>
           <h6 className='text-sm'>Welcome Back!</h6>
-          <h1 className='lg:text-2xl capitalize text-blue-500 lg:mt-1 font-semibold'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h1>
-          <h6 className='text-xs'>{user ? `${user.groups}` : "Unknown"}</h6>
+          {loading ? <div className="h-7 w-24 bg-black/10 animate-pulse rounded lg:mt-1" /> : <h1 className='lg:text-2xl capitalize text-blue-500 lg:mt-1 font-semibold'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h1>}
+          
+          
+          {loading ? <div className="h-4 w-24 bg-black/10 animate-pulse rounded mt-1" /> : <h6 className='text-xs'>{user ? `${user.groups}` : "Unknown"}</h6>}
 
           <div className='flex flex-col md:flex-row gap-x-5 mt-10 justify-center lg:justify-start'>
               <KpiCard label="Today's Revenue" value={"550,000"} icon={Cash} bgColor='bg-(--light-purple)' textColor='text-blue-600' isMoney={true}/>
@@ -23,8 +27,9 @@ const WelcomeScreen = () => {
           </div>
         </div>
 
-        <div className='w-100 mx-auto lg:mx-0'>
-          <Image src={DashBoardVector} alt='Dashboard' className='w-full object-contain'/>
+        <div className='w-100 mx-auto lg:mx-0 relative'>
+          {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+          <Image src={DashBoardVector} alt='Dashboard' className={`w-full object-contain ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
         </div>
     </div>
   )

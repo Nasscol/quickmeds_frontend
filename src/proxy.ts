@@ -2,16 +2,22 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function proxy(request: NextRequest) {
-  const token = request.cookies.get('access_token');
+  const accessToken = request.cookies.get('access_token');
+  const refreshToken = request.cookies.get('refresh_token');
   const isLoginPage = request.nextUrl.pathname === '/login';
 
-  // 1. If no token and not on login page -> Redirect to login
-  if (!token && !isLoginPage) {
+  // 1. If no tokens and not on login page -> Redirect to login
+  if (!accessToken && !refreshToken && !isLoginPage) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // 2. If token exists and user tries to go to login -> Redirect to dashboard
-  if (token && isLoginPage) {
+  // If user has a refresh token but no access token -> Attempt a refresh
+  if (!accessToken && refreshToken && !isLoginPage) {
+    return NextResponse.next();
+  }
+
+  // If tokens exist and user tries to go to login -> Redirect to dashboard
+  if (accessToken  && isLoginPage) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 

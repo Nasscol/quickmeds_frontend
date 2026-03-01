@@ -41,6 +41,7 @@ const SideBarNav: SidebarLink[]  = [
 
 const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) => {
     const [open, setOpen] = useState(false)
+    const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const hasDropDownList = options && options.length > 0
     
 
@@ -52,8 +53,9 @@ const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) =
                 <div onClick={() => hasDropDownList ? setOpen(!open) : null} 
                     className={`min-w-50 flex flex-row gap-x-3 items-center justify-start ${isActive ? "bg-gray-200" : "hover:bg-gray-200"} 
                     cursor-pointer py-2 px-3 rounded-lg transition-colors`}>
-                        <div className="size-6">
-                            <Image src={icon} alt={link_name} className="object-contain w-full h-full" />
+                        <div className="size-6 relative">
+                             {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+                            <Image src={icon} alt={link_name} className={`object-contain w-full h-full ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
                         </div>
 
                     {link ? (
@@ -90,16 +92,20 @@ const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) =
 }
 
 const SideBar = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
     const filteredNav = SideBarNav.filter(item => !item.adminOnly || user?.groups?.includes("Admin"))
     return (
         <div className='px-4 py-10 w-58 shadow h-screen  bg-white hidden lg:block fixed top-0 left-0 overflow-y-auto scrollbar-hide z-40'>
             <div className='flex flex-col items-center mb-8 cursor-default'>
-                <div className='mb-4 overflow-hidden rounded-lg border-3 border-white md:size-25 xl:size-30 shadow'>
-                    <Image src={Logo} alt='Simon Chainers' className='w-full h-full'/>
+                <div className='mb-4 overflow-hidden rounded-lg border-3 border-white md:size-25 xl:size-30 shadow relative'>
+                    {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse rounded z-5" />}   
+                    <Image src={Logo} alt='Simon Chainers' className={`w-full h-full ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
                 </div>
                 <h5 className='capitalize font-semibold md:text-sm xl:text-base'>QuickMeds System</h5>
-                <h6 className='capitalize lg:text-xs xl:text-sm'>{user ? `${user.groups}` : "Unknown"}</h6>
+
+                {loading ? <div className="h-5 w-24 bg-black/10 animate-pulse rounded" /> : <h6 className='capitalize lg:text-xs xl:text-sm'>{user ? `${user.groups}` : "Unknown"}</h6>}
             </div>
 
             <div className='space-y-5'>

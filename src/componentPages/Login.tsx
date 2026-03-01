@@ -26,6 +26,7 @@ const Login = () => {
     login.mutate(data, {
       onSuccess: () => {
         toast.success("Login Successful")
+        router.refresh();
         router.push("/dashboard")
       },
       onError: (err: any) => {
