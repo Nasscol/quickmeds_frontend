@@ -10,11 +10,14 @@ import { LoginFormData, loginSchema } from '@/schema/loginSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from 'sonner'
 
 const Login = () => {
   const router = useRouter()
+  const [isLogoLoaded, setIsLogoLoaded] = useState<boolean>(false)
+  const [isBannerLoaded, setIsBannerLoaded] = useState<boolean>(false)
 
       const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
@@ -45,8 +48,9 @@ const Login = () => {
         <div className='flex flex-row rounded-lg  bg-white/93 shadow-md relative z-80  overflow-hidden'>
 
           <div className='p-6 w-100'>
-             <div className='size-40 mb-5 overflow-hidden rounded-lg border-3 border-white shadow mx-auto'>
-              <Image src={Logo} alt='Quick Meds' className='w-full h-full object-contain'/>
+             <div className='size-40 mb-5 overflow-hidden rounded-lg border-3 border-white shadow mx-auto relative'>
+              {/* {!isLogoLoaded && <div className="absolute inset-0 bg-black/5 animate-pulse rounded z-5" />}    */}
+              <Image src={Logo} alt='Quick Meds' fill placeholder="blur" className={`w-full h-full object-contain ${isLogoLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLogoLoaded(true)}/>
             </div>
             <h4 className='text-center text-sm font-semibold mb-5'>Welcome to QuickMeds</h4>
 
@@ -61,8 +65,8 @@ const Login = () => {
 
           <div className='hidden sm:block w-80 p-1'>
             <div className='flex flex-col overflow-hidden relative rounded-lg w-full h-full'>
-              <div className='w-full h-full absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent z-100'></div>
-              <Image src={LoginCover} alt='Quick Meds' fill placeholder="blur" className='w-full h-full object-cover'/>
+              <div className='w-full h-full absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-50'></div>
+              <Image src={LoginCover} alt='Quick Meds' fill placeholder="blur" className={`w-full h-full object-cover ${isBannerLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsBannerLoaded(true)}/>
               <div className='relative z-120 text-white mt-auto p-3 text-sm'>
                 <p>{`" Your Reliable Medical Supply & Distribution System "`}</p>
               </div>

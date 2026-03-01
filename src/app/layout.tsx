@@ -31,16 +31,17 @@ export default async function RootLayout({
 }>) {
 
   const cookieStore = await cookies();
-  const token = cookieStore.get('access_token');
+  const accessToken = cookieStore.get('access_token');
+  const hasRefreshToken = cookieStore.has('refresh_token');
   
   let user = undefined;
 
-  if (token) {
+  if (accessToken) {
     try {
       // Direct call to Django using the cookie
       const res = await fetch(`${env.api}${env.usersApi}/me/`, {
         headers: {
-          Cookie: `access_token=${token.value}`,
+          Cookie: `access_token=${accessToken.value}`,
         },
         cache: 'no-store',
       });
@@ -56,7 +57,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-gray-100`}>
-        <AuthProvider initialUser={user}>
+        <AuthProvider initialUser={user} token={hasRefreshToken}>
 
           <Providers>
 

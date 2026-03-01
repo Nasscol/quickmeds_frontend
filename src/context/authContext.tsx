@@ -8,15 +8,17 @@ const UserAPI = env.usersApi
 
 const AuthContext = createContext<AuthContextType | undefined>({ user: undefined, loading: true });
 
-export const AuthProvider = ({ children, initialUser }: { children: React.ReactNode, initialUser?: User}) => {
+export const AuthProvider = ({ children, initialUser, token }: { children: React.ReactNode, initialUser?: User, token?: boolean}) => {
   const [user, setUser] = useState<User | undefined>(initialUser);
 
   const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
     try {
-      const res = await api.get(`${UserAPI}/me/`);
-      setUser(res.data);
+      if(token){
+        const res = await api.get(`${UserAPI}/me/`);
+        setUser(res.data);
+      }
     } catch {
       setUser(undefined);
     }
