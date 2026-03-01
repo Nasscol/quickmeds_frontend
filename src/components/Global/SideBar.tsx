@@ -15,6 +15,10 @@ import { SidebarLink } from '@/interfaces'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from "react"
+import { env } from "@/config/env"
+import api from "@/lib/axios"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 const SideBarNav: SidebarLink[]  = [
     {link_name: "Dashboard", link: "/dashboard", icon: Dashboard_icon, isActive: true},
@@ -92,10 +96,21 @@ const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) =
 }
 
 const SideBar = () => {
+    const router = useRouter();
     const { user, loading } = useAuth();
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
     const filteredNav = SideBarNav.filter(item => !item.adminOnly || user?.groups?.includes("Admin"))
+
+    const onLogout = async() => {
+        try{
+            await api.post(`${env.usersApi}/auth/logout/`)
+            router.push('/login')
+            toast.success("Logged out successfully")
+        } catch {
+            toast.error("Failed to Logout!")
+        }
+    }
     return (
         <div className='px-4 py-10 w-58 shadow h-screen  bg-white hidden lg:block fixed top-0 left-0 overflow-y-auto scrollbar-hide z-40'>
             <div className='flex flex-col items-center mb-8 cursor-default'>
@@ -112,6 +127,11 @@ const SideBar = () => {
                 {filteredNav.map((nav, index) => (
                     <SideBarLinks  key={index} link_name={nav.link_name} link={nav.link} icon={nav.icon} isActive={nav.isActive ?? false} options={nav.options}/>
                 ))}
+                <div>
+                    <button onClick={onLogout} className="block w-full text-sm cursor-pointer capitalize py-2 px-3 text-white text-center bg-red-800 hover:bg-red-900 rounded-lg transition-colors">
+                        Logout
+                    </button>
+                </div>
             </div>
             
         </div>
