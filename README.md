@@ -12,6 +12,9 @@ QuickMeds is a pharmacy management web application for tracking inventory, sales
 - TypeScript
 - NextJs
 
+## Backend
+[Quick Meds Backend](https://github.com/SimonDdungu/quickmeds-backend)
+
 ## License
 Distributed under the MIT License.
 
