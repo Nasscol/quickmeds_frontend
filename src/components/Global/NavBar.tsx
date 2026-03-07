@@ -34,14 +34,15 @@ const DateAndTime = () => {
 
 const NavBar = () => {
     const { user, loading } = useAuth();
-    const [isLoaded, setIsLoaded] = useState<boolean>(false)
+    const [isLogoLoaded, setIsLogoLoaded] = useState<boolean>(false)
+    const [isProfilePicLoaded, setIsProfilePicLoaded] = useState<boolean>(false)
 
   return (
     <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5 z-9999'>
         <div className='flex items-center gap-x-2'>
             <div className='size-10 relative'>
-                {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
-                <Image src={Logo} alt='QuickMeds Logo' className={`w-full h-full object-contain ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
+                {!isLogoLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+                <Image src={Logo} alt='QuickMeds Logo' className={`w-full h-full object-contain ${isLogoLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLogoLoaded(true)}/>
             </div>
             <h3>QuickMeds</h3>
         </div>
@@ -52,7 +53,8 @@ const NavBar = () => {
             <div className='flex items-center gap-x-4 pl-4 rounded-full bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors'>
                 {loading ? <div className="h-4 w-24 bg-blue-200/40 animate-pulse rounded" /> : <h6 className='text-sm'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h6>}
                 <div className='relative rounded-full size-10 overflow-hidden'>
-                    {loading ? <div className="w-full h-full bg-blue-200/40 animate-pulse rounded" /> : <Image src={user?.profile_image as string ?? Profile_Pic} alt={user?.username ?? "unknown user"} fill  className='object-cover'/>}
+                    {/* {!isProfilePicLoaded && <div className="absolute inset-0 bg-blue-200/40 animate-pulse rounded z-5" />}    */}
+                    {loading ? <div className="w-full h-full bg-blue-200/40 animate-pulse rounded" /> : <Image src={user?.profile_image as string ?? Profile_Pic} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)}/>}
                 </div>
             </div>
         </div>

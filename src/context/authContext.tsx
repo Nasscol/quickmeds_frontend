@@ -1,14 +1,14 @@
 "use client";
 import { env } from "@/config/env";
-import { AuthContextType, User } from "@/interfaces";
+import { AuthContextType, AuthProviderType, User } from "@/interfaces";
 import api from "@/lib/axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const UserAPI = env.usersApi
 
-const AuthContext = createContext<AuthContextType | undefined>({ user: undefined, loading: true });
+const AuthContext = createContext<AuthContextType | undefined>({ user: undefined, loading: true, setUser: () => {} });
 
-export const AuthProvider = ({ children, initialUser, token }: { children: React.ReactNode, initialUser?: User, token?: boolean}) => {
+export const AuthProvider = ({ children, initialUser, token }: AuthProviderType) => {
   const [user, setUser] = useState<User | undefined>(initialUser);
 
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,9 @@ export const AuthProvider = ({ children, initialUser, token }: { children: React
       }
     } catch {
       setUser(undefined);
+    } finally{
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -33,14 +34,14 @@ export const AuthProvider = ({ children, initialUser, token }: { children: React
   }, [initialUser]);
 
   useEffect(() => {
-    // Only fetch if we don't have an initial user from the server
     if (!initialUser) {
+      setLoading(true)
       fetchUser();
     }
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

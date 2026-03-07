@@ -45,6 +45,7 @@ export default async function RootLayout({
       });
       if (res.ok){
         user = await res.json();
+        console.log("Initial user in layout: ", user)
       }
     } catch (err) {
       console.error("Auth pre-fetch failed", err);

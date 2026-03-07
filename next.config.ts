@@ -6,11 +6,20 @@ const nextConfig: NextConfig = {
      remotePatterns: [
       // Production API
      {
-        protocol: 'http',
-        hostname: 'api.yourdomain.com',
+        protocol: "https",
+        hostname: "kmmrgijtqahiilujqbck.supabase.co",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
   },  
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://quickmeds-backend-ktvv.onrender.com/api/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

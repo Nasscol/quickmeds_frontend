@@ -97,7 +97,7 @@ const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) =
 
 const SideBar = () => {
     const router = useRouter();
-    const { user, loading } = useAuth();
+    const { user, loading, setUser } = useAuth();
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
     const filteredNav = SideBarNav.filter(item => !item.adminOnly || user?.groups?.includes("Admin"))
@@ -105,8 +105,9 @@ const SideBar = () => {
     const onLogout = async() => {
         try{
             await api.post(`${env.usersApi}/auth/logout/`)
-            router.push('/login')
             toast.success("Logged out successfully")
+            router.refresh()
+            router.push("/login")
         } catch {
             toast.error("Failed to Logout!")
         }

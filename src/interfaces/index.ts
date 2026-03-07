@@ -16,17 +16,17 @@ export interface PaginatedResponse<T> {
   results: T[]
 }
 
-// export interface AuthContextType {
-//   accessToken: string | null
-//   setAccessToken: (token: string | null) => void
-// }
-
 export interface AuthContextType {
-  user: User | undefined;
+  user?: User;
   loading: boolean;
+  setUser: (user: User | undefined) => void;
 }
 
-
+export interface AuthProviderType {
+  children: React.ReactNode;
+  initialUser?: User;
+  token?: boolean;
+}
 
 export type TopMedicineDataType = {
     id: number,
