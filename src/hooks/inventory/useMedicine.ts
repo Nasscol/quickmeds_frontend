@@ -51,6 +51,7 @@ export function useUpdateMedicine() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["medicine"] })
       queryClient.invalidateQueries({ queryKey: ["medicine", data.id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
@@ -65,6 +66,7 @@ export function useDeleteMedicine() {
    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["medicine"] })
       queryClient.invalidateQueries({ queryKey: ["medicine", id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }

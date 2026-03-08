@@ -2,6 +2,7 @@
 
 import { BatchType } from "@/interfaces"
 import Image from "next/image"
+import { useState } from "react"
 
 interface EditBatchFormProps {
   defaultValues?: Partial<BatchType>
@@ -10,6 +11,7 @@ interface EditBatchFormProps {
 }
 
 export default function ViewBatch({ defaultValues, onCancel, onSave }: EditBatchFormProps) {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   return (
       <div>
@@ -18,7 +20,11 @@ export default function ViewBatch({ defaultValues, onCancel, onSave }: EditBatch
           <div className="flex justify-start gap-x-10">
 
             <div className="size-50 rounded-lg overflow-hidden border-2 border-gray-200 mb-2 relative">
-              <Image src={defaultValues?.medicine_details?.image ?? ""} alt={defaultValues?.medicine_details?.name ?? ""} fill className='w-full h-full object-cover' unoptimized/>
+              {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />} 
+              <Image src={defaultValues?.medicine_details?.image ?? ""} alt={defaultValues?.medicine_details?.name ?? ""} 
+              fill 
+              className={`w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} 
+              onLoad={() => setIsLoaded(true)}/>
             </div>
 
             <div className="space-y-1">

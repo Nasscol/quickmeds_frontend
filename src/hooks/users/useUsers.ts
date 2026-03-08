@@ -107,6 +107,7 @@ export function useAddRole() {
     },
     onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["roles"] })
+        queryClient.invalidateQueries({ queryKey: ["users"] })
     },
   })
 }
