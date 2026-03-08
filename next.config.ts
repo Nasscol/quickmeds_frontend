@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://quickmeds-backend-ktvv.onrender.com/api/:path*/",
+        destination: `${process.env.BACKEND_URL}/api/:path*/`,
       },
     ];
   },
