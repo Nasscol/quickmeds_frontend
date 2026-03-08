@@ -80,6 +80,7 @@ export const useloginUser = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ["roles"] })
     },
   })
 }

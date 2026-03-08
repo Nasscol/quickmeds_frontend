@@ -39,7 +39,7 @@ const SideBarNav: SidebarLink[]  = [
             {link_name: "Roles", link: "/roles"},
         ]
     },
-    {link_name: "Profile", link: "#", icon: User_icon},
+    {link_name: "Profile", link: "/profile", icon: User_icon},
     {link_name: "Settings", link: "#", icon: Settings_icon},
 ]
 

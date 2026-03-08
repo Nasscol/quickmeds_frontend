@@ -6,6 +6,7 @@ import Batch from "./Batch";
 import Staff from "./Staff";
 import Roles from './Roles'
 import Login from "./Login";
+import Profile from "./Profile";
 
 export {
     Dashboard,
@@ -16,4 +17,5 @@ export {
     Staff,
     Roles,
     Login,
+    Profile,
 }

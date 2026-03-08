@@ -202,3 +202,18 @@ export type UserRoleQuery = {
   page?: number
   role?: string
 }
+
+// export interface ProfileInfoDetailsProps {
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//     phoneNumber: string;
+//     gender: string;
+//     loading?: boolean;
+// }
+
+export interface ProfileInfoDetailsProps {
+    heading: string;
+    info: string;
+    loading?: boolean;
+}
