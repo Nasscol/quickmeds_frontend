@@ -11,7 +11,7 @@ export function useUsers(params: UserSearchQuery) {
   return useQuery({
     queryKey: ["users", {params}], 
     queryFn: async () => {
-      const res = await api.get<PaginatedResponse<User>>(`${usersAPI}/`, {params})
+      const res = await api.get<PaginatedResponse<User>>(`${usersAPI}`, {params})
       return res.data          
     },
     staleTime: 1000 * 60 * 60,
@@ -21,7 +21,7 @@ export function useUsers(params: UserSearchQuery) {
 export function useUser(id: string) {
   return useQuery({
     queryKey: ["user", id],
-    queryFn: async () => {const res = await api.get<User>(`${usersAPI}/${id}/`)
+    queryFn: async () => {const res = await api.get<User>(`${usersAPI}/${id}`)
       return res.data
     },
     enabled: !!id,
@@ -47,7 +47,7 @@ export function useUpdateUser() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({id, data}: {id: string | undefined, data: any}) => {const res = await api.patch<User>(`${usersAPI}/${id}/`, data)
+    mutationFn: async ({id, data}: {id: string | undefined, data: any}) => {const res = await api.patch<User>(`${usersAPI}/${id}`, data)
       return res.data
     },
     onSuccess: (data) => {
@@ -61,7 +61,7 @@ export function useDeleteUser() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string) => {const res = await api.delete(`${usersAPI}/${id}/`)
+    mutationFn: async (id: string) => {const res = await api.delete(`${usersAPI}/${id}`)
       return res.data
     },
    onSuccess: (_, id) => {
@@ -75,7 +75,7 @@ export const useloginUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (data: LoginData) => {const res = await api.post(`${usersAPI}/auth/login/`, data)
+    mutationFn: async (data: LoginData) => {const res = await api.post(`${usersAPI}/auth/login`, data)
       return res.data
     },
     onSuccess: (data) => {
@@ -89,7 +89,7 @@ export function useUserRoles(params?: UserRoleQuery) {
   return useQuery({
     queryKey: ["roles", {params}], 
     queryFn: async () => {
-      const res = await api.get(`${usersAPI}/groups/`, {params})
+      const res = await api.get(`${usersAPI}/groups`, {params})
       return res.data          
     },
     staleTime: 1000 * 60 * 60,
@@ -102,7 +102,7 @@ export function useAddRole() {
 
   return useMutation({
     mutationFn: async (data: UserRoleType) => {
-      const res = await api.post<UserRoleType>(`${usersAPI}/groups/`, data)
+      const res = await api.post<UserRoleType>(`${usersAPI}/groups`, data)
       return res.data
     },
     onSuccess: (data) => {
@@ -117,7 +117,7 @@ export function useUpdateRole() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({id, data}: {id: string | undefined, data: any}) => {const res = await api.patch<UserRoleType>(`${usersAPI}/groups/${id}/`, data)
+    mutationFn: async ({id, data}: {id: string | undefined, data: any}) => {const res = await api.patch<UserRoleType>(`${usersAPI}/groups/${id}`, data)
       return res.data
     },
     onSuccess: (data) => {
@@ -135,7 +135,7 @@ export function useDeleteUserRole() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string) => {const res = await api.delete(`${usersAPI}/groups/${id}/`)
+    mutationFn: async (id: string) => {const res = await api.delete(`${usersAPI}/groups/${id}`)
       return res.data
     },
    onSuccess: (_, id) => {
