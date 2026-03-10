@@ -1,17 +1,21 @@
 'use client'
 
-import { MedicineSearchQuery, MedicineType } from '@/interfaces'
+import { allowedTechGroups, MedicineSearchQuery, MedicineType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import { AddMedicineDialog } from './QuickActions'
 import TextSearchFields, { ReactNumberSearchField } from './SearchFields'
 
+import { useAuth } from '@/context/authContext'
 import { useMedicines } from '@/hooks/inventory/useMedicine'
 import Datatable from '../Global/Datatable'
 
 export default function MedicineTable() {
+  const { user, loading } = useAuth();
+  const columns = getColumns(user)
+
   const [name, setName] = useState<string | undefined>(undefined)
   const [generic_name, setGeneric_name] = useState<string | undefined>(undefined)
   const [dosage_form, setDosageForm] = useState<string | undefined>(undefined)
@@ -25,8 +29,6 @@ export default function MedicineTable() {
   const { data, isLoading, isError } = useMedicines({page: pagination.pageIndex + 1, ...searchQuery})
   const medicine: MedicineType[] = data?.results ?? []
   const totalItems = data?.count ?? 0
-
-  console.log("MEDICINE DATA: ", medicine)
 
   const clearSearchQueries = () => {
     setName(undefined)
@@ -45,7 +47,7 @@ export default function MedicineTable() {
     <div>
           <div className='flex justify-between items-end mb-5'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({name, generic_name, dosage_form, strength, manufacturer, strength_max, strength_min, strength_unit})}} className='flex flex-col gap-x-3 gap-y-5'>
-                <div className='flex flex-wrap gap-3  items-end'>
+                <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Name' name='name' value={name} onChange={setName}/>
                   <TextSearchFields label='Generic Name' name='generic_name' value={generic_name} onChange={setGeneric_name}/>
                   <TextSearchFields label='Dosage Form' name='dosage_form' value={dosage_form} onChange={setDosageForm}/>
@@ -69,7 +71,9 @@ export default function MedicineTable() {
 
                 
               </form>
-                <AddMedicineDialog />
+                {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddMedicineDialog />) }
+               
+                
             </div>
             
           <Datatable data={medicine} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>

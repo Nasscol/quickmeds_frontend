@@ -1,7 +1,7 @@
 'use client'
 
 import { useManufacturers } from '@/hooks/inventory/useManufacturers'
-import { ManufacturerSearchQuery, ManufacturersType } from '@/interfaces'
+import { allowedTechGroups, ManufacturerSearchQuery, ManufacturersType } from '@/interfaces'
 import { PaginationState, SortingState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
@@ -10,8 +10,11 @@ import { AddManufacturesDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
 import Datatable from '../Global/Datatable'
+import { useAuth } from '@/context/authContext'
 
 export default function ManufacturerTable() {
+   const { user, loading } = useAuth();
+
   const [name, setName] = useState<string | undefined>(undefined)
   const [country, setCountry] = useState<string | undefined>(undefined)
   const [email, setEmail] = useState<string | undefined>(undefined)
@@ -48,7 +51,8 @@ export default function ManufacturerTable() {
                   <XCircle size={22}/>
                 </button>
               </form>
-                <AddManufacturesDialog />
+              {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddManufacturesDialog />) }
+                
             </div>
             
           <Datatable data={manufacturers} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>

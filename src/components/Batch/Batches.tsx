@@ -1,6 +1,6 @@
 'use client'
 
-import { BatchSearchQuery, BatchType } from '@/interfaces'
+import { allowedTechGroups, BatchSearchQuery, BatchType } from '@/interfaces'
 import { useState } from 'react'
 import { AddBatchDialog, DeleteBatchDialog, EditBatchDialog, ViewBatchDialog } from './QuickActions'
 import TextSearchFields, { DateSearchFields, NumberSearchFields } from './SearchFields'
@@ -11,12 +11,14 @@ import Image from 'next/image'
 import { Pagination } from '../Global'
 import LoadingSpinner from '../Global/LoadingSpinner'
 import { ReactNumberSearchField } from '../Medicine/SearchFields'
+import { useAuth } from '@/context/authContext'
 
 interface BatchCardProps {
   batch: Partial<BatchType>
 }
 
 export const BatchCards = ({batch }: BatchCardProps) => {
+  const {user, loading} = useAuth()
   const [editOpen, setEditOpen] = useState<boolean>(false)
   const [viewOpen, setViewOpen] = useState<boolean>(false)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
@@ -28,7 +30,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
     <div className='flex flex-col gap-y-2 w-60 bg-white rounded-lg shadow p-5'>
       <h6 className='text-xs text-gray-700'>{batch.batch_number}</h6>
       <div className='size-40 mx-auto rounded-lg overflow-hidden border-2 border-gray-200 mb-2 relative'>
-        {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+        {!isLoaded && <div className="absolute inset-0 bg-black/20 animate-pulse rounded z-5" />}   
         <Image 
         src={batch?.medicine_details?.image ?? ""} 
         alt={batch?.medicine_details?.name ?? ""} 
@@ -52,6 +54,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
         
       </div>
 
+      {user ? user.groups?.includes("Admin") ? 
       <div className='mt-2 flex gap-x-5 text-xs items-center justify-center'>
         <button onClick={() => setEditOpen(true)} className='px-4 py-1 bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer transition-colors'>
           Edit
@@ -63,6 +66,21 @@ export const BatchCards = ({batch }: BatchCardProps) => {
           Delete
         </button>
       </div>
+      : 
+      <div className='mt-2 flex text-xs items-center justify-center'>
+        <button onClick={() => setViewOpen(true)} className='px-4 py-1 bg-gray-800 hover:bg-gray-900 text-white rounded-lg cursor-pointer transition-colors'>
+          View
+        </button>
+      </div>
+        :
+        <div className='mt-2 flex text-xs items-center justify-center'>
+        <button disabled className='px-4 py-1 bg-red-800 hover:bg-red-900 disabled:opacity-50 text-white rounded-lg cursor-pointer transition-colors'>
+          Not Authorized
+        </button>
+      </div>
+      }
+
+      
 
 
       <EditBatchDialog open={editOpen} setOpen={setEditOpen} batch={batch}/>
@@ -73,6 +91,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
 }
 
 export default function Batches() {
+  const { user, loading, setUser } = useAuth();
   const [page, setPage] = useState<number>(1)
   const [batch_number, setBatchNumber] = useState<string | undefined>(undefined)
   const [search, setSearch] = useState<string | undefined>(undefined)
@@ -110,8 +129,6 @@ export default function Batches() {
 
   const batches: BatchType[] = data?.results ?? []
 
-  console.log("FETCHED BATCHES: ", batches)
-
   const clearSearchQueries = () => {
     setBatchNumber(undefined)
     setWholesaler(undefined)
@@ -148,12 +165,13 @@ export default function Batches() {
     <div>
           <div className='flex justify-between items-end mb-15'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({batch_number, search, wholesaler, purchase_price, purchase_price_maximum, purchase_price_minimum, selling_price_maximum, selling_price_minimum, selling_price_per_unit, quantity_received, quantity_received_max, quantity_received_min, quantity_remaining, quantity_remaining_max, quantity_remaining_min, expiry_date, expiry_date_from, expiry_date_to})}} className='flex flex-col gap-x-3 gap-y-5'>
-                <div className='flex flex-wrap gap-3  items-end'>
+                <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Batch Number' name='batch_number' value={batch_number} onChange={setBatchNumber}/>
                   <TextSearchFields label='Medicine' name='medicine' value={search} onChange={setSearch}/>
                   <TextSearchFields label='Wholesaler' name='wholesaler' value={wholesaler} onChange={setWholesaler}/>
                   <ReactNumberSearchField label='Purchase price' name='purchase_price' value={purchase_price} onChange={setPurchase_price}/>
                   <ReactNumberSearchField label='Selling price' name='selling_price_per_unit' value={selling_price_per_unit} onChange={setSelling_price_per_unit}/>
+
                   <div className='flex gap-3 items-end'>
                   <ReactNumberSearchField label='Purchase price Min' name='purchase_price_minimum' value={purchase_price_minimum} onChange={setPurchase_price_minimum}/>
                   <p className='mb-1'>{" - "}</p>
@@ -191,7 +209,7 @@ export default function Batches() {
 
                 
               </form>
-                <AddBatchDialog />
+              {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" /> : (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddBatchDialog />)}
             </div>
 
             

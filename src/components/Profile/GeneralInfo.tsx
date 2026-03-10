@@ -8,7 +8,7 @@ import { Pencil } from "lucide-react"
 const InfoDetails = ({heading, info, loading}: ProfileInfoDetailsProps) => {
     return (
         <div className='flex gap-x-2'>
-            {loading ? <div className="h-6 w-38 bg-blue-200/40 animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}
+            {loading ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}
         </div>
     )
 }

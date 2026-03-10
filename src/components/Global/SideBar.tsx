@@ -55,27 +55,38 @@ const SideBarLinks = ({link_name, link, icon, isActive, options}: SidebarLink) =
             <div className="block">
                 {/* Parent item */}
                 <div onClick={() => hasDropDownList ? setOpen(!open) : null} 
-                    className={`min-w-50 flex flex-row gap-x-3 items-center justify-start ${isActive ? "bg-gray-200" : "hover:bg-gray-200"} 
-                    cursor-pointer py-2 px-3 rounded-lg transition-colors`}>
+                    className={`min-w-50   ${isActive ? "bg-gray-200" : "hover:bg-gray-200"} 
+                    cursor-pointer rounded-lg transition-colors`}>
+                       
+
+                    {link ? (
+                    <Link href={link} className="flex flex-row gap-x-3 items-center justify-start lg:text-xs m xl:text-sm capitalize flex-1 w-full py-2 px-3">
+                         <div className="size-6 relative">
+                             {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
+                            <Image src={icon} alt={link_name} className={`object-contain w-full h-full ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
+                        </div>
+                        <span>{link_name}</span>
+                    </Link>
+                    ) : (
+                    <div className="flex flex-row gap-x-3 items-center justify-start lg:text-xs m xl:text-sm capitalize flex-1 py-2 px-3">
                         <div className="size-6 relative">
                              {!isLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   
                             <Image src={icon} alt={link_name} className={`object-contain w-full h-full ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsLoaded(true)}/>
                         </div>
 
-                    {link ? (
-                    <Link href={link} className="lg:text-xs m xl:text-sm capitalize flex-1 w-full">
-                        {link_name}
-                    </Link>
-                    ) : (
-                    <p className="lg:text-xs m xl:text-sm capitalize flex-1">{link_name}</p>
+                        <span>{link_name}</span>
+
+                        {/* Dropdown arrow */}
+                        {hasDropDownList && (
+                            <span className={`ml-auto text-xs transition-transform ${open ? "rotate-90" : ""}`}>
+                                ▶
+                            </span>
+                        )}
+                    </div>
                     )}
 
-                    {/* Dropdown arrow */}
-                    {hasDropDownList && (
-                    <span className={`text-xs transition-transform ${open ? "rotate-90" : ""}`}>
-                        ▶
-                    </span>
-                    )}
+                    
+                    
                 </div>
 
                 {/* Dropdown children */}

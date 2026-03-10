@@ -168,7 +168,7 @@ export type User = {
   password?: string
   gender?: string
   role?: string
-  groups?: string
+  groups?: string[]
   created_at?: string
   updated_at?: string
 }
@@ -217,3 +217,7 @@ export interface ProfileInfoDetailsProps {
     info: string;
     loading?: boolean;
 }
+
+
+export const allowedTechGroups = ["Admin", "Tech"];
+export const allowedAdminOnlyGroup = ["Admin"];
