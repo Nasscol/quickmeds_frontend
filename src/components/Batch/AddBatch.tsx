@@ -49,7 +49,9 @@ export default function AddBatch({ defaultValues, onCancel, onSave }: AddBatchFo
 
 const onSubmit = async (data: BatchType) => {
 
-  console.log("creating data: ", data)
+    if(addBatch.isPending){
+      return
+    }
 
     addBatch.mutate(data, {
         onSuccess: () => {
@@ -113,7 +115,7 @@ const onSubmit = async (data: BatchType) => {
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={addBatch.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+          <button type="submit" disabled={addBatch.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
             Save
           </button>
         </div>

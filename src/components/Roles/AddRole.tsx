@@ -30,6 +30,10 @@ export default function AddRole({ defaultValues, onCancel, onSave }: AddRoleForm
 
 const onSubmit = async (data: UserRoleType) => {
 
+    if(addRole.isPending){
+      return
+    }
+
     addRole.mutate(data, {
         onSuccess: () => {
           toast.success("Role created successfully")
@@ -57,7 +61,7 @@ const onSubmit = async (data: UserRoleType) => {
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={addRole.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+          <button type="submit" disabled={addRole.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
             Save
           </button>
         </div>

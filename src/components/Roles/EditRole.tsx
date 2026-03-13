@@ -27,6 +27,11 @@ export default function EditRole({ defaultValues, onCancel, onSave }: EditRoleFo
 
 
 const onSubmit = async (data: UserRoleType) => {
+
+  if(editRole.isPending){
+    return
+  }
+
   editRole.mutate({id: defaultValues?.id, data}, {
       onSuccess: () => {
         toast.success("Role updated successfully")
@@ -57,7 +62,7 @@ console.log("Errors:", errors)
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={editRole.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+          <button type="submit" disabled={editRole.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
             Save
           </button>
         </div>

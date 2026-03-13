@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import Datatable from '../Global/Datatable'
 import { AsyncDropdown, ReactNumberField, TextField } from '../Global/Form'
 import { columns } from './Columns'
+import LoadingSpinner from '../Global/LoadingSpinner'
 
 
 
@@ -75,6 +76,10 @@ const DataTable = () => {
         toast.error("Cannot submit empty sale!")
         return
       }
+
+      if(addSales.isPending){
+        return
+      }
       
       const payload = {items: items}
       console.log(payload)
@@ -117,7 +122,8 @@ const DataTable = () => {
   return (
     <div>
         <div className='flex flex-row gap-x-5 justify-center'>
-            <div className='w-full max-w-300 flex flex-col'>
+            <div className='w-full max-w-300 flex flex-col relative'>
+              {addSales.isPending && <LoadingSpinner />}
               <div className='overflow-y-auto h-110' ref={containerRef}>
                  <Datatable data={items} columns={columns} emptyMessage='No sales yet.' noHeight={true}/>
               </div>
@@ -130,7 +136,7 @@ const DataTable = () => {
                       </div>
 
                       <div className='flex justify-center gap-2 bg-gray-200/50 py-5 rounded-lg'>
-                        <button disabled={!items || items.length === 0} onClick={submitSale}  className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
+                        <button disabled={!items || items.length === 0 || addSales.isPending} onClick={submitSale}  className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
                           Paid
                         </button>
                         

@@ -27,6 +27,11 @@ export default function EditWholesalers({ defaultValues, onCancel, onSave }: Edi
   const editWholesaler = useUpdateWholesaler();
 
 const onSubmit = async (data: WholesalerType) => {
+
+  if(editWholesaler.isPending){
+    return
+  }
+
   const updatedData = { ...data, id: defaultValues?.id }
     editWholesaler.mutate(updatedData, {
         onSuccess: () => {
@@ -55,7 +60,7 @@ const onSubmit = async (data: WholesalerType) => {
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={editWholesaler.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+          <button type="submit" disabled={editWholesaler.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
             Save
           </button>
         </div>

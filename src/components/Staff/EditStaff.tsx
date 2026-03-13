@@ -31,6 +31,11 @@ export default function EditStaff({ defaultValues, onCancel, onSave }: EditUserF
 
 
 const onSubmit = async (data: User) => {
+  
+  if(editUser.isPending){
+    return
+  }
+
   const formData = new FormData()
   
   Object.entries(data).forEach(([key, value]) => {
@@ -103,7 +108,7 @@ console.log("Errors:", errors)
           <button type="button" onClick={onCancel} className="px-5 py-1 cursor-pointer rounded-lg border bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={editUser.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+          <button type="submit" disabled={editUser.isPending} className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
             Save
           </button>
         </div>
