@@ -42,7 +42,7 @@ const DataTable = () => {
         value: med.id,
         data: med,
       }));
-      };
+    };
 
 
     const addSales = useAddSale()
@@ -58,7 +58,7 @@ const DataTable = () => {
         const current_price = Number(selectedMedicine?.current_price)
         const sub_total = Number(data.quantity) * Number(selectedMedicine?.current_price)
         setItems((prev) => [...prev, { medicine_id, medicine_name, generic_name, quantity, dosage_instructions, current_price, sub_total, strength, strength_unit }])
-        //clearForm()
+        clearForm()
     }
 
     function clearSale(){
@@ -91,11 +91,34 @@ const DataTable = () => {
       )
     }
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const prevLengthRef = useRef(items.length)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const prevLength = prevLengthRef.current
+    const newItemAdded = items.length > prevLength
+
+    if (newItemAdded) {
+      const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight
+
+      const isNearBottom = distanceFromBottom < 50
+
+      if (isNearBottom) {
+        el.scrollTop = el.scrollHeight
+      }
+    }
+
+    prevLengthRef.current = items.length
+  }, [items])
+
   return (
     <div>
         <div className='flex flex-row gap-x-5 justify-center'>
             <div className='w-full max-w-300 flex flex-col'>
-              <div>
+              <div className='overflow-y-auto h-110' ref={containerRef}>
                  <Datatable data={items} columns={columns} emptyMessage='No sales yet.' noHeight={true}/>
               </div>
 
