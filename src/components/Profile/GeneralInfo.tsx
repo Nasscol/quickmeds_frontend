@@ -1,11 +1,10 @@
 "use client"
-import React from 'react'
 import { useAuth } from '@/context/authContext'
-import { ProfileInfoDetailsProps } from '@/interfaces'
+import { InfoDetailsProps } from '@/interfaces'
 import { Pencil } from "lucide-react"
 
 
-const InfoDetails = ({heading, info, loading}: ProfileInfoDetailsProps) => {
+const InfoDetails = ({heading, info, loading}: InfoDetailsProps) => {
     return (
         <div className='flex gap-x-2'>
             {loading ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}

@@ -11,25 +11,65 @@ export const columns: ColumnDef<ManufacturersType>[] = [
     accessorKey: 'name',
     header: ({ column }) => <SortableHeader column={column} title="Name" />,
     enableSorting: true,
+    cell: ({ getValue }) => {
+    const value = String(getValue() ?? "");
+    return (
+      <div className="max-w-50 truncate" title={value}>
+        {value}
+      </div>
+    );
+  },
   },
   {
     accessorKey: 'country',
     header: ({ column }) => <SortableHeader column={column} title="Country" />,
     enableSorting: true,
+    cell: ({ getValue }) => {
+    const value = String(getValue() ?? "");
+    return (
+      <div className="max-w-30 truncate" title={value}>
+        {value}
+      </div>
+    );
+  },
   },
   {
     accessorKey: 'email',
     header: ({ column }) => <SortableHeader column={column} title="Email" />,
     enableSorting: true,
+    cell: ({ getValue }) => {
+    const value = String(getValue() ?? "");
+    return (
+      <div className="max-w-50 truncate" title={value}>
+        {value}
+      </div>
+    );
+  },
   },
   {
     accessorKey: 'contact',
     header: ({ column }) => <SortableHeader column={column} title="Contact" />,
     enableSorting: true,
+    cell: ({ getValue }) => {
+    const value = String(getValue() ?? "");
+    return (
+      <div className="max-w-27 truncate" title={value}>
+        {value}
+      </div>
+    );
+  },
   },
   {
     accessorKey: 'address',
     header: 'Address',
+    cell: ({ getValue }) => {
+    const value = String(getValue() ?? "");
+    return (
+      <div className="max-w-40 truncate" title={value}>
+        {value}
+      </div>
+    );
+  },
   },
   {
     accessorKey: 'created_at',

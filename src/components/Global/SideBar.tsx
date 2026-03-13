@@ -24,8 +24,8 @@ const SideBarNav: SidebarLink[]  = [
     {link_name: "Dashboard", link: "/dashboard", icon: Dashboard_icon, isActive: true},
     {link_name: "Point Of Sale", icon: POS_icon, 
         options: [
-            {link_name: "Sale", link: "#"},
-            {link_name: "Sale History", link: "#"},
+            {link_name: "Sale", link: "/point-of-sale/sale"},
+            {link_name: "Sale History", link: "/point-of-sale/sale-history"},
         ]
     },
     {link_name: "Inventory", link: "/inventory", icon: Inventory_icon},

@@ -7,6 +7,8 @@ import Staff from "./Staff";
 import Roles from './Roles'
 import Login from "./Login";
 import Profile from "./Profile";
+import Sale from "./Sale";
+import SaleHistory from "./SaleHistory";
 
 export {
     Dashboard,
@@ -18,4 +20,6 @@ export {
     Roles,
     Login,
     Profile,
+    Sale,
+    SaleHistory,
 }

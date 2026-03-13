@@ -6,13 +6,15 @@ import LoadingSpinner from '../Global/LoadingSpinner'
 
 interface DataTableTypes<T>{
     data: T[] 
-    columns: ColumnDef<T>[];
-    isLoading: boolean
-    pagination: PaginationState
-    setPagination: (updater: Updater<PaginationState>) => void;
-    totalItems: number
+    columns: ColumnDef<T>[],
+    isLoading?: boolean,
+    pagination?: PaginationState,
+    setPagination?: (updater: Updater<PaginationState>) => void,
+    totalItems?: number,
+    emptyMessage?: string,
+    noHeight?: boolean,  //Disable the Hardcoded Height
 }
-const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,totalItems}: DataTableTypes<T>) => {
+const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,totalItems = 0, emptyMessage, noHeight = false}: DataTableTypes<T>) => {
     const [sorting, setSorting] = useState<SortingState>([])
     
     const table = useReactTable({
@@ -20,7 +22,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
         columns,
         state: {pagination, sorting},
         manualPagination: true,
-        pageCount: Math.ceil(totalItems / pagination.pageSize),
+        pageCount: pagination ? Math.ceil(totalItems / pagination.pageSize) : 0,
         onSortingChange: setSorting,
         enableSortingRemoval: true, 
         getSortedRowModel: getSortedRowModel(),
@@ -29,9 +31,9 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
         getCoreRowModel: getCoreRowModel(),
     })
   return (
-    <div>
+    <div className={`flex flex-col gap-y-5 ${noHeight ? "" : "h-127"}`}>
 
-        <div className="overflow-x-auto ">
+        <div className="overflow-x-auto">
             <Table className="table-auto border border-gray-200 bg-white">
         
               <TableHeader>
@@ -71,7 +73,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
                  <TableBody>
                 <TableRow>
                   <TableCell colSpan={table.getAllColumns().length} className="text-center p-4 text-gray-500">
-                    Backend is not yet deployed!
+                    {emptyMessage ? emptyMessage : "Backend is not yet deployed!" }
                   </TableCell>
                 </TableRow>
                 </TableBody>
@@ -82,30 +84,33 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
         </div>
 
 
-        <div className="mt-10 flex items-center justify-center gap-x-10">
-          
-              <button
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-                className="rounded-lg bg-blue-800 text-white shadow px-5 py-2 text-sm disabled:opacity-50 cursor-pointer hover:bg-blue-900 transition-colors"
-              >
-                Previous
-              </button>
 
-              <div className="text-sm text-gray-600">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
+        {pagination && 
+          <div className="flex items-center justify-center gap-x-10 mt-auto">
+            
+                <button
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                  className="rounded-lg bg-blue-800 text-white shadow px-5 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-blue-900 transition-colors"
+                >
+                  Previous
+                </button>
 
-              <button
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-                className="rounded-lg bg-blue-800 text-white shadow px-5 py-2 text-sm disabled:opacity-50 cursor-pointer hover:bg-blue-900 transition-colors"
-              >
-                Next
-              </button>
+                <div className="text-sm text-gray-600">
+                  Page {table.getState().pagination.pageIndex + 1} of{' '}
+                  {table.getPageCount()}
+                </div>
 
-        </div>
+                <button
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                  className="rounded-lg bg-blue-800 text-white shadow px-5 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-blue-900 transition-colors"
+                >
+                  Next
+                </button>
+
+          </div>
+        }
 
 
     </div>

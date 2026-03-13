@@ -14,11 +14,27 @@ export const getColumns = (user?: User): ColumnDef<MedicineType>[] => {
       accessorKey: 'name',
       header: ({ column }) => <SortableHeader column={column} title="Name" />,
       enableSorting: true,
+      cell: ({ getValue }) => {
+        const value = String(getValue() ?? "");
+        return (
+          <div className="max-w-40 truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'generic_name',
       header: ({ column }) => <SortableHeader column={column} title="Generic Name" />,
       enableSorting: true,
+      cell: ({ getValue }) => {
+        const value = String(getValue() ?? "");
+        return (
+          <div className="max-w-30 truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'dosage_form',
@@ -37,11 +53,27 @@ export const getColumns = (user?: User): ColumnDef<MedicineType>[] => {
       {
       accessorKey: 'description',
       header: 'Description',
+      cell: ({ getValue }) => {
+        const value = String(getValue() ?? "");
+        return (
+          <div className="max-w-40 truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
       {
       accessorKey: 'manufacturer_detail.name',
       header: ({ column }) => <SortableHeader column={column} title="Manufacturer" />,
       enableSorting: true,
+      cell: ({ getValue }) => {
+        const value = String(getValue() ?? "");
+        return (
+          <div className="max-w-30 truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'created_at',

@@ -37,7 +37,7 @@ export default function ManufacturerTable() {
 
   return (
     <div>
-          <div className='flex justify-between mb-5 items-center'>
+          <div className='flex justify-between mb-5 items-center max-w-350 mx-auto'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({name, country, email, contact})}} className='flex gap-x-3 items-center'>
                 <TextSearchFields label='Name' name='name' value={name} onChange={setName}/>
                 <TextSearchFields label='Country' name='country' value={country} onChange={setCountry}/>
@@ -55,7 +55,9 @@ export default function ManufacturerTable() {
                 
             </div>
             
-          <Datatable data={manufacturers} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>
+            <div className='max-w-350 mx-auto'>
+              <Datatable data={manufacturers} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>
+            </div>
 
     </div>
   )

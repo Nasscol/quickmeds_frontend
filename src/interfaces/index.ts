@@ -28,6 +28,12 @@ export interface AuthProviderType {
   token?: boolean;
 }
 
+export type OptionType<T> = {
+  label: string;
+  value: string;
+  data: T;
+};
+
 export type TopMedicineDataType = {
     id: number,
     name: string,
@@ -88,6 +94,8 @@ export type MedicineType = {
   created_at?: string
   updated_at?: string
 }
+
+
 
 export type CreateMedicineType = {
   id?: string
@@ -212,12 +220,70 @@ export type UserRoleQuery = {
 //     loading?: boolean;
 // }
 
-export interface ProfileInfoDetailsProps {
+export interface InfoDetailsProps {
     heading: string;
     info: string;
     loading?: boolean;
 }
 
 
+
 export const allowedTechGroups = ["Admin", "Tech"];
 export const allowedAdminOnlyGroup = ["Admin"];
+
+export type SaleType = {
+  medicine: string
+  quantity: number
+  dosage_instruction?: string
+  items: any[]
+}
+
+
+
+export type SaleSearchQuery = {
+  page?: number
+  id?: string
+  sold_by?: string
+  total_max?: number
+  total_min?: number
+  sold_from?: string
+  sold_to?: string
+}
+
+export type SaleMedicineType = {
+  id?: string
+  medicine_id: string,
+  name: string
+  generic_name?: string
+  strength?: number
+  strength_unit?: string
+  created_at?: string
+  updated_at?: string
+  current_price?: string
+  quantity?: number
+  dosage_instructions?: string
+  sub_total?: number
+}
+
+export type saleItemsType = {
+  id?: string
+  sale?: string
+  medicine: MedicineType
+  batch: BatchType
+  quantity: number
+  dosage_instruction?: string
+  unit_price?: number
+  sub_total?: number
+  created_at?: string
+  updated_at?: string
+}
+
+export type SaleHistoryType = {
+  id: string
+  total_amount: string
+  sold_by: string
+  saler_details?: User
+  items?: saleItemsType[]
+  sold_at: string
+  updated_at: string
+}

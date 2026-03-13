@@ -163,7 +163,7 @@ export default function Batches() {
 
   return (
     <div>
-          <div className='flex justify-between items-end mb-15'>
+          <div className='flex justify-between items-end mb-15 max-w-350 mx-auto'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({batch_number, search, wholesaler, purchase_price, purchase_price_maximum, purchase_price_minimum, selling_price_maximum, selling_price_minimum, selling_price_per_unit, quantity_received, quantity_received_max, quantity_received_min, quantity_remaining, quantity_remaining_max, quantity_remaining_min, expiry_date, expiry_date_from, expiry_date_to})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Batch Number' name='batch_number' value={batch_number} onChange={setBatchNumber}/>
@@ -213,12 +213,12 @@ export default function Batches() {
             </div>
 
             
-           <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 justify-center items-center relative">
+           <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 justify-center items-center relative max-w-350 mx-auto h-247">
               {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
                     batches.map((batch) => (
                       <BatchCards key={batch.id} batch={batch} />
                     ))
-                  ) : (<p className="text-center text-gray-500">Backend is not yet deployed!</p>)}
+                  ) : (<p className="text-center text-gray-500">Nothing to Show!</p>)}
             </div>
 
             <Pagination totalCount={data?.count ?? 0} pageSize={10} page={page} onPageChange={setPage}/>

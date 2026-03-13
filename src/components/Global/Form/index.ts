@@ -11,6 +11,7 @@ import GenderDropDown from "./GenderDropdown";
 import IsActiveDropDown from "./Is_ActiveDropDown";
 import DecimalField from "./DecimalField";
 import CountryDropDown from "./CountryDropDown";
+import { AsyncDropdown } from "./AsyncDropdown";
 
 export {
     InputField,
@@ -25,4 +26,5 @@ export {
     GenderDropDown,
     IsActiveDropDown,
     CountryDropDown,
+    AsyncDropdown
 }
