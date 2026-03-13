@@ -71,10 +71,10 @@ const DataTable = () => {
     }
 
     async function submitSale(){
-      if(!items){
+     if (!items || items.length === 0) {
+        toast.error("Cannot submit empty sale!")
         return
       }
-
       
       const payload = {items: items}
       console.log(payload)
@@ -130,7 +130,7 @@ const DataTable = () => {
                       </div>
 
                       <div className='flex justify-center gap-2 bg-gray-200/50 py-5 rounded-lg'>
-                        <button onClick={submitSale}  className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-sm transition-colors">
+                        <button disabled={!items || items.length === 0} onClick={submitSale}  className="px-5 py-1 cursor-pointer rounded-lg bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-blue-700 text-sm transition-colors">
                           Paid
                         </button>
                         
