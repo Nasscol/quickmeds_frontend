@@ -119,8 +119,9 @@ const SideBar = () => {
             toast.success("Logged out successfully")
             router.refresh()
             router.push("/login")
-        } catch {
-            toast.error("Failed to Logout!")
+        } catch(error: any) {
+            const message = error?.response?.data?.detail || "Logout failed!"
+            toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
         }
     }
     return (
