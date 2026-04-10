@@ -12,7 +12,7 @@ interface DropdownList {
   name: string;
   label: string;
   required?: boolean;
-  control: Control<any>;
+  control: any
   register: any;
   // options: DropdownOption[];
   //value: DropdownOption | null;
@@ -22,19 +22,6 @@ interface DropdownList {
   onSearch?: (inputValue: string) => void;     // Fires every time the user types in the dropdown
   onSelect?: (id: string | null) => void;   // Fires when the user clicks an option
 }
-
-// import { FieldErrors } from "react-hook-form"
-
-interface FormInputProps {
-  label: string
-  name: string
-  placeholder?: string
-  register: any
-  errors?: FieldErrors
-  required?: boolean
-}
-
-//{ label, required, name, placeholder, register, errors }: FormInputProps
 
 const CountryDropDown = ({required, name, label, control, errors, register, onSelect,  onSearch, placeholder = "Search..."}: DropdownList) => {
 

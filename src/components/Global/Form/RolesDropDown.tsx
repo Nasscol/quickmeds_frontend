@@ -13,7 +13,7 @@ interface DropdownList {
   name: string;
   label: string;
   required?: boolean;
-  control: Control<any>;
+  control: any
   register?: any;
   // options: DropdownOption[];
   //value: DropdownOption | null;

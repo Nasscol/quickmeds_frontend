@@ -10,7 +10,7 @@ interface DropdownList {
   register?: any;
   placeholder?: string;
   errors?: FieldErrors
-  control?: Control<any>;
+  control?: any
   gender?: string | undefined;
   setGender?: (gender: string | undefined) => void;
   form?: boolean
