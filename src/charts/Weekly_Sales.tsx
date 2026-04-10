@@ -14,6 +14,7 @@ type Props = {
 export function Weekly_Sales_Chart() {
     const {data, isLoading} = useDashboardWeeklySales()
     const sales = data?.data
+    console.log("Weekly Sales chart: ", sales)
 
   return (
     <ResponsiveContainer width="100%" height={300}>
