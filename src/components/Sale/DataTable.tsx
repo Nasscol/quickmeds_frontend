@@ -109,6 +109,7 @@ const DataTable = () => {
             clearSale()
           },
         onError: (error: any) => {
+          console.log("ERROR PAYING: ", error)
           const message = error?.response?.data[0] || "Transaction failed!";
           toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
         }}
