@@ -293,3 +293,17 @@ export type SaleHistoryType = {
   updated_at: string
   status?: StatusChoice
 }
+
+// For Charts
+export function formatY_AxisMoney(value: number) {
+  if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(2)}B`;
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(2)}M`;
+  if (value >= 1_000) return `${(value / 1_000)}K`;
+  return value.toString();
+}
+
+export function getDayLabel(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    weekday: "short",
+  });
+};

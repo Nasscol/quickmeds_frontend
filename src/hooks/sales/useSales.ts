@@ -38,6 +38,7 @@ export function useAddSale() {
     onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["sales"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
+        queryClient.invalidateQueries({ queryKey: ["dashboard_weeklySales"] })
         queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
@@ -53,6 +54,7 @@ export function useArchiveSales() {
    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["sales"] })
       queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
+      queryClient.invalidateQueries({ queryKey: ["dashboard_weeklySales"] })
       queryClient.invalidateQueries({ queryKey: ["sales", id] })
     },
   })

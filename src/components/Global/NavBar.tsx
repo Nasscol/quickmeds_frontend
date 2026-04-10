@@ -25,7 +25,7 @@ const DateAndTime = () => {
 
     return (
         <div className='flex flex-col items-center cursor-default text-sm'>
-            <p>{dayName}, {day}, {monthName}, {year}</p>
+            <p>{dayName} {day} {monthName} {year}</p>
             <p>{time}</p>
         </div>
     );

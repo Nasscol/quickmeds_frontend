@@ -19,7 +19,7 @@ interface ReactNumber {
   register: any
   errors?: FieldErrors
   required?: boolean
-  control: Control<any>
+  control: any
   placeholder: string
 }
 

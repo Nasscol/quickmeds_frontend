@@ -1,16 +1,19 @@
 import React from 'react'
 import {TopMedicineTable, WelcomeScreen } from '@/components/DashBoard'
 import { DashHeading } from '@/components/Global'
+import Weekly_Sales from '@/charts/Weekly_Sales'
 
 const Dashboard = () => {
   
   return (
     <section>
       
-      <DashHeading Title='Dashboard' />
-      <WelcomeScreen />
+      <div className='mb-5'>
+        <DashHeading Title='Dashboard' />
+        <WelcomeScreen />
+      </div>
 
-      <TopMedicineTable />
+      <Weekly_Sales />
 
       <p className='text-center mt-20'>
         {"Work in progress :)"}

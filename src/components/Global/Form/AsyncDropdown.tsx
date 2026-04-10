@@ -15,7 +15,7 @@ type Props<T> = {
   errors?: FieldErrors
   label?: string 
   required?: boolean
-  control: Control<any>
+  control: any
 };
 
 export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label, required, control, onSelect }: Props<T>) {

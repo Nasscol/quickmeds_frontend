@@ -34,6 +34,7 @@
     "react-number-format": "^5.4.4",
     "react-select": "^5.10.2",
     "react-spinners": "^0.17.0",
+    "recharts": "^3.8.1",
     "shadcn-ui": "^0.9.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
