@@ -1,6 +1,7 @@
 import React from 'react'
 import ImageProfile from './ImageProfile'
 import GeneralInfo from './GeneralInfo'
+import ChangePassword from './ChangePassword'
 
 const Main = () => {
   return (
@@ -8,6 +9,7 @@ const Main = () => {
         <div className='flex flex-row gap-5 flex-wrap'>
             <ImageProfile />
             <GeneralInfo />
+            <ChangePassword />
         </div>
     </div>
   )

@@ -24,16 +24,33 @@ const DataTable = () => {
     const inventoryAPI = env.inventoryApi
     const [items, setItems] = useState<any[]>([])
     const [selectedMedicine, setSelectedMedicine] = useState<Partial<SaleMedicineType> | undefined>(undefined)
-    const scrollRef = useRef<HTMLDivElement>(null);
-
-
-    useEffect(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight; // scroll to bottom
-      }
-    }, [items])
 
     const total = items.reduce((sum, item) => {return sum + Number(item.sub_total)}, 0)
+
+    const containerRef = useRef<HTMLDivElement>(null)
+    const prevLengthRef = useRef(items.length)
+
+    useEffect(() => {
+      const el = containerRef.current
+      if (!el) return
+
+      const prevLength = prevLengthRef.current
+      const newItemAdded = items.length > prevLength
+
+      if (newItemAdded) {
+        const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight
+
+        const isNearBottom = distanceFromBottom < 50
+
+        if (isNearBottom) {
+          el.scrollTop = el.scrollHeight
+        }
+      }
+
+      prevLengthRef.current = items.length
+    }, [items])
+
+    
 
     const loadOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
       const res = await api.get(`${inventoryAPI}/medicine-summary/`, { params: { search: inputValue } });
@@ -49,10 +66,11 @@ const DataTable = () => {
     const addSales = useAddSale()
 
     const onSubmit = (data: any) => {
+      console.log(data)
         const medicine_id = selectedMedicine?.id
         const medicine_name = selectedMedicine?.name
         const generic_name = selectedMedicine?.generic_name
-        const quantity = Number(data.quantity).toLocaleString('en-US')
+        const quantity = Number(data.quantity)
         const dosage_instructions = data.dosage_instruction
         const strength = Number(selectedMedicine?.strength)
         const strength_unit = selectedMedicine?.strength_unit
@@ -90,34 +108,14 @@ const DataTable = () => {
             clearForm()
             clearSale()
           },
-        onError: (error) => {
-          toast.error("Transaction failed!")
+        onError: (error: any) => {
+          const message = error?.response?.data[0] || "Transaction failed!";
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
         }}
       )
     }
 
-  const containerRef = useRef<HTMLDivElement>(null)
-  const prevLengthRef = useRef(items.length)
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const prevLength = prevLengthRef.current
-    const newItemAdded = items.length > prevLength
-
-    if (newItemAdded) {
-      const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight
-
-      const isNearBottom = distanceFromBottom < 50
-
-      if (isNearBottom) {
-        el.scrollTop = el.scrollHeight
-      }
-    }
-
-    prevLengthRef.current = items.length
-  }, [items])
+  
 
   return (
     <div>
@@ -153,7 +151,7 @@ const DataTable = () => {
                     <h3 className='capitalize font-semibold tracking-wide text-center text-lg border-b pb-2'>Point Of Sale</h3>
                    
                         <AsyncDropdown 
-                          name='medicine_id'
+                          name='medicine'
                           label='Medicine'
                           loadOptions={loadOptions}
                           onSelect={setSelectedMedicine}

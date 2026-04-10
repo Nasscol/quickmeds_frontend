@@ -1,7 +1,7 @@
 "use client"
 import { env } from '@/config/env'
 import { useSales } from '@/hooks/sales/useSales'
-import { SaleHistoryType, SaleSearchQuery } from '@/interfaces'
+import { SaleHistoryType, SaleSearchQuery, Status_choices, StatusChoice } from '@/interfaces'
 import { SaleFormData, saleSchema } from '@/schema/saleSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PaginationState } from '@tanstack/react-table'
@@ -12,6 +12,7 @@ import Datatable from '../Global/Datatable'
 import { columns } from './Columns'
 import TextSearchFields, { DateSearchFields, ReactNumberSearchField } from '../Global/Search/SearchFields'
 import { Search, XCircle } from 'lucide-react'
+import { Dropdown } from '../Global/Form'
 
 
 
@@ -23,7 +24,8 @@ const DataTable = () => {
   const [total_min, setTotal_min] = useState<number | undefined>(undefined)
   const [sold_from, setSold_from] = useState<string | undefined>(undefined)
   const [sold_to, setSold_to] = useState<string | undefined>(undefined)
-  const [searchQuery, setSearchQuery] = useState<SaleSearchQuery>({id: undefined, sold_by: undefined, total_max: undefined, total_min: undefined, sold_from: undefined, sold_to: undefined})
+  const [status, setStatus] = useState<StatusChoice | undefined>(undefined)
+  const [searchQuery, setSearchQuery] = useState<SaleSearchQuery>({id: undefined, sold_by: undefined, total_max: undefined, total_min: undefined, sold_from: undefined, sold_to: undefined, status: undefined})
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
     
   const { register, handleSubmit, control, reset, formState: { errors } } = useForm<SaleFormData>({
@@ -34,8 +36,6 @@ const DataTable = () => {
     const { data, isLoading, isError } = useSales({page: pagination.pageIndex + 1, ...searchQuery})
     const sales: SaleHistoryType[] = data?.results ?? []
 
-    console.log("Sales: ", sales)
-
     const clearSearchQueries = () => {
       setId(undefined)
       setSold_by(undefined)
@@ -43,14 +43,19 @@ const DataTable = () => {
       setTotal_min(undefined)
       setSold_from(undefined)
       setSold_to(undefined)
+      setStatus(undefined)
+      reset()
 
-      setSearchQuery({id: undefined, sold_by: undefined, total_max: undefined, total_min: undefined, sold_from: undefined, sold_to: undefined})
+
+      setSearchQuery({id: undefined, sold_by: undefined, total_max: undefined, total_min: undefined, sold_from: undefined, sold_to: undefined, status: undefined})
     }
+
+    const Options = Status_choices.map((item) => ({ label: item, value: item }));
 
   return (
     <div>
       <div className='max-w-350 mb-5  mx-auto'>
-        <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({id, sold_by, total_max, total_min, sold_from, sold_to})}} className='flex flex-col gap-x-3 gap-y-5'>
+        <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({id, sold_by, total_max, total_min, sold_from, sold_to, status: status})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end'>
                   <TextSearchFields label='Sales ID' name='id' value={id} onChange={setId}/>
                   <TextSearchFields label='Sold By' name='sold_by' value={sold_by} onChange={setSold_by}/>
@@ -61,6 +66,8 @@ const DataTable = () => {
                   <ReactNumberSearchField label='Total Min' name='total_min' value={total_min} onChange={setTotal_min}/>
                   <span className='mb-1'>{"-"} </span>
                   <ReactNumberSearchField label='Total Max' name='strength_max' value={total_max} onChange={setTotal_max}/>
+
+                  <Dropdown searchField={true} options={Options} name='status' label='Status' control={control} errors={errors} onSelect={setStatus} placeholder='Search Status...'/>
                   
 
                   <div className='flex gap-x-3'>

@@ -2,18 +2,19 @@
 
 import { useManufacturers } from '@/hooks/inventory/useManufacturers'
 import { allowedTechGroups, ManufacturerSearchQuery, ManufacturersType } from '@/interfaces'
-import { PaginationState, SortingState } from '@tanstack/react-table'
+import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import { AddManufacturesDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
-import Datatable from '../Global/Datatable'
 import { useAuth } from '@/context/authContext'
+import Datatable from '../Global/Datatable'
 
 export default function ManufacturerTable() {
    const { user, loading } = useAuth();
+   const columns = getColumns(user)
 
   const [name, setName] = useState<string | undefined>(undefined)
   const [country, setCountry] = useState<string | undefined>(undefined)

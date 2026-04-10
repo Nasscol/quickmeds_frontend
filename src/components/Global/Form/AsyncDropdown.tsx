@@ -1,6 +1,7 @@
 "use client";
 
 import { OptionType } from "@/interfaces";
+import { useEffect, useState } from "react";
 import { Control, Controller, FieldErrors, useFormContext } from "react-hook-form";
 import AsyncSelect from "react-select/async";
 
@@ -19,6 +20,8 @@ type Props<T> = {
 
 export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label, required, control, onSelect }: Props<T>) {
     const error = errors?.[name]
+    const [selected, setSelected] = useState<OptionType<T> | null>(null)
+    
 
   return (
     <div className="relative pb-2 min-w-50">
@@ -32,19 +35,24 @@ export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
+      render={({ field, fieldState }) => {
+        useEffect(() => {
+          if (!field.value) setSelected(null)
+        }, [field.value])
+
+      return (
           <AsyncSelect<OptionType<T>>
             defaultOptions
             loadOptions={loadOptions}
             getOptionLabel={(opt) => opt.label}
             getOptionValue={(opt) => String(opt.value)}
-            onChange={(opt) => {field.onChange(opt ?? null); onSelect?.(opt?.data)}}
-            value={field.value ?? null}
+            onChange={(opt) => {field.onChange(opt?.value ?? null);  setSelected(opt); onSelect?.(opt?.data)}}
+            value={selected}
             placeholder={placeholder ?? "Search..."}
             isClearable
           />
         
-      )}
+      )}}
     />
 
      {error && <p className="text-red-500 text-sm absolute bottom">{error.message?.toString()}</p>}

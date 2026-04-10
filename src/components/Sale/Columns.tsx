@@ -55,7 +55,7 @@ export const columns: ColumnDef<SaleMedicineType>[] = [
     header: ({ column }) => <SortableHeader column={column} title="Quantity" />,
     enableSorting: true,
     cell: ({ row }) => 
-      <div className='w-5 truncate'>
+      <div className='w-10 truncate'>
         {(row.original.quantity ?? 0).toLocaleString("en-US")}
       </div>
   },

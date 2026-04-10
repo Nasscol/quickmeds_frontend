@@ -1,5 +1,5 @@
 import { env } from "@/config/env"
-import { BatchType, PaginatedResponse, SaleHistoryType, SaleSearchQuery, SaleType } from "@/interfaces"
+import { PaginatedResponse, SaleHistoryType, SaleSearchQuery, SaleType } from "@/interfaces"
 import { api } from "@/lib/axios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -37,20 +37,24 @@ export function useAddSale() {
     },
     onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["sales"] })
+        queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
+        queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
 
-export function useDeleteSales() {
+export function useArchiveSales() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string) => {const res = await api.delete(`${salesAPI}/sales/${id}/`)
+    mutationFn: async (data: {id: string, status: string}) => {const res = await api.patch(`${salesAPI}/sales/${data.id}/`, data)
       return res.data
     },
    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["sales"] })
+      queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
       queryClient.invalidateQueries({ queryKey: ["sales", id] })
     },
   })
 }
+

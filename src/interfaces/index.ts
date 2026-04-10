@@ -31,7 +31,7 @@ export interface AuthProviderType {
 export type OptionType<T> = {
   label: string;
   value: string;
-  data: T;
+  data?: T;
 };
 
 export type TopMedicineDataType = {
@@ -137,6 +137,8 @@ export type BatchType = {
   quantity_received: number
   quantity_remaining?: number
   expiry_date: string
+  is_expired?: boolean
+  is_expiring_soon?: number
   created_at?: string
   updated_at?: string
 }
@@ -239,6 +241,8 @@ export type SaleType = {
 }
 
 
+export const Status_choices = ["Completed", "Archived"] as const;
+export type StatusChoice = (typeof Status_choices)[number];   // "Completed" | "Archived"
 
 export type SaleSearchQuery = {
   page?: number
@@ -248,6 +252,7 @@ export type SaleSearchQuery = {
   total_min?: number
   sold_from?: string
   sold_to?: string
+  status?: StatusChoice
 }
 
 export type SaleMedicineType = {
@@ -286,4 +291,5 @@ export type SaleHistoryType = {
   items?: saleItemsType[]
   sold_at: string
   updated_at: string
+  status?: StatusChoice
 }

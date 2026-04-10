@@ -26,8 +26,12 @@ export const BatchCards = ({batch }: BatchCardProps) => {
 
   const Price = Number(batch.selling_price_per_unit)
 
+  console.log("expired: ", batch.is_expired)
+
   return (
-    <div className='flex flex-col gap-y-2 w-60 bg-white rounded-lg shadow p-5'>
+    <div className='flex flex-col gap-y-2 w-60 h-max bg-white rounded-lg shadow p-5 relative'>
+      {batch.is_expiring_soon && <div className='bg-orange-700 text-gray-100 text-[0.7rem] rounded-xl px-3 py-1 w-max absolute bottom-2 right-2 cursor-default'>Expires in {batch.is_expiring_soon} days</div>}
+      {batch.is_expired && <div className='bg-red-800 text-gray-100 text-[0.7rem] rounded-xl absolute px-3 py-1 w-max bottom-2 right-2 cursor-default'>Expired</div>}
       <h6 className='text-xs text-gray-700'>{batch.batch_number}</h6>
       <div className='size-40 mx-auto rounded-lg overflow-hidden border-2 border-gray-200 mb-2 relative'>
         {!isLoaded && <div className="absolute inset-0 bg-black/20 animate-pulse rounded z-5" />}   
@@ -213,13 +217,15 @@ export default function Batches() {
             </div>
 
             
-           <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 justify-center items-center relative max-w-350 mx-auto h-247">
-              {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
-                    batches.map((batch) => (
-                      <BatchCards key={batch.id} batch={batch} />
-                    ))
-                  ) : (<p className="text-center text-gray-500">Nothing to Show!</p>)}
-            </div>
+          <div className='max-w-350 mx-auto h-247'>
+            <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative">
+                {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
+                      batches.map((batch) => (
+                        <BatchCards key={batch.id} batch={batch} />
+                      ))
+                    ) : (<p className="text-center text-gray-500">Nothing to Show!</p>)}
+              </div>
+          </div>
 
             <Pagination totalCount={data?.count ?? 0} pageSize={10} page={page} onPageChange={setPage}/>
           

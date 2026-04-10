@@ -5,7 +5,7 @@ import { allowedAdminOnlyGroup, ManufacturerSearchQuery, WholesalerType } from '
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import { AddWholesalerDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
@@ -14,6 +14,8 @@ import { useAuth } from '@/context/authContext'
 
 export default function WholesalerTable() {
   const { user, loading } = useAuth();
+  const columns = getColumns(user)
+
   const [name, setName] = useState<string | undefined>(undefined)
   const [country, setCountry] = useState<string | undefined>(undefined)
   const [email, setEmail] = useState<string | undefined>(undefined)

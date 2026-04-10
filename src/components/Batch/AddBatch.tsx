@@ -2,8 +2,9 @@
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { InputField, NumberField, Dropdown, DateField, ReactNumberField } from "../Global/Form"
-import { BatchType, MedicineType, WholesalerType } from "@/interfaces"
+import { InputField, NumberField, Dropdown, DateField, ReactNumberField, AsyncDropdown } from "../Global/Form"
+import { BatchType, MedicineType, OptionType, WholesalerType } from "@/interfaces"
+
 import LoadingSpinner from "../Global/LoadingSpinner"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -11,6 +12,8 @@ import { BatchFormData, batchSchema } from "@/schema/batchSchema"
 import { useMedicines } from "@/hooks/inventory/useMedicine"
 import { useWholesalers } from "@/hooks/inventory/useWholesalers"
 import { useAddBatch } from "@/hooks/inventory/useBatch"
+import { env } from "@/config/env"
+import api from "@/lib/axios"
 
 
 interface AddBatchFormProps {
@@ -23,6 +26,7 @@ export default function AddBatch({ defaultValues, onCancel, onSave }: AddBatchFo
   const [medicineName, setMedicineName] = useState<string | undefined>(undefined)
   const [wholesalerName, setWholesalerName] = useState<string | undefined>(undefined)
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
+  const inventoryAPI = env.inventoryApi
   
   const { register, handleSubmit, control, formState: { errors } } = useForm<BatchFormData>({
     defaultValues,
@@ -30,21 +34,31 @@ export default function AddBatch({ defaultValues, onCancel, onSave }: AddBatchFo
   })
 
   const addBatch = useAddBatch()
-  const {data: Medicine, isLoading: Medicine_loading} = useMedicines({search: medicineName})
-  const {data: Wholesaler, isLoading: Wholesaler_loading} = useWholesalers({name: wholesalerName})
+
 
   
-  const medicine = Medicine?.results
-  const medicine_options = medicine?.map((m: MedicineType) => ({
-    label: `${m.name} | ${m.generic_name}`,
-    value: m.id ?? "",
-  }));
+  // const medicine = Medicine?.results
+  // const medicine_options = medicine?.map((m: MedicineType) => ({
+  //   label: `${m.name} | ${m.generic_name}`,
+  //   value: m.id ?? "",
+  // }));
+  const loadMedicineOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
+    const res = await api.get(`${inventoryAPI}/medicine-summary/`, { params: { search: inputValue } });
 
-  const wholesaler = Wholesaler?.results
-  const wholesaler_options = wholesaler?.map((w: WholesalerType) => ({
-    label: w.name,
-    value: w.id ?? "",
-  }));
+    return res.data.results.map((med: MedicineType) => ({
+      label: `${med.name} ${med.generic_name && `| ${med.generic_name}`}  ${med.strength && `| ${med.strength}`} ${med.strength_unit && ` ${med.strength_unit}`} `,
+      value: med.id,
+    }));
+  };
+
+  const loadWholesalerOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
+    const res = await api.get(`${inventoryAPI}/wholesalers/`, {params: {name: inputValue} })
+
+    return res.data.results.map((wholesale: WholesalerType) => ({
+      label: wholesale.name,
+      value: wholesale.id,
+    }));
+  };
 
 
 const onSubmit = async (data: BatchType) => {
@@ -58,8 +72,10 @@ const onSubmit = async (data: BatchType) => {
           toast.success("Batch added successfully")
            onSave()
           },
-        onError: (error) => {
-          toast.error("Batch was not added!")
+        onError: (error: any) => {
+          const message = error?.response?.data[0] || "Batch was not added!"
+          console.log(error?.response?.data)
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
           ShowErrorMessage(true)
         }
   }
@@ -73,29 +89,32 @@ const onSubmit = async (data: BatchType) => {
 
             <div className="flex flex-row gap-x-5">
               <InputField label="Batch Number" name="batch_number" placeholder="Enter medicine name" register={register} errors={errors} required={true}/>
-              <Dropdown
-                required ={true}
-                name="medicine"
-                label="Medicine"
-                control={control}
-                options={medicine_options ?? []}
-                isLoading={Medicine_loading}
-                onSearch={setMedicineName}
-                placeholder="Select Medicine..."
-                errors={errors}
-              />
 
-              <Dropdown
-                required={true}
-                name="wholesaler"
-                label="Wholesaler"
-                control={control}
-                options={wholesaler_options ?? []}
-                isLoading={Wholesaler_loading}
-                onSearch={setWholesalerName}
-                placeholder="Select a Wholesaler..."
-                errors={errors}
-              />
+              <div className="w-70">
+                <AsyncDropdown
+                  required ={true}
+                  name="medicine"
+                  label="Medicine"
+                  control={control}
+                  loadOptions={loadMedicineOptions}
+                  placeholder="Select Medicine..."
+                  errors={errors}
+                />
+              </div>
+
+              <div className="w-70">
+                <AsyncDropdown
+                  required={true}
+                  name="wholesaler"
+                  label="Wholesaler"
+                  control={control}
+                  loadOptions={loadWholesalerOptions}
+                  placeholder="Select a Wholesaler..."
+                  errors={errors}
+                />
+              </div>
+
+
             </div>
 
             

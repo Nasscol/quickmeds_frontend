@@ -19,7 +19,7 @@ const GeneralInfo = () => {
         <div>
             <div className='flex justify-between items-center mb-4 border-b pb-2'>
                 <h5 className='font-semibold'>General Information</h5>
-                <button className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors">
+                <button title='Edit' className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors">
                     <Pencil size={16} />
                 </button>
             </div>

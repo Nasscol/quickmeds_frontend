@@ -55,6 +55,18 @@ export const columns: ColumnDef<SaleHistoryType>[] = [
         return format(date, "MMM dd, yyyy HH:mm"); 
       },
     },
+     {
+    accessorKey: "status",
+    header: "Status",
+      cell: ({ getValue }) => {
+        const value = String(getValue() ?? "");
+        return (
+          <div className={`max-w-30 mx-auto truncate cursor-default text-xs text-center text-white ${value == "Completed" ? "rounded-xl px-3 py-1 bg-green-700" : ""} ${value == "Archived" ? "rounded-xl px-3 py-1 bg-red-900" : ""} `} title={value}>
+            {value}
+          </div>
+        );
+      },
+    },
     {
       id: 'action',
       header: 'Action',
