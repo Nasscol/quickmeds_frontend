@@ -26,11 +26,15 @@ const WelcomeScreen = () => {
           
           {loading ? <div className="h-4 w-24 bg-black/10 animate-pulse rounded mt-1" /> : <h6 className='text-xs'>{user ? `${user.groups}` : "Unknown"}</h6>}
 
-          <div className='flex flex-col md:flex-row gap-x-5 mt-10 justify-center lg:justify-start'>
+          <div className='flex flex-col lg:flex-row gap-5 mt-10 justify-center items-center lg:justify-start lg:items-start'>
+            <div className="flex flex-col md:flex-row gap-5">
               <KpiCard label="Today's Revenue" value={data?.daily_revenue.value ?? 0} percentage_change={data?.daily_revenue.change_percentage ?? 0} icon={Cash} isMoney={true} isLoading={isLoading}/>
               <KpiCard label='Avg Transactions' value={data?.average_transaction.value ?? 0} percentage_change={data?.average_transaction.change_percentage ?? 0} icon={Avg_Transactions} isMoney={true} isLoading={isLoading}/>
+            </div>
+            <div className="flex flex-col md:flex-row gap-5">
               <KpiCard label='Transactions' value={data?.number_of_transactions.value ?? 0} percentage_change={data?.number_of_transactions.change_percentage ?? 0} icon={Transactions}  isLoading={isLoading}/>
               <KpiCard label='Items Sold' value={data?.sold_units.value ?? 0} percentage_change={data?.sold_units.change_percentage ?? 0} icon={Medicine} isLoading={isLoading}/>
+            </div>
           </div>
         </div>
 

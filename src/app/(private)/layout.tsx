@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <div className="flex min-h-screen">
         <SideBar />
-        <main className="ml-58 bg-slate-100 flex-1">
+        <main className="lg:ml-58 bg-slate-100 flex-1">
           <NavBar />
-          <div className="p-6 relative">
+          <div className="p-6 relative container mx-auto">
             {children}
           </div>
         </main>

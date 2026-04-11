@@ -217,7 +217,7 @@ export default function Batches() {
             </div>
 
             
-          <div className='max-w-350 mx-auto h-247'>
+          <div className='max-w-350 mx-auto min-h-247'>
             <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative">
                 {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
                       batches.map((batch) => (

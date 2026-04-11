@@ -39,6 +39,9 @@ export function useAddSale() {
         queryClient.invalidateQueries({ queryKey: ["sales"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_weeklySales"] })
+        queryClient.invalidateQueries({ queryKey: ["dashboard_monthlySales"] })
+        queryClient.invalidateQueries({ queryKey: ["dashboard_weeklyItems"] })
+        queryClient.invalidateQueries({ queryKey: ["dashboard_topSellingMedicine"] })
         queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
@@ -55,6 +58,9 @@ export function useArchiveSales() {
       queryClient.invalidateQueries({ queryKey: ["sales"] })
       queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
       queryClient.invalidateQueries({ queryKey: ["dashboard_weeklySales"] })
+      queryClient.invalidateQueries({ queryKey: ["dashboard_monthlySales"] })
+      queryClient.invalidateQueries({ queryKey: ["dashboard_weeklyItems"] })
+      queryClient.invalidateQueries({ queryKey: ["dashboard_topSellingMedicine"] })
       queryClient.invalidateQueries({ queryKey: ["sales", id] })
     },
   })

@@ -30,3 +30,38 @@ export function useDashboardWeeklySales() {
     staleTime: 1000 * 60 * 60,
   })
 }
+
+export function useDashboardMonthlySales() {
+  return useQuery({
+    queryKey: ["dashboard_monthlySales"], 
+    queryFn: async () => {
+      const res = await api.get(`${salesAPI}/dashboard/charts/me/monthly_sales/`)
+      return res.data          
+    },
+    staleTime: 1000 * 60 * 60,
+  })
+}
+
+export function useDashboardWeeklyItems() {
+  return useQuery({
+    queryKey: ["dashboard_weeklyItems"],
+    queryFn: async () => {
+      const res = await api.get(`${salesAPI}/dashboard/charts/me/weekly_items/`)
+      return res.data          
+    },
+    staleTime: 1000 * 60 * 60,
+  })
+}
+
+export function useDashboardTopSellingMedicine() {
+  return useQuery({
+    queryKey: ["dashboard_topSellingMedicine"], 
+    queryFn: async () => {
+      const res = await api.get(`${salesAPI}/dashboard/charts/me/top_selling_medicine/`)
+      return res.data          
+    },
+    staleTime: 1000 * 60 * 60,
+  })
+}
+
+
