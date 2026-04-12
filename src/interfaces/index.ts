@@ -5,8 +5,11 @@ export interface SidebarLink {
   link?: string;
   icon: StaticImageData
   isActive?: boolean;
+  isDropdownActive?: boolean
   options?: {link_name: string, link: string}[]
   adminOnly?: boolean
+  isCollapsed?: boolean
+  setIsCollapsed?: (isCollapse: boolean) => void;
 }
 
 export interface PaginatedResponse<T> {
@@ -213,19 +216,15 @@ export type UserRoleQuery = {
   role?: string
 }
 
-// export interface ProfileInfoDetailsProps {
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     phoneNumber: string;
-//     gender: string;
-//     loading?: boolean;
-// }
-
 export interface InfoDetailsProps {
     heading: string;
     info: string;
     loading?: boolean;
+}
+
+export interface ChangePasswordType {
+  old_password: string;
+  password: string;
 }
 
 

@@ -26,12 +26,6 @@ const Dashboard = () => {
         <Monthly_Sales />
       </div>
 
-
-
-      <p className='text-center mt-20'>
-        {"Work in progress :)"}
-      </p>
-
       </section>
   )
 }

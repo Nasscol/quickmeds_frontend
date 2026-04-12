@@ -12,7 +12,7 @@ export function Weekly_Sales_Chart() {
   return (
     <div>
     {isLoading ? <div className="h-[300] w-full bg-black/10 animate-pulse rounded" /> : (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer debounce={200} width="100%" height={300}>
       <LineChart data={sales} margin={{ left: 20, right: 30, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" tickFormatter={getDayLabel} tick={{ fontSize: 12 }}   label={{ value: "Days", position: "insideBottom", offset: -10,  style: { fontSize: 12 } }}/>

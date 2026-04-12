@@ -32,7 +32,7 @@ export function AddRoleDialog() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Create Role</DialogTitle>
           </DialogHeader>

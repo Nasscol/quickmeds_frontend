@@ -15,7 +15,7 @@ export function Weekly_Items_Chart() {
     <div>
         {isLoading ? <div className="h-[300] w-full bg-black/10 animate-pulse rounded" /> : (
     
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer debounce={200} width="100%" height={300}>
                 <BarChart  data={items} margin={{ left: 28, right: 30, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
         

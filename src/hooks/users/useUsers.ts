@@ -1,5 +1,5 @@
 import { env } from "@/config/env"
-import { LoginData, PaginatedResponse, User, UserRoleQuery, UserRoleType, UserSearchQuery } from "@/interfaces"
+import { ChangePasswordType, LoginData, PaginatedResponse, User, UserRoleQuery, UserRoleType, UserSearchQuery } from "@/interfaces"
 import { api } from "@/lib/axios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -145,5 +145,18 @@ export function useDeleteUserRole() {
       queryClient.invalidateQueries({ queryKey: ["users"] })
       queryClient.invalidateQueries({ queryKey: ["roles", id] })
     },
+  })
+}
+
+
+export function useChangePassword() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (data: ChangePasswordType) => {
+      const res = await api.post(`${usersAPI}/auth/password/new/`, data)
+      return res.data
+    },
+    onSuccess: (data) => {},
   })
 }

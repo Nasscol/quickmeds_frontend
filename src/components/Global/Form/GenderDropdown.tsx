@@ -45,7 +45,7 @@ const GenderDropDown = ({required, name, label, control, errors, register, gende
                     onChange(val);       
                   }}
                   isClearable
-                  defaultValue={options?.find((option) => option.value === value) ?? null}
+                  value={options?.find((option: any) => option.value === value) || null}
                 />
           )}
         />

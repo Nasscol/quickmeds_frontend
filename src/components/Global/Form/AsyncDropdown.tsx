@@ -16,11 +16,18 @@ type Props<T> = {
   label?: string 
   required?: boolean
   control: any
+  defaultValues?: any
 };
 
-export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label, required, control, onSelect }: Props<T>) {
+export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label, required, control, onSelect,  defaultValues }: Props<T>) {
     const error = errors?.[name]
-    const [selected, setSelected] = useState<OptionType<T> | null>(null)
+    const [selected, setSelected] = useState<OptionType<T> | null>(defaultValues)
+
+    // useEffect(() => {
+    //   if (defaultValues) {
+    //     setSelected(defaultValues);
+    //   }
+    // }, [defaultValues]);
     
 
   return (
@@ -50,6 +57,7 @@ export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label
             value={selected}
             placeholder={placeholder ?? "Search..."}
             isClearable
+
           />
         
       )}}

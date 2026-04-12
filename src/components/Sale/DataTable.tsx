@@ -12,6 +12,7 @@ import Datatable from '../Global/Datatable'
 import { AsyncDropdown, ReactNumberField, TextField } from '../Global/Form'
 import { columns } from './Columns'
 import LoadingSpinner from '../Global/LoadingSpinner'
+import { getErrorMessage } from '@/helper'
 
 
 
@@ -109,9 +110,8 @@ const DataTable = () => {
             clearSale()
           },
         onError: (error: any) => {
-          console.log("ERROR PAYING: ", error?.response?.data[0])
-          const message = error?.response?.data?.detail || "Transaction failed!";
-          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
+          const message = getErrorMessage(error, "Transaction failed!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }}
       )
     }

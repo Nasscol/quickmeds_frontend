@@ -30,6 +30,8 @@ export default function EditMedicine({ defaultValues, onCancel, onSave }: EditMe
       image: undefined},
     resolver: zodResolver(medicineSchema),
   })
+  
+  console.log("medicine defaults: ", defaultValues)
 
   const editMedicine = useUpdateMedicine();
   const { data, isLoading } = useManufacturers({ name: searchQuery})

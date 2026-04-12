@@ -59,7 +59,7 @@ const RolesDropDown = ({required, name, label, control, errors, register, onSele
                   }}
                   placeholder={placeholder || "Select an option"}
                   isClearable
-                  defaultValue={options?.find((option: any) => option.value === value) ?? null}
+                 value={options?.find((option: any) => option.value === value) || null}
                 />
           )}
         />
