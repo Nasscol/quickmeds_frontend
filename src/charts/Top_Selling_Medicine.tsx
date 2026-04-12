@@ -13,7 +13,7 @@ export function Top_Selling_Chart() {
     
   return (
     <div>
-        {isLoading ? <div className="h-[300] w-full bg-black/10 animate-pulse rounded" /> : (top_selling.length > 0 ?
+        {isLoading ? <div className="h-[300] w-full bg-black/10 animate-pulse rounded" /> : (top_selling?.length > 0 ?
         <ResponsiveContainer debounce={200} width="100%" height={300}>
             <BarChart layout="vertical" data={top_selling} margin={{ left: 28, right: 30, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" />

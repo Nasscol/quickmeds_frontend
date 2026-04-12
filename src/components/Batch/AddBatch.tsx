@@ -103,7 +103,6 @@ export default function AddBatch({
       },
       onError: (error: any) => {
         const message = getErrorMessage(error, "Batch was not added!");
-        console.log("Error: ", message)
         toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         ShowErrorMessage(true);
       },

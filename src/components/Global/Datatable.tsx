@@ -60,7 +60,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
               ): table.getRowModel().rows.length > 0 ? (
                 <TableBody>
                   {table.getRowModel().rows.map(row => (
-                    <TableRow key={row.id} className="hover:bg-blue-100">
+                    <TableRow key={row.id} className="hover:bg-blue-100/50">
                       {row.getVisibleCells().map(cell => (
                         <TableCell key={cell.id} className="wrap-break-word whitespace-normal px-2 py-1 text-sm border border-gray-300">
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}

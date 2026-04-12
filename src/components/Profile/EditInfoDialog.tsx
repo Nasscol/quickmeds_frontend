@@ -1,29 +1,29 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { saleItemsType } from '@/interfaces'
+import { User } from "@/interfaces"
+import EditInfoForm from "./EditInfoForm"
 
-interface EditSaleDialogProps {
+interface EditGeneralInfoProps {
   open: boolean
   setOpen: (open: boolean) => void
-  saleItem: saleItemsType | null
+  info: User | undefined
 }
 
-
-export function EditSaleDialog({ open, setOpen, saleItem }: EditSaleDialogProps) {
+export function EditGeneralInfo({ open, setOpen, info }: EditGeneralInfoProps) {
 
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="!max-w-3xl ">
           <DialogHeader>
-            <DialogTitle>Edit Sale Item</DialogTitle>
+            <DialogTitle>Edit Profile Infomation</DialogTitle>
           </DialogHeader>
 
-          {/* <EditMedicine
-            defaultValues={medicine ?? undefined}
+          <EditInfoForm
+            defaultValues={info ?? undefined}
             onCancel={() => setOpen(false)}
             onSave={() => setOpen(false)}
-          /> */}
+          />
         </DialogContent>
       </Dialog>
     </div>

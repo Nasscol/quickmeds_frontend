@@ -1,52 +1,33 @@
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { allowedAdminOnlyGroup, CreateMedicineType, User } from "@/interfaces"
-import { Pencil } from "lucide-react"
-import { useState } from "react"
-import { DeleteMedicineDialog, EditMedicineDialog } from "./QuickActions"
 import { useAuth } from "@/context/authContext"
+import { saleItemsType } from "@/interfaces"
+import { Pencil, Trash } from "lucide-react"
+import { useState } from "react"
+import { EditSaleDialog } from "./QuickActions"
 
 interface ActionMenuProps {
   rowData: any
 }
 
 export const ActionsButton = ({ rowData }: ActionMenuProps) => {
-    const {user} = useAuth()
     const [editOpen, setEditOpen] = useState(false)
-    const [deleteOpen, setDeleteOpen] = useState(false)
-    const [selectedMedicine, setSelectedMedicine] = useState<CreateMedicineType | null>(null)
+    const [selectedItem, setSelectedItem] = useState<saleItemsType | null>(null)
+
+    console.log("Edit sale data: ", rowData)
 return (
     <div>
-        <Popover>
-            <PopoverTrigger asChild>
-                <button className="text-blue-600 hover:text-blue-800 hover:bg-blue-200 rounded-full cursor-pointer p-2 transition-colors">
-                    <Pencil size={16} />
-                </button>
-            </PopoverTrigger>
+        <div className="flex flex-row items-center justify-center gap-x-1">
+            <button onClick={() => {setEditOpen(true); setSelectedItem(rowData)}}  className="text-blue-600 hover:text-blue-800 hover:bg-blue-200 rounded-full cursor-pointer p-2 transition-colors">
+                <Pencil size={16} />
+            </button>
 
-            <PopoverContent
-                side="bottom"
-                align="end"
-                className="w-32 p-2 flex flex-col gap-1">
-                <button
-                className="text-sm text-blue-600 hover:bg-blue-50 rounded px-2 py-1 text-left cursor-pointer"
-                onClick={() => {setEditOpen(true); setSelectedMedicine(rowData);} }>
-                    Edit
-                </button>
+            <button className="text-red-500 hover:text-red-700 hover:bg-red-200 rounded-full cursor-pointer p-2 transition-colors">
+                 <Trash size={16} />
+            </button>
+        </div>
+        
 
-                {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) &&
-                    <button className="text-sm text-red-600 hover:bg-red-50 rounded px-2 py-1 text-left cursor-pointer"
-                        onClick={() => {setDeleteOpen(true); setSelectedMedicine(rowData);}}>
-                            Delete
-                    </button>}
-            </PopoverContent>
-        </Popover>
+         <EditSaleDialog open={editOpen} setOpen={setEditOpen} saleItem={selectedItem}/>
 
-         <EditMedicineDialog open={editOpen} setOpen={setEditOpen}  medicine={selectedMedicine}/>
-         {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <DeleteMedicineDialog open={deleteOpen} setOpen={setDeleteOpen}  medicine={selectedMedicine}/>}
     </div>
     )
 }
