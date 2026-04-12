@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import SortableHeader from '../Global/SortableHeader'
 import { ActionsButton } from './ActionsButton'
 
-export const columns: ColumnDef<SaleMedicineType>[] = [
+export const getColumns = (onDelete: (row: any) => void): ColumnDef<SaleMedicineType>[] => [
   {
     accessorKey: "medicine_name",
     header: ({ column }) => <SortableHeader column={column} title="Medicine" />,
@@ -89,7 +89,7 @@ export const columns: ColumnDef<SaleMedicineType>[] = [
       header: 'Action',
       cell: ({ row }) => (
             <div className="flex justify-center">
-              <ActionsButton rowData={row.original} />
+              <ActionsButton rowData={row.original} onDelete={onDelete} />
             </div>
       ),
     },

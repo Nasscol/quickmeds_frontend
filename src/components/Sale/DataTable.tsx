@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import Datatable from '../Global/Datatable'
 import { AsyncDropdown, ReactNumberField, TextField } from '../Global/Form'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import LoadingSpinner from '../Global/LoadingSpinner'
 import { getErrorMessage } from '@/helper'
 
@@ -27,6 +27,11 @@ const DataTable = () => {
     const [selectedMedicine, setSelectedMedicine] = useState<Partial<SaleMedicineType> | undefined>(undefined)
 
     const total = items.reduce((sum, item) => {return sum + Number(item.sub_total)}, 0)
+
+    const handleDelete = (row: SaleMedicineType) => {
+      setItems(prev => prev.filter(item => item !== row));
+    };
+    const columns = getColumns(handleDelete)
 
     const containerRef = useRef<HTMLDivElement>(null)
     const prevLengthRef = useRef(items.length)
@@ -51,6 +56,7 @@ const DataTable = () => {
       prevLengthRef.current = items.length
     }, [items])
 
+    console.log("Current items: ", items)
     
 
     const loadOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
@@ -77,7 +83,7 @@ const DataTable = () => {
         const strength_unit = selectedMedicine?.strength_unit
         const current_price = Number(selectedMedicine?.current_price)
         const sub_total = Number(data.quantity) * Number(selectedMedicine?.current_price)
-        setItems((prev) => [...prev, { medicine_id, medicine_name, generic_name, quantity, dosage_instructions, current_price, sub_total, strength, strength_unit }])
+        setItems((prev) => [...prev, { medicine_id, medicine_name, generic_name, quantity, dosage_instructions, current_price, sub_total, strength, strength_unit}])
         clearForm()
     }
 
@@ -89,6 +95,9 @@ const DataTable = () => {
       reset()
       setSelectedMedicine(undefined)
     }
+
+   
+
 
     async function submitSale(){
      if (!items || items.length === 0) {
