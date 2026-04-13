@@ -8,13 +8,14 @@ import { allowedAdminOnlyGroup, allowedTechGroups, SaleHistoryType } from "@/int
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteSaleDialog, UnAarchiveSaleDialog, ViewSaleDialog } from "./QuickActions"
+import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: SaleHistoryType
 }
 
 export const ActionsButton = ({ rowData }: ActionMenuProps) => {
-    const {user} = useAuth()
+    const { data: user, isLoading: UserLoading } = useMe();
     const [viewOpen, setViewOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [unarchiveOpen, setUnarchiveOpen] = useState(false)
@@ -40,14 +41,14 @@ return (
 
                 
 
-                {rowData.status == "Completed" && user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) &&
+                {rowData.status == "Completed" && user?.groups?.some(group => allowedTechGroups.includes(group)) &&
                     <button className="text-sm text-red-600 hover:bg-red-50 rounded px-2 py-1 text-left cursor-pointer"
                         onClick={() => {setDeleteOpen(true); setSelectedSale(rowData);}}>
                             Archive
                     </button>
                 }
 
-                {rowData.status == "Archived" && user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) &&
+                {rowData.status == "Archived" && user?.groups?.some(group => allowedTechGroups.includes(group)) &&
                     <button className="text-sm text-green-600 hover:bg-green-100 rounded px-2 py-1 text-left cursor-pointer"
                         onClick={() => {setUnarchiveOpen(true); setSelectedSale(rowData);}}>
                             Unarchive

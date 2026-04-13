@@ -1,17 +1,19 @@
 'use client'
 
-import { User, UserSearchQuery } from '@/interfaces'
+import { allowedTechGroups, User, UserSearchQuery } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import { AddUserDialog } from './QuickActions'
 import TextSearchFields, { ContactSearchField } from './SearchFields'
 
-import { useUsers } from '@/hooks/users/useUsers'
+import { useMe, useUsers } from '@/hooks/users/useUsers'
 import Datatable from '../Global/Datatable'
 
 export default function UserTable() {
+  const { data: user, isLoading: UserLoading } = useMe();
+  const columns = getColumns(user)
   const [search, setSearch] = useState<string | undefined>(undefined)
   const [first_name, setFirstName] = useState<string | undefined>(undefined)
   const [last_name, setLastName] = useState<string | undefined>(undefined)
@@ -63,7 +65,9 @@ export default function UserTable() {
 
                 
               </form>
-                <AddUserDialog />
+              
+              {UserLoading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddUserDialog />) }
+
             </div>
             
           <Datatable data={users} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>

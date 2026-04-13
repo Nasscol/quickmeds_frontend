@@ -1,5 +1,5 @@
 import { getErrorMessage } from '@/helper';
-import { useUpdateUser } from '@/hooks/users/useUsers';
+import { useUpdateMe, useUpdateUser } from '@/hooks/users/useUsers';
 import { User } from '@/interfaces';
 import { EditProfileImage, EditProfileImageFormData } from '@/schema/changeProfileImageSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,7 @@ const ChangeImageForm = ({defaultImage, onSave, onCancel}: ProfileImageProps) =>
         resolver: zodResolver(EditProfileImage),
       })
 
-      const editUser = useUpdateUser();
+      const editUser = useUpdateMe();
 
     const onSubmit = async (data: Partial<User>) => {
 
@@ -41,10 +41,10 @@ const ChangeImageForm = ({defaultImage, onSave, onCancel}: ProfileImageProps) =>
         });
 
         if(image && image instanceof File){
-            formData.append("image", image)
+            formData.append("profile_image", image)
         }
 
-        editUser.mutate({id: defaultImage.id, data: formData}, {
+        editUser.mutate(formData, {
             
             onSuccess: () => {
                 toast.success("Profile Image updated successfully")

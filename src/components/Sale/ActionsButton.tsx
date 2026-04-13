@@ -7,7 +7,7 @@ import { set } from "date-fns"
 
 interface ActionMenuProps {
   rowData: any
-  onDelete: (rowData: SaleMedicineType) => void
+  onDelete: (rowData: any) => void
   onEdit: Dispatch<SetStateAction<any[]>>
 }
 

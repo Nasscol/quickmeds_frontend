@@ -1,12 +1,15 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import {  User } from '@/interfaces'
+import {  allowedAdminOnlyGroup, User } from '@/interfaces'
 import { ActionsButton } from './ActionsButton'
 import { format, parseISO } from "date-fns";
 import SortableHeader from '../Global/SortableHeader'
 
-export const columns: ColumnDef<User>[] = [
+export const getColumns = (user?: User): ColumnDef<User>[] => {
+  const isAuthorized = user?.groups?.some(group => allowedAdminOnlyGroup.includes(group));
+
+  const baseColumns: ColumnDef<User>[] = [
   {
     accessorKey: 'first_name',
     header: ({ column }) => <SortableHeader column={column} title="First Name" />,
@@ -67,13 +70,15 @@ export const columns: ColumnDef<User>[] = [
       return format(date, "MMM dd, yyyy HH:mm"); 
     },
   },
-  {
-    id: 'action',
-    header: 'Action',
-    cell: ({ row }) => (
-          <div className="flex justify-center">
-            <ActionsButton rowData={row.original} />
-          </div>
-    ),
-  },
-]
+  ]
+  
+  if (isAuthorized) {
+    baseColumns.push({
+      id: 'action',
+      header: 'Action',
+      cell: ({ row }) => <ActionsButton  rowData={row.original} />
+    });
+  }
+
+  return baseColumns;
+}

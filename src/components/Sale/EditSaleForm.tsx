@@ -1,16 +1,11 @@
 'use client'
 
-import { useUpdateRole } from "@/hooks/users/useUsers"
-import { EditsaleItemsType, EditSaleType, saleItemsType, SaleType, UserRoleType } from "@/interfaces"
-import { RoleFormData, RoleSchema } from "@/schema/roleSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Dispatch, SetStateAction, useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { InputField, ReactNumberField, TextField } from "../Global/Form"
-import LoadingSpinner from "../Global/LoadingSpinner"
-import { SaleFormData, saleSchema } from "@/schema/saleSchema"
+import { EditsaleItemsType } from "@/interfaces"
 import { SaleItemFormData, saleItemSchema } from "@/schema/saleItemSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
+import { ReactNumberField, TextField } from "../Global/Form"
 
 interface EditSaleFormProps {
   defaultValues?: Partial<EditsaleItemsType>
@@ -22,13 +17,13 @@ interface EditSaleFormProps {
 export default function EditSaleForm({ defaultValues, onCancel, onSave, setItems }: EditSaleFormProps) {
 
   const { register, handleSubmit, control, formState: { errors } } = useForm<SaleItemFormData>({
-    defaultValues: {quantity: defaultValues?.quantity},
+    defaultValues: {quantity: defaultValues?.quantity, dosage_instruction: defaultValues?.dosage_instruction},
     resolver: zodResolver(saleItemSchema),
   })
 
 
 const onSubmit = (newData: any) => {
-  
+  console.log("New Edited Data: ", newData)
   setItems(prev => prev.map(item => item === defaultValues ? { ...item, ...newData } : item ));
   onSave()
 };

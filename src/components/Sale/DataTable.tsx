@@ -31,7 +31,7 @@ const DataTable = () => {
     const handleDelete = (row: SaleMedicineType) => {
       setItems(prev => prev.filter(item => item !== row));
     };
-    const columns = getColumns(handleDelete)
+    const columns = getColumns({onDelete: handleDelete, setItems: setItems})
 
     const containerRef = useRef<HTMLDivElement>(null)
     const prevLengthRef = useRef(items.length)
@@ -77,12 +77,12 @@ const DataTable = () => {
         const medicine_name = selectedMedicine?.name
         const generic_name = selectedMedicine?.generic_name
         const quantity = Number(data.quantity)
-        const dosage_instructions = data.dosage_instruction
+        const dosage_instruction = data.dosage_instruction
         const strength = Number(selectedMedicine?.strength)
         const strength_unit = selectedMedicine?.strength_unit
         const current_price = Number(selectedMedicine?.current_price)
         const sub_total = Number(data.quantity) * Number(selectedMedicine?.current_price)
-        setItems((prev) => [...prev, { medicine_id, medicine_name, generic_name, quantity, dosage_instructions, current_price, sub_total, strength, strength_unit}])
+        setItems((prev) => [...prev, { medicine_id, medicine_name, generic_name, quantity, dosage_instruction, current_price, sub_total, strength, strength_unit}])
         clearForm()
     }
 

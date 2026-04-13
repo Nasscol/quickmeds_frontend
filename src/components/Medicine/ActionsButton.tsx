@@ -8,13 +8,14 @@ import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteMedicineDialog, EditMedicineDialog } from "./QuickActions"
 import { useAuth } from "@/context/authContext"
+import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: any
 }
 
 export const ActionsButton = ({ rowData }: ActionMenuProps) => {
-    const {user} = useAuth()
+    const { data: user } = useMe();
     const [editOpen, setEditOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [selectedMedicine, setSelectedMedicine] = useState<CreateMedicineType | null>(null)

@@ -11,9 +11,10 @@ import TextSearchFields, { ReactNumberSearchField } from './SearchFields'
 import { useAuth } from '@/context/authContext'
 import { useMedicines } from '@/hooks/inventory/useMedicine'
 import Datatable from '../Global/Datatable'
+import { useMe } from '@/hooks/users/useUsers'
 
 export default function MedicineTable() {
-  const { user, loading } = useAuth();
+  const { data: user, isLoading: UserLoading } = useMe();
   const columns = getColumns(user)
 
   const [name, setName] = useState<string | undefined>(undefined)
@@ -71,7 +72,7 @@ export default function MedicineTable() {
 
                 
               </form>
-                {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddMedicineDialog />) }
+                {UserLoading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddMedicineDialog />) }
                
                 
             </div>

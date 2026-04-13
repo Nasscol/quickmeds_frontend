@@ -46,7 +46,7 @@ const onSubmit = async (data: User) => {
   });
 
   if(image && image instanceof File){
-    formData.append("image", image)
+    formData.append("profile_image", image)
   }
 
   editUser.mutate({id: defaultValues?.id, data: formData}, {

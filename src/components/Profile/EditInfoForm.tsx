@@ -1,6 +1,6 @@
 'use client'
 
-import { useUpdateUser } from "@/hooks/users/useUsers"
+import { useUpdateMe, useUpdateUser } from "@/hooks/users/useUsers"
 import { User } from "@/interfaces"
 import { EditUserFormData, EditUserSchema } from "@/schema/editUserSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -26,7 +26,7 @@ export default function EditInfoForm({ defaultValues, onCancel, onSave }: EditUs
     resolver: zodResolver(EditUserSchema),
   })
 
-  const editUser = useUpdateUser();
+  const editUser = useUpdateMe();
 
   
 
@@ -37,7 +37,7 @@ const onSubmit = async (data: User) => {
     return
   }
 
-  editUser.mutate({id: defaultValues?.id, data}, {
+  editUser.mutate(data, {
     
       onSuccess: () => {
         toast.success("User updated successfully")

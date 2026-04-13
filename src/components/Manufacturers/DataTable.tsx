@@ -11,9 +11,10 @@ import TextSearchFields from './SearchFields'
 
 import { useAuth } from '@/context/authContext'
 import Datatable from '../Global/Datatable'
+import { useMe } from '@/hooks/users/useUsers'
 
 export default function ManufacturerTable() {
-   const { user, loading } = useAuth();
+   const { data: user, isLoading: UserLoading } = useMe();
    const columns = getColumns(user)
 
   const [name, setName] = useState<string | undefined>(undefined)
@@ -52,7 +53,7 @@ export default function ManufacturerTable() {
                   <XCircle size={22}/>
                 </button>
               </form>
-              {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddManufacturesDialog />) }
+              {UserLoading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddManufacturesDialog />) }
                 
             </div>
             

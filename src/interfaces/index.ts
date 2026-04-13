@@ -5,7 +5,6 @@ export interface SidebarLink {
   link?: string;
   icon: StaticImageData
   isActive?: boolean;
-  isDropdownActive?: boolean
   options?: {link_name: string, link: string}[]
   adminOnly?: boolean
   isCollapsed?: boolean

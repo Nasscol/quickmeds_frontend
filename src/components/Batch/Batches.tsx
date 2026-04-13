@@ -1,6 +1,6 @@
 'use client'
 
-import { allowedTechGroups, BatchSearchQuery, BatchType } from '@/interfaces'
+import { allowedAdminOnlyGroup, allowedTechGroups, BatchSearchQuery, BatchType } from '@/interfaces'
 import { useState } from 'react'
 import { AddBatchDialog, DeleteBatchDialog, EditBatchDialog, ViewBatchDialog } from './QuickActions'
 import TextSearchFields, { DateSearchFields, NumberSearchFields } from './SearchFields'
@@ -12,13 +12,14 @@ import { Pagination } from '../Global'
 import LoadingSpinner from '../Global/LoadingSpinner'
 import { ReactNumberSearchField } from '../Medicine/SearchFields'
 import { useAuth } from '@/context/authContext'
+import { useMe } from '@/hooks/users/useUsers'
 
 interface BatchCardProps {
   batch: Partial<BatchType>
 }
 
 export const BatchCards = ({batch }: BatchCardProps) => {
-  const {user, loading} = useAuth()
+  const { data: user, isLoading: UserLoading } = useMe();
   const [editOpen, setEditOpen] = useState<boolean>(false)
   const [viewOpen, setViewOpen] = useState<boolean>(false)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
@@ -34,7 +35,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
       {batch.is_expired && <div className='bg-red-800 text-gray-100 text-[0.7rem] rounded-xl absolute px-3 py-1 w-max bottom-2 right-2 cursor-default'>Expired</div>}
       <h6 className='text-xs text-gray-700'>{batch.batch_number}</h6>
       <div className='size-40 mx-auto rounded-lg overflow-hidden border-2 border-gray-200 mb-2 relative'>
-        {!isLoaded && <div className="absolute inset-0 bg-black/20 animate-pulse rounded z-5" />}   
+        {!isLoaded && <div className="absolute inset-0 bg-black/15 animate-pulse rounded z-5" />}   
         <Image 
         src={batch?.medicine_details?.image ?? ""} 
         alt={batch?.medicine_details?.name ?? ""} 
@@ -58,7 +59,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
         
       </div>
 
-      {user ? user.groups?.includes("Admin") ? 
+      {user ? user?.groups?.some(group => allowedAdminOnlyGroup.includes(group))? 
       <div className='mt-2 flex gap-x-5 text-xs items-center justify-center'>
         <button onClick={() => setEditOpen(true)} className='px-4 py-1 bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer transition-colors'>
           Edit
@@ -70,7 +71,16 @@ export const BatchCards = ({batch }: BatchCardProps) => {
           Delete
         </button>
       </div>
-      : 
+      : user?.groups?.some(group => allowedTechGroups.includes(group)) ? 
+        <div className='mt-2 flex gap-x-5 text-xs items-center justify-center'>
+        <button onClick={() => setEditOpen(true)} className='px-4 py-1 bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer transition-colors'>
+          Edit
+        </button>
+        <button onClick={() => setViewOpen(true)} className='px-4 py-1 bg-gray-800 hover:bg-gray-900 text-white rounded-lg cursor-pointer transition-colors'>
+          View
+        </button>
+      </div>
+      :
       <div className='mt-2 flex text-xs items-center justify-center'>
         <button onClick={() => setViewOpen(true)} className='px-4 py-1 bg-gray-800 hover:bg-gray-900 text-white rounded-lg cursor-pointer transition-colors'>
           View
@@ -87,15 +97,15 @@ export const BatchCards = ({batch }: BatchCardProps) => {
       
 
 
-      <EditBatchDialog open={editOpen} setOpen={setEditOpen} batch={batch}/>
+      {user?.groups?.some(group => allowedTechGroups.includes(group)) && <EditBatchDialog open={editOpen} setOpen={setEditOpen} batch={batch}/>}
       <ViewBatchDialog open={viewOpen} setOpen={setViewOpen} batch={batch}/>
-      <DeleteBatchDialog open={deleteOpen} setOpen={setDeleteOpen} batch={batch}/>
+      {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <DeleteBatchDialog open={deleteOpen} setOpen={setDeleteOpen} batch={batch}/>}
     </div>
   )
 }
 
 export default function Batches() {
-  const { user, loading, setUser } = useAuth();
+  const { data: user, isLoading: UserLoading } = useMe();
   const [page, setPage] = useState<number>(1)
   const [batch_number, setBatchNumber] = useState<string | undefined>(undefined)
   const [search, setSearch] = useState<string | undefined>(undefined)
@@ -213,7 +223,7 @@ export default function Batches() {
 
                 
               </form>
-              {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" /> : (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddBatchDialog />)}
+              {UserLoading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" /> : (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddBatchDialog />)}
             </div>
 
             

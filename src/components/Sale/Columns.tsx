@@ -66,7 +66,7 @@ export const getColumns = ({onDelete, setItems}: EditSaleButtons): ColumnDef<Sal
       </div>
   },
   {
-    accessorKey: "dosage_instructions",
+    accessorKey: "dosage_instruction",
     header: "Dosage Instruction",
     cell: ({ getValue }) => {
     const value = String(getValue() ?? "");

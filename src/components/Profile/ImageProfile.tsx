@@ -13,15 +13,14 @@ const ImageProfile = () => {
     const [open, setOpen] = useState<boolean>(false)
 
   return (
-    <div className='block'>
         <div className='rounded-lg shadow bg-white p-6 flex justify-center items-center w-80'>
             <div>
 
                 <div className='size-40 overflow-hidden relative mb-4 '>
-                    <div className='rounded-full border-4 border-blue-200 w-full h-full'>
+                    <div className='rounded-full border-4 border-blue-200 w-full h-full relative overflow-hidden'>
                         {UserLoading ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={user?.profile_image as string ?? Profile_Pic} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)}/>}
                     </div>
-                    <button onClick={() => setOpen(true)} className="absolute bottom-0 right-2 text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-(--blue-150) rounded-full cursor-pointer p-2 transition-colors">
+                    <button onClick={() => setOpen(true)} className="absolute z-20 bottom-0 right-2 text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-(--blue-150) rounded-full cursor-pointer p-2 transition-colors">
                         <Pencil size={16} />
                     </button>
                 </div>
@@ -32,11 +31,9 @@ const ImageProfile = () => {
                 </div>
 
             </div>
-        </div>
-        <div>
+
             <ChangeProfileImageDialog defaultImage={{profile_image: user?.profile_image, id: user?.id}} open={open} setOpen={setOpen}/>
         </div>
-    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useWholesalers } from '@/hooks/inventory/useWholesalers'
-import { allowedAdminOnlyGroup, ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
+import { allowedAdminOnlyGroup, allowedTechGroups, ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
@@ -11,9 +11,10 @@ import TextSearchFields from './SearchFields'
 
 import Datatable from '../Global/Datatable'
 import { useAuth } from '@/context/authContext'
+import { useMe } from '@/hooks/users/useUsers'
 
 export default function WholesalerTable() {
-  const { user, loading } = useAuth();
+  const { data: user, isLoading: UserLoading } = useMe();
   const columns = getColumns(user)
 
   const [name, setName] = useState<string | undefined>(undefined)
@@ -52,7 +53,7 @@ export default function WholesalerTable() {
                   <XCircle size={22}/>
                 </button>
               </form>
-              {loading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) &&  <AddWholesalerDialog />) }
+              {UserLoading  ? <div className="h-9 w-31 bg-black/10  animate-pulse rounded" />:  (user?.groups?.some(group => allowedTechGroups.includes(group)) &&  <AddWholesalerDialog />) }
                 
             </div>
             

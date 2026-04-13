@@ -45,10 +45,9 @@ const SideBarNav: SidebarLink[]  = [
         ]
     },
     {link_name: "Profile", link: "/profile", icon: User_icon},
-    {link_name: "Settings", link: "#", icon: Settings_icon},
 ]
 
-const SideBarLinks = ({link_name, link, icon, isActive, options, isCollapsed, setIsCollapsed, isDropdownActive}: SidebarLink) => {
+const SideBarLinks = ({link_name, link, icon, isActive, options, isCollapsed, setIsCollapsed}: SidebarLink) => {
   const [open, setOpen] = useState(false)
   const pathname = usePathname();
     const [isLoaded, setIsLoaded] = useState<boolean>(false)

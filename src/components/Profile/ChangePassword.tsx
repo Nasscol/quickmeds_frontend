@@ -16,13 +16,12 @@ const ChangePassword = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
   })
-  const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
+
   
   const changePassword = useChangePassword()
   
   function onClear() {
     reset()
-    ShowErrorMessage(false)
   }
   
   async function onSubmit(data: ChangePasswordType) {
@@ -34,12 +33,10 @@ const ChangePassword = () => {
         onSuccess: () => {
           toast.success("Password changed successfully")
           reset()
-          ShowErrorMessage(false)
         },
       onError: (error: any) => {
           const message = getErrorMessage(error, "Password was not changed!")
           toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
-          ShowErrorMessage(true)
         }
     }
     )
@@ -47,7 +44,6 @@ const ChangePassword = () => {
   return (
     <div className='rounded-lg relative shadow bg-white p-6 flex'>
       {changePassword.isPending && <LoadingSpinner />}
-      {ErrorMessage && <p className="text-center text-red-500 text-sm absolute bottom-2 left-0 w-full">Sorry, something went wrong!</p>}
 
         <div>
             <div className='flex justify-between items-center mb-4 border-b pb-2'>

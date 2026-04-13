@@ -1,32 +1,29 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  InputField,
-  NumberField,
-  Dropdown,
-  DateField,
-  ReactNumberField,
-  AsyncDropdown,
-} from "../Global/Form";
 import {
   BatchType,
   MedicineType,
   OptionType,
   WholesalerType,
 } from "@/interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  AsyncDropdown,
+  DateField,
+  InputField,
+  NumberField,
+  ReactNumberField
+} from "../Global/Form";
 
-import LoadingSpinner from "../Global/LoadingSpinner";
+import { env } from "@/config/env";
+import { getErrorMessage } from "@/helper";
+import { useAddBatch } from "@/hooks/inventory/useBatch";
+import api from "@/lib/axios";
+import { BatchFormData, batchSchema } from "@/schema/batchSchema";
 import { useState } from "react";
 import { toast } from "sonner";
-import { BatchFormData, batchSchema } from "@/schema/batchSchema";
-import { useMedicines } from "@/hooks/inventory/useMedicine";
-import { useWholesalers } from "@/hooks/inventory/useWholesalers";
-import { useAddBatch } from "@/hooks/inventory/useBatch";
-import { env } from "@/config/env";
-import api from "@/lib/axios";
-import { getErrorMessage } from "@/helper";
+import LoadingSpinner from "../Global/LoadingSpinner";
 
 interface AddBatchFormProps {
   defaultValues?: Partial<BatchFormData>;
@@ -60,11 +57,7 @@ export default function AddBatch({
 
   const addBatch = useAddBatch();
 
-  // const medicine = Medicine?.results
-  // const medicine_options = medicine?.map((m: MedicineType) => ({
-  //   label: `${m.name} | ${m.generic_name}`,
-  //   value: m.id ?? "",
-  // }));
+
   const loadMedicineOptions = async (
     inputValue: string,
   ): Promise<OptionType<MedicineType>[]> => {

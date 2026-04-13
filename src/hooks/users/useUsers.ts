@@ -58,6 +58,22 @@ export function useUpdateUser() {
   })
 }
 
+export function useUpdateMe() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (data: any) => {const res = await api.patch<User>(`${usersAPI}/me/`, data)
+      return res.data
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ["user", data.id] })
+      queryClient.invalidateQueries({ queryKey: ["me"] })
+    },
+  })
+}
+
+
 export function useDeleteUser() {
   const queryClient = useQueryClient()
 
@@ -72,7 +88,7 @@ export function useDeleteUser() {
   })
 }
 
-export const fetchMe = async (): Promise<User> => {
+export const fetchMe = async () => {
   const res = await api.get<User>(`${usersAPI}/me/`);
   return res.data;
 };
