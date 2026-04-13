@@ -12,8 +12,6 @@ export function useDashboardDailyKPI() {
     queryKey: ["dashboard_kpi"], 
     queryFn: async () => {
       const res = await api.get(`${salesAPI}/dashboard/kpi/me/`)
-      // const res = await api.get(`http://127.0.0.1:8000/api/sales/dashboard/kpi/me/`)
-      http://127.0.0.1:8000/
       return res.data          
     },
     staleTime: 1000 * 60 * 60,

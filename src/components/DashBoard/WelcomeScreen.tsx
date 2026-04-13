@@ -13,7 +13,7 @@ import { useMe } from "@/hooks/users/useUsers"
 
 const WelcomeScreen = () => {
   const { data: user, isLoading: UserLoading } = useMe();
-  const {data, isLoading: KPILoading} = useDashboardDailyKPI()
+  const {data, isLoading: KPILoading, isFetching} = useDashboardDailyKPI()
 
   
 
@@ -29,12 +29,12 @@ const WelcomeScreen = () => {
 
           <div className='flex flex-col lg:flex-row gap-5 mt-10 justify-center items-center lg:justify-start lg:items-start'>
             <div className="flex flex-col md:flex-row gap-5">
-              <KpiCard label="Today's Revenue" value={data?.daily_revenue.value ?? 0} percentage_change={data?.daily_revenue.change_percentage ?? 0} icon={Cash} isMoney={true} isLoading={KPILoading}/>
-              <KpiCard label='Avg Transactions' value={data?.average_transaction.value ?? 0} percentage_change={data?.average_transaction.change_percentage ?? 0} icon={Avg_Transactions} isMoney={true} isLoading={KPILoading}/>
+              <KpiCard label="Today's Revenue" value={data?.daily_revenue.value ?? 0} percentage_change={data?.daily_revenue.change_percentage ?? 0} icon={Cash} isMoney={true} isLoading={KPILoading} isFetching={isFetching}/>
+              <KpiCard label='Avg Transactions' value={data?.average_transaction.value ?? 0} percentage_change={data?.average_transaction.change_percentage ?? 0} icon={Avg_Transactions} isMoney={true} isLoading={KPILoading} isFetching={isFetching}/>
             </div>
             <div className="flex flex-col md:flex-row gap-5">
-              <KpiCard label='Transactions' value={data?.number_of_transactions.value ?? 0} percentage_change={data?.number_of_transactions.change_percentage ?? 0} icon={Transactions}  isLoading={KPILoading}/>
-              <KpiCard label='Items Sold' value={data?.sold_units.value ?? 0} percentage_change={data?.sold_units.change_percentage ?? 0} icon={Medicine} isLoading={KPILoading}/>
+              <KpiCard label='Transactions' value={data?.number_of_transactions.value ?? 0} percentage_change={data?.number_of_transactions.change_percentage ?? 0} icon={Transactions}  isLoading={KPILoading} isFetching={isFetching}/>
+              <KpiCard label='Items Sold' value={data?.sold_units.value ?? 0} percentage_change={data?.sold_units.change_percentage ?? 0} icon={Medicine} isLoading={KPILoading} isFetching={isFetching}/>
             </div>
           </div>
         </div>

@@ -4,15 +4,17 @@ import { useDosageForms } from "@/hooks/inventory/useDosageForms"
 import { useManufacturers } from "@/hooks/inventory/useManufacturers"
 import { useUpdateMedicine } from "@/hooks/inventory/useMedicine"
 import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
-import { CreateMedicineType } from "@/interfaces"
+import { CreateMedicineType, ManufacturersType, OptionType } from "@/interfaces"
 import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
+import { AsyncDropdown, Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
 import LoadingSpinner from "../Global/LoadingSpinner"
 import { getErrorMessage } from "@/helper"
+import api from "@/lib/axios"
+import { env } from "@/config/env"
 
 interface EditMedicineFormProps {
   defaultValues?: Partial<CreateMedicineType>
@@ -31,6 +33,7 @@ export default function EditMedicine({ defaultValues, onCancel, onSave }: EditMe
       image: undefined},
     resolver: zodResolver(medicineSchema),
   })
+  const inventoryAPI = env.inventoryApi;
   
   
 
@@ -39,11 +42,45 @@ export default function EditMedicine({ defaultValues, onCancel, onSave }: EditMe
   const { data: dosage_forms, isLoading: dosage_loading } = useDosageForms()
   const { data: strength_unit, isLoading: strength_unit_loading } = useStrengthUnits()
 
-  const manufacturers = data?.results
-  const options = manufacturers?.map((m: any) => ({
-    label: m.name,
-    value: m.id,
-  }));
+  const loadManufacturerOptions = async (inputValue: string): Promise<OptionType<ManufacturersType>[]> => {
+    const res = await api.get(`${inventoryAPI}/manufacturers/`, { params: { search: inputValue },
+    });
+
+    return res.data.results.map((manufacturer: ManufacturersType) => ({
+      label: manufacturer.name,
+      value: manufacturer.id,
+    }));
+  };
+
+  const loadDosageFormOptions = async (inputValue: string): Promise<OptionType<any>[]> => {
+    const res = await api.get(`${inventoryAPI}/dosage_form/`, { params: { search: inputValue },
+    });
+
+    return res.data as { value: string; label: string }[]
+  };
+
+  const loadStrengthUnitOptions = async (inputValue: string): Promise<OptionType<any>[]> => {
+    const res = await api.get(`${inventoryAPI}/strength_unit/`, { params: { search: inputValue },
+    });
+
+    return res.data as { value: string; label: string }[]
+  };
+
+
+  const defaultManufacturerDropdownValues = {
+    label: defaultValues?.manufacturer_detail?.name,
+    value: defaultValues?.manufacturer_detail?.id,
+  }
+
+  const defaultDosageDropdownValues = {
+    label: defaultValues?.dosage_form,
+    value: defaultValues?.dosage_form,
+  }
+
+  const defaultStrengthUitDropdownValues = {
+    label: defaultValues?.strength_unit,
+    value: defaultValues?.strength_unit,
+  }
 
 const onSubmit = async (data: CreateMedicineType) => {
 
@@ -91,44 +128,44 @@ const onSubmit = async (data: CreateMedicineType) => {
             <div className="flex flex-row gap-x-5">
               <InputField label="Name" name="name" placeholder="Enter medicine name" register={register} errors={errors} required={true}/>
               <InputField label="Generic Name" name="generic_name" placeholder="Enter generic name" register={register} errors={errors} />
-              <Dropdown
-                name="dosage_form"
-                label="Dosage Form"
-                control={control}
-                isLoading={dosage_loading}
-                options={dosage_forms ?? []}
-                placeholder="Select dosage Form..."
-                defaultValue={defaultValues?.dosage_form ? dosage_forms?.find(option => option.value === defaultValues.dosage_form) : null}
-              />
+
+                <AsyncDropdown
+                  name="dosage_form"
+                  label="Dosage Form"
+                  control={control}
+                  loadOptions={loadDosageFormOptions}
+                  placeholder="Select Dosage Form..."
+                  errors={errors}
+                  defaultValues={defaultDosageDropdownValues}
+                />
             </div>
 
-            <Dropdown
-              required={true}
-              name="manufacturer"
-              label="Manufacturer"
-              control={control}
-              options={options ?? []}
-              isLoading={isLoading}
-              onSearch={setSearchQuery}
-              placeholder="Select a Manufacturer..."
-              errors={errors}
-              defaultValue={defaultValues?.manufacturer_detail ? {label: defaultValues?.manufacturer_detail?.name, value: defaultValues?.manufacturer_detail?.id ?? ""} : null}
-            />
+              <AsyncDropdown
+                required={true}
+                name="manufacturer"
+                label="Manufacturer"
+                control={control}
+                loadOptions={loadManufacturerOptions}
+                placeholder="Select Manufacturer..."
+                errors={errors}
+                defaultValues={defaultManufacturerDropdownValues}
+              />
 
 
             
 
             <div className="flex flex-row gap-x-5">
               <ReactNumberField control={control} label="Strength" name="strength" placeholder="Enter strength" register={register} errors={errors}/>
-              <Dropdown
-                name="strength_unit"
-                label="Strength Unit"
-                control={control}
-                options={strength_unit ?? []}
-                isLoading={strength_unit_loading}
-                placeholder="Select strength unit..."
-                defaultValue={defaultValues?.strength_unit ? strength_unit?.find(option => option.value === defaultValues.strength_unit) : null}
-              />
+
+              <AsyncDropdown
+                  name="strength_unit"
+                  label="Strength Unit"
+                  control={control}
+                  loadOptions={loadStrengthUnitOptions}
+                  placeholder="Select strength unit..."
+                  errors={errors}
+                  defaultValues={defaultStrengthUitDropdownValues}
+                />
             </div>
 
             

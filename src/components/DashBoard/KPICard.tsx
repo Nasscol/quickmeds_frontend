@@ -10,9 +10,10 @@ type KpiCardProps = {
   isMoney?: boolean
   isLoading?: boolean
   percentage_change?: number
+  isFetching?: boolean
 }
 
-const KpiCard = ({ label, value, icon, bgColor, textColor, isMoney, isLoading, percentage_change }: KpiCardProps) => {
+const KpiCard = ({ label, value, icon, bgColor, textColor, isMoney, isLoading, percentage_change, isFetching }: KpiCardProps) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
     
 
@@ -23,8 +24,8 @@ const KpiCard = ({ label, value, icon, bgColor, textColor, isMoney, isLoading, p
 
       <div className="flex flex-col">
         <span className="text-xs text-gray-500 mb-2">{label}</span>
-        {isLoading ? <div className="h-7 w-24 bg-black/10 animate-pulse rounded" /> : <p className={`text-xl tracking-tight ${textColor ? textColor : "text-black"}`}>{Number(value).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} <span className="text-black">{isMoney && "shs"}</span></p>}
-        {percentage_change != null && (isLoading ? <div className="h-4 mt-2 w-34 bg-black/10 animate-pulse rounded" /> : <div className={`mt-2 text-sm ${percentage_change >= 0 ? "text-green-600" : "text-red-600"}`}><p>{percentage_change >= 0 && "+"}{Number(percentage_change).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}<span>% from yesterday</span></p></div>)}
+        {isLoading || isFetching ? <div className="h-7 w-24 bg-black/10 animate-pulse rounded" /> : <p className={`text-xl tracking-tight ${textColor ? textColor : "text-black"}`}>{Number(value).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} <span className="text-black">{isMoney && "shs"}</span></p>}
+        {percentage_change != null && (isLoading || isFetching ? <div className="h-4 mt-2 w-34 bg-black/10 animate-pulse rounded" /> : <div className={`mt-2 text-sm ${percentage_change >= 0 ? "text-green-600" : "text-red-600"}`}><p>{percentage_change >= 0 && "+"}{Number(percentage_change).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}<span>% from yesterday</span></p></div>)}
       </div>
 
       <div className="size-9 relative bg-muted p-2 rounded-lg">

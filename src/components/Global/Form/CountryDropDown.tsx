@@ -38,20 +38,21 @@ const CountryDropDown = ({required, name, label, control, errors, register, onSe
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
                 <Select
-                  options={countries ?? []}
-                  isLoading={isLoading}
-                  onInputChange={onSearch}   
+                  options={countries ?? []}   
+                  placeholder={placeholder}
                   onChange={(selectedOption: any) => {
                     const val = selectedOption?.value ?? null;
+                    
                     onChange(val);       
                   }}
-                  placeholder={placeholder || "Select an option"}
                   isClearable
+                  value={countries?.find((option: any) => option.value === value) || null}
                 />
           )}
         />
+
 
         {error && <p className="text-red-500 text-sm absolute bottom">{error.message?.toString()}</p>}
     </div>
