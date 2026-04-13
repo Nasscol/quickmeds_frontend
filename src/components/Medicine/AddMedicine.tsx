@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 
 interface AddMedicineFormProps {
@@ -66,7 +67,8 @@ const onSubmit = async (data: CreateMedicineType) => {
            onSave()
           },
         onError: (error) => {
-          toast.error("Medicine was not added!")
+          const message = getErrorMessage(error, "Medicine was not added!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
           ShowErrorMessage(true)
         }
   }

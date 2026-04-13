@@ -20,9 +20,9 @@ export interface PaginatedResponse<T> {
 }
 
 export interface AuthContextType {
-  user?: User;
+  // user?: User;
   loading: boolean;
-  setUser: (user: User | undefined) => void;
+  // setUser: (user: User | undefined) => void;
 }
 
 export interface AuthProviderType {
@@ -239,6 +239,11 @@ export type SaleType = {
   items: any[]
 }
 
+export type EditSaleType = {
+  quantity: number
+  dosage_instruction?: string
+}
+
 
 export const Status_choices = ["Completed", "Archived"] as const;
 export type StatusChoice = (typeof Status_choices)[number];   // "Completed" | "Archived"
@@ -280,6 +285,17 @@ export type saleItemsType = {
   sub_total?: number
   created_at?: string
   updated_at?: string
+}
+
+export type EditsaleItemsType = {
+  medicine_name: string
+  generic_name?: string
+  quantity: number
+  dosage_instruction?: string
+  strength?: number
+  strength_unit?: string
+  unit_price?: number
+  sub_total?: number
 }
 
 export type SaleHistoryType = {

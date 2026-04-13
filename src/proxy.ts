@@ -35,9 +35,9 @@ export const config = {
 // const token = request.cookies.get('access_token');
 // const cookie = request.cookies.get('access_token');
 
-//   console.log("PATH:", request.nextUrl.pathname);
-//   console.log("COOKIES:", request.cookies.getAll());
-//   console.log("TOKEN:", token);
+//   
+//   );
+//   
 
 //   return NextResponse.next();
 

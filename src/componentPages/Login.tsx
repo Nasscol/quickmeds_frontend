@@ -4,6 +4,7 @@ import Cover from "@/assets/login/loginCover4.jpg"
 import Logo from "@/assets/Logo/Logo-2.png"
 import { InputField, PasswordField } from '@/components/Global/Form'
 import LoadingSpinner from '@/components/Global/LoadingSpinner'
+import { getErrorMessage } from "@/helper"
 import { useloginUser } from '@/hooks/users/useUsers'
 import { LoginData } from '@/interfaces'
 import { LoginFormData, loginSchema } from '@/schema/loginSchema'
@@ -32,8 +33,9 @@ const Login = () => {
         router.refresh();
         router.push("/dashboard")
       },
-      onError: (err: any) => {
-        toast.error("Login Failed!")
+      onError: (error: any) => {
+        const message = getErrorMessage(error, "Login Failed!");
+        toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
       }
     })
   }

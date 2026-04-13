@@ -1,19 +1,20 @@
 import { useAuth } from "@/context/authContext"
-import { saleItemsType, SaleMedicineType } from "@/interfaces"
+import { EditsaleItemsType, EditSaleType, saleItemsType, SaleMedicineType } from "@/interfaces"
 import { Pencil, Trash } from "lucide-react"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { EditSaleDialog } from "./QuickActions"
+import { set } from "date-fns"
 
 interface ActionMenuProps {
   rowData: any
   onDelete: (rowData: SaleMedicineType) => void
+  onEdit: Dispatch<SetStateAction<any[]>>
 }
 
-export const ActionsButton = ({ rowData, onDelete }: ActionMenuProps) => {
+export const ActionsButton = ({ rowData, onDelete, onEdit }: ActionMenuProps) => {
     const [editOpen, setEditOpen] = useState(false)
-    const [selectedItem, setSelectedItem] = useState<saleItemsType | null>(null)
+    const [selectedItem, setSelectedItem] = useState<EditsaleItemsType | null>(null)
 
-    console.log("Edit sale data: ", rowData)
 return (
     <div>
         <div className="flex flex-row items-center justify-center gap-x-1">
@@ -27,7 +28,7 @@ return (
         </div>
         
 
-         <EditSaleDialog open={editOpen} setOpen={setEditOpen} saleItem={selectedItem}/>
+         <EditSaleDialog open={editOpen} setOpen={setEditOpen} saleItem={selectedItem} setItems={onEdit}/>
 
     </div>
     )

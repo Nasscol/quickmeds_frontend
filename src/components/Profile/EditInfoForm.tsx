@@ -28,7 +28,7 @@ export default function EditInfoForm({ defaultValues, onCancel, onSave }: EditUs
 
   const editUser = useUpdateUser();
 
-  console.log("edit user: ", defaultValues)
+  
 
 
 const onSubmit = async (data: User) => {

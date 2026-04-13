@@ -56,7 +56,6 @@ const DataTable = () => {
       prevLengthRef.current = items.length
     }, [items])
 
-    console.log("Current items: ", items)
     
 
     const loadOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
@@ -73,7 +72,7 @@ const DataTable = () => {
     const addSales = useAddSale()
 
     const onSubmit = (data: any) => {
-      console.log(data)
+      
         const medicine_id = selectedMedicine?.id
         const medicine_name = selectedMedicine?.name
         const generic_name = selectedMedicine?.generic_name
@@ -110,7 +109,7 @@ const DataTable = () => {
       }
       
       const payload = {items: items}
-      console.log(payload)
+      
 
       addSales.mutate(payload, {
         onSuccess: () => {

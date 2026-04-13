@@ -22,6 +22,8 @@ import { env } from "@/config/env"
 import api from "@/lib/axios"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { useLogoutUser, useMe } from "@/hooks/users/useUsers";
+import { getErrorMessage } from "@/helper";
 
 const SideBarNav: SidebarLink[]  = [
     {link_name: "Dashboard", link: "/dashboard", icon: Dashboard_icon},
@@ -115,28 +117,31 @@ const SideBarLinks = ({link_name, link, icon, isActive, options, isCollapsed, se
 
 const SideBar = () => {
     const router = useRouter();
-    const { user, loading, setUser } = useAuth();
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [isCollapseLoaded, setIsCollapseLoaded] = useState<boolean>(false)
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const pathname = usePathname();
-  
+    const { data: user, isLoading: UserLoading } = useMe();
+    const [isLoaded, setIsLoaded] = useState<boolean>(false)
+    const [isCollapseLoaded, setIsCollapseLoaded] = useState<boolean>(false)
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const pathname = usePathname();
   
 
     const filteredNav = SideBarNav.filter(item => !item.adminOnly || user?.groups?.includes("Admin"))
+    const log_out = useLogoutUser()
 
     const onLogout = async() => {
-        try{
-            await api.post(`${env.usersApi}/auth/logout/`)
-            toast.success("Logged out successfully")
-            router.refresh()
-            router.push("/login")
-        } catch(error: any) {
-            const message = error?.response?.data?.detail || "Logout failed!"
-            toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>)
-        }
-    }
-    return (
+       log_out.mutate(undefined, {
+          onSuccess: () => {
+            toast.success("Logged out successfully");
+            router.refresh();
+            router.push("/login");
+          },
+          onError: (error: any) => {
+            const message = getErrorMessage(error, "Unable to logout!");
+            toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+          },
+    })}
+
+
+return (
       <div className={`px-4 pt-5 pb-10 ${isCollapsed ? "w-20" : "w-58"} h-screen  bg-white hidden lg:block  overflow-y-auto scrollbar-hide z-40 transition-all duration-300 ease-in-out`}>
         <div className="relative mb-6 size-6 ml-auto cursor-pointer">
           {!isCollapseLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse rounded z-5" />}   
@@ -150,7 +155,7 @@ const SideBar = () => {
                 </div>
           <h5 className={`capitalize ${isCollapsed && "hidden"} font-semibold md:text-sm xl:text-base`}>QuickMeds System</h5>
 
-                {loading ? <div className="h-5 w-24 bg-black/10 animate-pulse rounded" /> : <h6 className='capitalize lg:text-xs xl:text-sm'>{user ? `${user.groups}` : "Unknown"}</h6>}
+                {UserLoading ? <div className="h-5 w-24 bg-black/10 animate-pulse rounded" /> : <h6 className='capitalize lg:text-xs xl:text-sm'>{user ? `${user.groups}` : "Unknown"}</h6>}
             </div>
 
             <div className='space-y-5'>

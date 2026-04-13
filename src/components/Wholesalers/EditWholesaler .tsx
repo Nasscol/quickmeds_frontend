@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { ContactField, InputField } from "../Global/Form"
 import CountryDropDown from "../Global/Form/CountryDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface EditWholesalerFormProps {
   defaultValues?: Partial<WholesalerType>
@@ -39,7 +40,8 @@ const onSubmit = async (data: WholesalerType) => {
            onSave()
           },
         onError: (error) => {
-          toast.error("Wholesaler was not updated!")
+          const message = getErrorMessage(error, "Wholesaler was not updated!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
           ShowErrorMessage(true)
         }
   }

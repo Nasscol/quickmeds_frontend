@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddManufacturers from './AddManufacturers'
 import EditManufacturers from './EditManufacturers '
+import { getErrorMessage } from "@/helper"
 
 interface EditManufacturesDialogProps {
   open: boolean
@@ -75,7 +76,7 @@ export function DeleteManufacturesDialog({ open, setOpen, manufacturer }: Delete
 
   const handleDelete = () => {
     if (!manufacturer?.id) return
-    console.log("Manufacturer to delete id: ", manufacturer.id)
+    
 
      deleteManufacturer.mutate(manufacturer.id, {
         onSuccess: () => {
@@ -83,8 +84,8 @@ export function DeleteManufacturesDialog({ open, setOpen, manufacturer }: Delete
            setOpen(false)
           },
         onError: (error) => {
-          console.log("Manufacturer ID NOT BEING DELETED: ", manufacturer.id)
-          toast.error("Manufacturer was not deleted!")
+          const message = getErrorMessage(error, "Manufacturer was not deleted!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }

@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import AddBatch from './AddBatch'
 import EditBatch from './EditBatch'
 import ViewBatch from './ViewBatch'
+import { getErrorMessage } from "@/helper"
 
 interface EditBatchDialogProps {
   open: boolean
@@ -105,7 +106,8 @@ export function DeleteBatchDialog({ open, setOpen, batch }: DeleteBatchDialogPro
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Batch was not deleted!")
+          const message = getErrorMessage(error, "Batch was not added!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }

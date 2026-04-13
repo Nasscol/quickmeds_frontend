@@ -1,47 +1,38 @@
 "use client";
 import { env } from "@/config/env";
+import { fetchMe } from "@/hooks/users/useUsers";
 import { AuthContextType, AuthProviderType, User } from "@/interfaces";
 import api from "@/lib/axios";
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const UserAPI = env.usersApi
 
-const AuthContext = createContext<AuthContextType | undefined>({ user: undefined, loading: true, setUser: () => {} });
+const AuthContext = createContext<AuthContextType | undefined>({ loading: true });
 
 export const AuthProvider = ({ children, initialUser, token }: AuthProviderType) => {
-  const [user, setUser] = useState<User | undefined>(initialUser);
+    const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchUser = async () => {
-    try {
-      if(token){
-        const res = await api.get(`${UserAPI}/me/`);
-        setUser(res.data);
+  useEffect(() => {
+    const init = async () => {
+      try {
+        if (token) {
+          await queryClient.prefetchQuery({
+            queryKey: ["me"],
+            queryFn: fetchMe,
+          });
+        }
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      setUser(undefined);
-    } finally{
-      setLoading(false);
-    }
-  };
+    };
 
-  useEffect(() => {
-    if (initialUser) {
-      setUser(initialUser);
-      setLoading(false);
-    }
-  }, [initialUser]);
-
-  useEffect(() => {
-    if (!initialUser) {
-      setLoading(true)
-      fetchUser();
-    }
+    init();
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, setUser }}>
+    <AuthContext.Provider value={{ loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,29 +1,33 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { saleItemsType } from '@/interfaces'
+import { EditsaleItemsType, saleItemsType } from '@/interfaces'
+import EditSaleForm from "./EditSaleForm"
+import { Dispatch, SetStateAction } from "react"
 
 interface EditSaleDialogProps {
   open: boolean
   setOpen: (open: boolean) => void
-  saleItem: saleItemsType | null
+  saleItem: EditsaleItemsType | null
+  setItems: Dispatch<SetStateAction<any[]>>
 }
 
 
-export function EditSaleDialog({ open, setOpen, saleItem }: EditSaleDialogProps) {
+export function EditSaleDialog({ open, setOpen, saleItem, setItems }: EditSaleDialogProps) {
 
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle>Edit Sale Item</DialogTitle>
           </DialogHeader>
 
-          {/* <EditMedicine
-            defaultValues={medicine ?? undefined}
+          <EditSaleForm
+            defaultValues={saleItem ?? undefined}
             onCancel={() => setOpen(false)}
             onSave={() => setOpen(false)}
-          /> */}
+            setItems={setItems}
+          />
         </DialogContent>
       </Dialog>
     </div>

@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddRole from './AddRole'
 import EditRole from './EditRole'
+import { getErrorMessage } from "@/helper"
 
 interface EditUserRoleProps {
   open: boolean
@@ -83,7 +84,8 @@ export function DeleteUserDialog({ open, setOpen, role }: DeleteUserRoleDialogPr
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Role was not deleted!")
+          const message = getErrorMessage(error, "Role was not deleted!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);                
         }
   })
 }

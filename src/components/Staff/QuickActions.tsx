@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddUser from './AddStaff'
 import EditStaff from './EditStaff'
+import { getErrorMessage } from "@/helper"
 
 interface EditUserDialogProps {
   open: boolean
@@ -82,7 +83,9 @@ export function DeleteUserDialog({ open, setOpen, user }: DeleteUserDialogProps)
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("User was not deleted!")
+          const message = getErrorMessage(error, "User was not deleted!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+                          
         }
   })
 }

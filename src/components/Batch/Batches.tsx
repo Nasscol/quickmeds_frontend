@@ -26,7 +26,7 @@ export const BatchCards = ({batch }: BatchCardProps) => {
 
   const Price = Number(batch.selling_price_per_unit)
 
-  console.log("expired: ", batch.is_expired)
+  
 
   return (
     <div className='flex flex-col gap-y-2 w-60 h-max bg-white rounded-lg shadow p-5 relative'>

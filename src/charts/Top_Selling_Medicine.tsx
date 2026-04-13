@@ -9,7 +9,7 @@ export function Top_Selling_Chart() {
     const {data, isLoading} = useDashboardTopSellingMedicine()
   const top_selling = data?.data
   
-  console.log("Top selling: ",top_selling)
+  
     
   return (
     <div>

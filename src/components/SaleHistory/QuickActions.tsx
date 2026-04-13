@@ -6,6 +6,7 @@ import { Archive } from "lucide-react";
 import { toast } from 'sonner';
 import LoadingSpinner from "../Global/LoadingSpinner";
 import ViewSale from "./ViewSale";
+import { getErrorMessage } from "@/helper";
 
 interface ViewSaleDialogProps {
   open: boolean
@@ -60,7 +61,8 @@ export function DeleteSaleDialog({ open, setOpen, sale }: DeleteSaleDialogProps)
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Sale Receipt was not archived!")
+          const message = getErrorMessage(error, "Sale Receipt was not archived!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }
@@ -119,7 +121,8 @@ export function UnAarchiveSaleDialog({ open, setOpen, sale }: DeleteSaleDialogPr
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Sale Receipt was not Unarchived!")
+          const message = getErrorMessage(error, "Sale Receipt was not Unarchived!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }

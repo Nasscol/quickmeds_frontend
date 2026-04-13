@@ -4,8 +4,14 @@ import { SaleMedicineType } from '@/interfaces'
 import { ColumnDef } from '@tanstack/react-table'
 import SortableHeader from '../Global/SortableHeader'
 import { ActionsButton } from './ActionsButton'
+import { Dispatch, SetStateAction } from 'react'
 
-export const getColumns = (onDelete: (row: any) => void): ColumnDef<SaleMedicineType>[] => [
+interface EditSaleButtons {
+  onDelete: (row: any) => void
+  setItems: Dispatch<SetStateAction<any[]>>
+}
+
+export const getColumns = ({onDelete, setItems}: EditSaleButtons): ColumnDef<SaleMedicineType>[] => [
   {
     accessorKey: "medicine_name",
     header: ({ column }) => <SortableHeader column={column} title="Medicine" />,
@@ -89,7 +95,7 @@ export const getColumns = (onDelete: (row: any) => void): ColumnDef<SaleMedicine
       header: 'Action',
       cell: ({ row }) => (
             <div className="flex justify-center">
-              <ActionsButton rowData={row.original} onDelete={onDelete} />
+              <ActionsButton rowData={row.original} onDelete={onDelete} onEdit={setItems}/>
             </div>
       ),
     },

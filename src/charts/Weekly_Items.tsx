@@ -8,7 +8,7 @@ export function Weekly_Items_Chart() {
     const {data, isLoading} = useDashboardWeeklyItems()
     const items = data?.data
 
-    console.log("Items: ", items)
+    
 
 
   return (

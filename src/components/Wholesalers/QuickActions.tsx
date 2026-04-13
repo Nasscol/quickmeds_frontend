@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddWholesalers from './AddWholesaler'
 import EditWholesalers from './EditWholesaler '
+import { getErrorMessage } from "@/helper"
 
 interface EditManufacturesDialogProps {
   open: boolean
@@ -82,7 +83,8 @@ export function DeleteWholesalerDialog({ open, setOpen, wholesaler }: DeleteManu
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Wholesaler was not deleted!")
+          const message = getErrorMessage(error, "Wholesaler was not deleted!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }

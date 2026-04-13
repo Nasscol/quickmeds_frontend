@@ -10,6 +10,7 @@ import { ManufacturerFormData, manufacturerSchema } from "../../schema/manufactu
 import { ContactField, InputField } from "../Global/Form"
 import CountryDropDown from "../Global/Form/CountryDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface AddManufacturerFormProps {
   defaultValues?: Partial<ManufacturerFormData>
@@ -38,7 +39,8 @@ const onSubmit = async (data: ManufacturersType) => {
            onSave
           },
         onError: (error) => {
-          toast.error("Manufacturer was not added!")
+          const message = getErrorMessage(error, "Manufacturer was not added!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
           ShowErrorMessage(true)
         }
   }

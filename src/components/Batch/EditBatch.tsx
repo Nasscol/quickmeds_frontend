@@ -67,7 +67,7 @@ export default function EditBatch({
     resolver: zodResolver(batchSchema),
   });
 
-  console.log("default values: ", defaultValues);
+  
 
   const editBatch = useUpdateBatch();
 

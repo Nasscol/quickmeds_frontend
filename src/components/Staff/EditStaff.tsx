@@ -12,6 +12,7 @@ import GenderDropDown from "../Global/Form/GenderDropdown"
 import IsActiveDropDown from "../Global/Form/Is_ActiveDropDown"
 import RolesDropDown from "../Global/Form/RolesDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface EditUserFormProps {
   defaultValues?: Partial<User>
@@ -52,18 +53,16 @@ const onSubmit = async (data: User) => {
     
       onSuccess: () => {
         toast.success("User updated successfully")
-          
           onSave()
         },
       onError: (error) => {
-        toast.error("User was not updated!")
-        ShowErrorMessage(true)
+        const message = getErrorMessage(error, "User was not updated!");
+        toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+        ShowErrorMessage(true);
       }
   }
   )
 }
-
-console.log("Errors:", errors)
 
   return (
       <form onSubmit={handleSubmit(onSubmit)} className="relative overflow-hidden flex flex-col gap-4 w-full mx-auto px-4 py-8 bg-white border rounded-lg shadow-sm ">

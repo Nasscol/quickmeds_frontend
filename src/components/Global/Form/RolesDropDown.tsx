@@ -30,7 +30,7 @@ const RolesDropDown = ({required, name, label, control, errors, register, onSele
     const { data: roles, isLoading } = useUserRoles()
     const Roles = roles?.results
 
-    console.log("roles data: ", Roles)
+    
   
     const options = Roles?.map((r: any) => ({
       label: r.name,

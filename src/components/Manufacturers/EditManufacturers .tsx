@@ -10,6 +10,7 @@ import { ManufacturerFormData, manufacturerSchema } from "../../schema/manufactu
 import { ContactField, InputField } from "../Global/Form"
 import CountryDropDown from "../Global/Form/CountryDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface EditManufacturerFormProps {
   defaultValues?: Partial<ManufacturersType>
@@ -33,14 +34,15 @@ const onSubmit = async (data: ManufacturersType) => {
   }
 
   const updatedData = { ...data, id: defaultValues?.id }
-  console.log("Data being updated: ", updatedData)
+  
     editManufacturer.mutate(updatedData, {
         onSuccess: () => {
           toast.success("Manufacturer updated successfully")
            onSave()
           },
         onError: (error) => {
-          toast.error("Manufacturer was not updated!")
+          const message = getErrorMessage(error, "Manufacturer was not updated!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
           ShowErrorMessage(true)
         }
   }

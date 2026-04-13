@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface EditMedicineFormProps {
   defaultValues?: Partial<CreateMedicineType>
@@ -31,7 +32,7 @@ export default function EditMedicine({ defaultValues, onCancel, onSave }: EditMe
     resolver: zodResolver(medicineSchema),
   })
   
-  console.log("medicine defaults: ", defaultValues)
+  
 
   const editMedicine = useUpdateMedicine();
   const { data, isLoading } = useManufacturers({ name: searchQuery})
@@ -69,7 +70,8 @@ const onSubmit = async (data: CreateMedicineType) => {
           onSave()
         },
       onError: (error) => {
-        toast.error("Medicine was not updated!")
+        const message = getErrorMessage(error, "Medicine was not updated!");
+        toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         ShowErrorMessage(true)
       }
   }

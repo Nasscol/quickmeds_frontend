@@ -41,7 +41,7 @@ const GenderDropDown = ({required, name, label, control, errors, register, gende
                   placeholder={placeholder}
                   onChange={(selectedOption: any) => {
                     const val = selectedOption?.value ?? null;
-                    console.log("i have selected this gender value: ", val)
+                    
                     onChange(val);       
                   }}
                   isClearable

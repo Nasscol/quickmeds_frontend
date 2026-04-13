@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { InputField } from "../Global/Form"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 interface EditRoleFormProps {
   defaultValues?: Partial<UserRoleType>
@@ -39,14 +40,15 @@ const onSubmit = async (data: UserRoleType) => {
           onSave()
         },
       onError: (error) => {
-        toast.error("Role was not updated!")
-        ShowErrorMessage(true)
+        const message = getErrorMessage(error, "Role was not updated!");
+        toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+        ShowErrorMessage(true);
       }
   }
   )
 }
 
-console.log("Errors:", errors)
+
 
   return (
       <form onSubmit={handleSubmit(onSubmit)} className="relative overflow-hidden flex flex-col gap-4 w-full mx-auto px-4 py-8 bg-white border rounded-lg shadow-sm ">

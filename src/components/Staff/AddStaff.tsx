@@ -12,6 +12,7 @@ import GenderDropDown from "../Global/Form/GenderDropdown"
 import IsActiveDropDown from "../Global/Form/Is_ActiveDropDown"
 import RolesDropDown from "../Global/Form/RolesDropDown"
 import LoadingSpinner from "../Global/LoadingSpinner"
+import { getErrorMessage } from "@/helper"
 
 
 interface AddUserFormProps {
@@ -56,8 +57,9 @@ const onSubmit = async (data: User) => {
            onSave()
           },
         onError: (error) => {
-          toast.error("User was not created!")
-          ShowErrorMessage(true)
+          const message = getErrorMessage(error, "Profile Image was not updated!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+          ShowErrorMessage(true);
         }
   }
   )

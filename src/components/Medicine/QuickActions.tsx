@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddMedicine from './AddMedicine'
 import EditMedicine from './EditMedicine '
+import { getErrorMessage } from "@/helper"
 
 interface EditMedicineDialogProps {
   open: boolean
@@ -82,7 +83,8 @@ export function DeleteMedicineDialog({ open, setOpen, medicine }: DeleteMedicine
            setOpen(false)
           },
         onError: (error) => {
-          toast.error("Medicine was not deleted!")
+          const message = getErrorMessage(error, "Medicine was not deleted!");
+          toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
         }
   })
 }

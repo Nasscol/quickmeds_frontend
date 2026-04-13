@@ -53,6 +53,7 @@ export function useUpdateUser() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["users"] })
       queryClient.invalidateQueries({ queryKey: ["user", data.id] })
+      queryClient.invalidateQueries({ queryKey: ["me"] })
     },
   })
 }
@@ -71,6 +72,19 @@ export function useDeleteUser() {
   })
 }
 
+export const fetchMe = async (): Promise<User> => {
+  const res = await api.get<User>(`${usersAPI}/me/`);
+  return res.data;
+};
+
+export function useMe() {
+  return useQuery({
+    queryKey: ["me"],
+    queryFn: fetchMe,
+    staleTime: 1000 * 60 * 60,
+  });
+}
+
 export const useloginUser = () => {
   const queryClient = useQueryClient()
 
@@ -83,6 +97,19 @@ export const useloginUser = () => {
       queryClient.invalidateQueries({ queryKey: ["roles"] })
     },
   })
+}
+
+export function useLogoutUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      await api.post(`${usersAPI}/auth/logout/`);
+    },
+    onSuccess: () => {
+      queryClient.clear();
+    },
+  });
 }
 
 

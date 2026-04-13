@@ -4,6 +4,7 @@ import { InfoDetailsProps } from '@/interfaces'
 import { Pencil } from "lucide-react"
 import { EditGeneralInfo } from './EditInfoDialog'
 import { useState } from 'react'
+import { useMe } from '@/hooks/users/useUsers'
 
 
 const InfoDetails = ({heading, info, loading}: InfoDetailsProps) => {
@@ -15,8 +16,8 @@ const InfoDetails = ({heading, info, loading}: InfoDetailsProps) => {
 }
 
 const GeneralInfo = () => {
-    const {user, loading} = useAuth()
-     const [editOpen, setEditOpen] = useState<boolean>(false)
+    const { data: user, isLoading: UserLoading } = useMe();
+    const [editOpen, setEditOpen] = useState<boolean>(false)
   return (
     <div className='rounded-lg shadow bg-white p-6 flex'>
         <div>
@@ -28,11 +29,11 @@ const GeneralInfo = () => {
                 <EditGeneralInfo open={editOpen} setOpen={setEditOpen} info={user}/>
             </div>
             <div className='flex flex-col gap-y-3'>
-                <InfoDetails heading='First Name' info={user?.first_name ?? "unknown"} loading={loading}/>
-                <InfoDetails heading='Last Name' info={user?.last_name ?? "unknown"} loading={loading}/>
-                <InfoDetails heading='Email' info={user?.email ?? "unknown"} loading={loading}/>
-                <InfoDetails heading='Phone Number' info={user?.phone_number ?? "unknown"} loading={loading}/>
-                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={loading}/>
+                <InfoDetails heading='First Name' info={user?.first_name ?? "unknown"} loading={UserLoading}/>
+                <InfoDetails heading='Last Name' info={user?.last_name ?? "unknown"} loading={UserLoading}/>
+                <InfoDetails heading='Email' info={user?.email ?? "unknown"} loading={UserLoading}/>
+                <InfoDetails heading='Phone Number' info={user?.phone_number ?? "unknown"} loading={UserLoading}/>
+                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={UserLoading}/>
             </div>
         </div>
     </div>
