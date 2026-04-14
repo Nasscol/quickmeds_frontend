@@ -31,31 +31,17 @@ export default async function RootLayout({
 }>) {
 
   const cookieStore = await cookies();
-  // const accessToken = cookieStore.get('access_token');
   const hasRefreshToken = cookieStore.has('refresh_token');
-  
-  // let user = undefined;
 
-  // if (accessToken) {
-  //   try {
-  //     // Direct call to Django using the cookie
-  //     const res = await fetch(`${env.api}${env.usersApi}/me/`, {
-  //       credentials: "include",
-  //       cache: 'no-store',
-  //     });
-  //     if (res.ok){
-  //       user = await res.json();
-        
-  //     }
-  //   } catch (err) {
-  //     console.error("Auth pre-fetch failed", err);
-  //   }
-  // }
 
 
   return (
     <html lang="en">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="QuickMeds" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative  bg-gray-100`}>
+          
           <Providers>
             <AuthProvider token={hasRefreshToken}>
 
