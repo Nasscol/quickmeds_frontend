@@ -23,7 +23,7 @@ export default function EditSaleForm({ defaultValues, onCancel, onSave, setItems
 
 
 const onSubmit = (newData: any) => {
-  console.log("New Edited Data: ", newData)
+  
   setItems(prev => prev.map(item => item === defaultValues ? { ...item, ...newData } : item ));
   onSave()
 };

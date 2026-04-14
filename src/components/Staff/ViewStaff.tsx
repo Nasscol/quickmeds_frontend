@@ -15,7 +15,7 @@ export default function ViewStaff({ defaultValues, onCancel, onSave }: EditUserF
   const [isProfilePicLoaded, setIsProfilePicLoaded] = useState<boolean>(false)
   const [image, setImage] = useState<File | string | undefined | StaticImageData>(defaultValues?.profile_image ?? undefined);
 
-  console.log("This user: ", defaultValues)
+  
 
   return (
        <div className="flex flex-row gap-x-5">
