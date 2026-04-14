@@ -23,13 +23,6 @@ export function AsyncDropdown<T>({ loadOptions, name, placeholder, errors, label
     const error = errors?.[name]
     const [selected, setSelected] = useState<OptionType<T> | null>(defaultValues)
 
-    // useEffect(() => {
-    //   if (defaultValues) {
-    //     setSelected(defaultValues);
-    //   }
-    // }, [defaultValues]);
-    
-
   return (
     <div className="relative pb-2 min-w-50">
 

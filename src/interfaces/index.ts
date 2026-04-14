@@ -219,6 +219,7 @@ export interface InfoDetailsProps {
     heading: string;
     info: string;
     loading?: boolean;
+    isFetching?: boolean
 }
 
 export interface ChangePasswordType {

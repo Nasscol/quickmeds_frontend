@@ -7,16 +7,16 @@ import { useState } from 'react'
 import { useMe } from '@/hooks/users/useUsers'
 
 
-const InfoDetails = ({heading, info, loading}: InfoDetailsProps) => {
+const InfoDetails = ({heading, info, loading, isFetching}: InfoDetailsProps) => {
     return (
         <div className='flex gap-x-2'>
-            {loading ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}
+            {loading || isFetching ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}
         </div>
     )
 }
 
 const GeneralInfo = () => {
-    const { data: user, isLoading: UserLoading } = useMe();
+    const { data: user, isLoading: UserLoading, isFetching: UserFetching } = useMe();
     const [editOpen, setEditOpen] = useState<boolean>(false)
   return (
     <div className='rounded-lg shadow bg-white p-6 flex'>
@@ -29,11 +29,11 @@ const GeneralInfo = () => {
                 <EditGeneralInfo open={editOpen} setOpen={setEditOpen} info={user}/>
             </div>
             <div className='flex flex-col gap-y-3'>
-                <InfoDetails heading='First Name' info={user?.first_name ?? "unknown"} loading={UserLoading}/>
-                <InfoDetails heading='Last Name' info={user?.last_name ?? "unknown"} loading={UserLoading}/>
-                <InfoDetails heading='Email' info={user?.email ?? "unknown"} loading={UserLoading}/>
-                <InfoDetails heading='Phone Number' info={user?.phone_number ?? "unknown"} loading={UserLoading}/>
-                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={UserLoading}/>
+                <InfoDetails heading='First Name' info={user?.first_name ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
+                <InfoDetails heading='Last Name' info={user?.last_name ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
+                <InfoDetails heading='Email' info={user?.email ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
+                <InfoDetails heading='Phone Number' info={user?.phone_number ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
+                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
             </div>
         </div>
     </div>

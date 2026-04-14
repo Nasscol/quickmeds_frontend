@@ -72,6 +72,11 @@ const DataTable = () => {
     const addSales = useAddSale()
 
     const onSubmit = (data: any) => {
+
+      if(!selectedMedicine?.current_price){
+        toast.error(`Out of stock: ${selectedMedicine?.name}`)
+        return
+      }
       
         const medicine_id = selectedMedicine?.id
         const medicine_name = selectedMedicine?.name
