@@ -1,13 +1,13 @@
 'use client'
 
-import { ColumnDef } from '@tanstack/react-table'
-import {  allowedAdminOnlyGroup, User } from '@/interfaces'
-import { ActionsButton } from './ActionsButton'
+import { allowedTechGroups, User } from '@/interfaces';
+import { ColumnDef } from '@tanstack/react-table';
 import { format, parseISO } from "date-fns";
-import SortableHeader from '../Global/SortableHeader'
+import SortableHeader from '../Global/SortableHeader';
+import { ActionsButton } from './ActionsButton';
 
 export const getColumns = (user?: User): ColumnDef<User>[] => {
-  const isAuthorized = user?.groups?.some(group => allowedAdminOnlyGroup.includes(group));
+  const isAuthorized = user?.groups?.some(group => allowedTechGroups.includes(group));
 
   const baseColumns: ColumnDef<User>[] = [
   {

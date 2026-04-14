@@ -7,6 +7,7 @@ export interface SidebarLink {
   isActive?: boolean;
   options?: {link_name: string, link: string}[]
   adminOnly?: boolean
+  tech_And_Admin?: boolean
   isCollapsed?: boolean
   setIsCollapsed?: (isCollapse: boolean) => void;
 }
@@ -181,6 +182,7 @@ export type User = {
   gender?: string
   role?: string
   groups?: string[]
+  is_active?: boolean
   created_at?: string
   updated_at?: string
 }
@@ -220,6 +222,7 @@ export interface InfoDetailsProps {
     info: string;
     loading?: boolean;
     isFetching?: boolean
+    Capitalize?: boolean
 }
 
 export interface ChangePasswordType {

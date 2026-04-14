@@ -1,11 +1,14 @@
 'use client'
 
-import { UserRoleType } from '@/interfaces';
+import { allowedAdminOnlyGroup, User, UserRoleType } from '@/interfaces';
 import { ColumnDef } from '@tanstack/react-table';
 import SortableHeader from '../Global/SortableHeader';
 import { ActionsButton } from './ActionsButton';
 
-export const columns: ColumnDef<UserRoleType>[] = [
+export const getColumns = (user?: User): ColumnDef<UserRoleType>[] => {
+  const isAuthorized = user?.groups?.some(group => allowedAdminOnlyGroup.includes(group));
+
+  const baseColumns: ColumnDef<UserRoleType>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -15,13 +18,15 @@ export const columns: ColumnDef<UserRoleType>[] = [
     header: ({ column }) => <SortableHeader column={column} title="Role" />,
     enableSorting: true,
   },
-  {
-    id: 'action',
-    header: 'Action',
-    cell: ({ row }) => (
-          <div className="flex justify-center">
-            <ActionsButton rowData={row.original} />
-          </div>
-    ),
-  },
-]
+  ]
+    
+    if (isAuthorized) {
+      baseColumns.push({
+        id: 'action',
+        header: 'Action',
+        cell: ({ row }) => <ActionsButton  rowData={row.original} />
+      });
+    }
+  
+    return baseColumns;
+  }

@@ -181,7 +181,7 @@ const DataTable = () => {
 
                       <div className='h-12'>
                         <h6 className="capitalize flex text-sm mb-1 font-medium text-gray-700">Unit Price:</h6>
-                        <p>{selectedMedicine?.current_price ? `UGX ${Number(selectedMedicine?.current_price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ""}</p>
+                        <p>{selectedMedicine?.current_price ? `UGX ${Number(selectedMedicine?.current_price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Out of stock"}</p>
                       </div>
 
                     <div className="flex justify-end gap-2 mt-4">

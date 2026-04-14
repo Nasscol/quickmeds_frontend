@@ -14,7 +14,7 @@ import Collapse_icon from "@/assets/Icons/sidebar-1.png"
 import LogoutIcon from "@/assets/Icons/logout-1.png"
 import Logo from "@/assets/Logo/Logo-2.png"
 import { useAuth } from '@/context/authContext'
-import { SidebarLink } from '@/interfaces'
+import { allowedAdminOnlyGroup, allowedTechGroups, SidebarLink } from '@/interfaces'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from "react"
@@ -38,7 +38,7 @@ const SideBarNav: SidebarLink[]  = [
     {link_name: "Wholesalers", link: "/wholesalers", icon: Wholesale_icon},
     {link_name: "Manufacturers", link: "/manufacturers", icon: Manufacturers_icon},
     {link_name: "Reports", link: "#", icon: Reports_icon, adminOnly: true},
-    {link_name: "Administration", icon: Admin_icon, adminOnly: true,
+    {link_name: "Administration", icon: Admin_icon, tech_And_Admin: true,
         options: [
             {link_name: "Staff", link: "/staff"},
             {link_name: "Roles", link: "/roles"},
@@ -98,17 +98,17 @@ const SideBarLinks = ({link_name, link, icon, isActive, options, isCollapsed, se
                 {/* Dropdown children */}
                 {hasDropDownList && !isCollapsed && (
                     <div className={` ml-10 mt-1 flex flex-col space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
-            {options.map((option) => {
-              const isdropdownActive = pathname === option.link
-              return (
-              <Link key={option.link_name} href={option.link}>
-                <div className={`text-sm py-1 px-2 rounded-md ${isdropdownActive ? "bg-gray-200" : "hover:bg-gray-200"}`}>
-                  {option.link_name}
-                </div>
-              </Link>
-            )})}
+                      {options.map((option) => {
+                        const isdropdownActive = pathname === option.link
+                        return (
+                        <Link key={option.link_name} href={option.link}>
+                          <div className={`text-sm py-1 px-2 rounded-md ${isdropdownActive ? "bg-gray-200" : "hover:bg-gray-200"}`}>
+                            {option.link_name}
+                          </div>
+                        </Link>
+                      )})}
                     </div>
-                    )}
+                )}
 
             </div>
     )
@@ -123,7 +123,21 @@ const SideBar = () => {
     const pathname = usePathname();
   
 
-    const filteredNav = SideBarNav.filter(item => !item.adminOnly || user?.groups?.includes("Admin"))
+    
+    const filteredNav = SideBarNav.filter(item => {
+
+      if (item.adminOnly) {
+        return user?.groups?.some(group =>  allowedAdminOnlyGroup.includes(group));
+      }
+
+      if (item.tech_And_Admin) {
+        return user?.groups?.some(group =>  allowedTechGroups.includes(group));
+      }
+
+      return true;
+    });
+
+
     const log_out = useLogoutUser()
 
     const onLogout = async() => {

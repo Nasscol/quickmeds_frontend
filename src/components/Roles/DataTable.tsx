@@ -1,17 +1,19 @@
 'use client'
 
-import { UserRoleQuery, UserRoleType } from '@/interfaces'
+import { allowedAdminOnlyGroup, UserRoleQuery, UserRoleType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useState } from 'react'
-import { columns } from './Columns'
+import { getColumns } from './Columns'
 import { AddRoleDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
-import { useUserRoles } from '@/hooks/users/useUsers'
+import { useMe, useUserRoles } from '@/hooks/users/useUsers'
 import Datatable from '../Global/Datatable'
 
 export default function RolesTable() {
+  const { data: user, isLoading: UserLoading } = useMe();
+  const columns = getColumns(user)
   const [name, setName] = useState<string | undefined>(undefined)
   const [searchQuery, setSearchQuery] = useState<UserRoleQuery>()
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
@@ -45,7 +47,7 @@ export default function RolesTable() {
 
                 
               </form>
-                <AddRoleDialog />
+                {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <AddRoleDialog />}
             </div>
             
           <Datatable data={roles} columns={columns} isLoading={isLoading} pagination={pagination} setPagination={setPagination} totalItems={totalItems}/>

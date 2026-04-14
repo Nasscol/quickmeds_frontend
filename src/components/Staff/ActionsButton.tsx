@@ -3,10 +3,10 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { allowedAdminOnlyGroup, User } from "@/interfaces"
+import { allowedAdminOnlyGroup, allowedTechGroups, User } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
-import { DeleteUserDialog, EditUserDialog } from "./QuickActions"
+import { DeleteUserDialog, EditUserDialog, ViewUserDialog } from "./QuickActions"
 import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
@@ -17,6 +17,7 @@ export const ActionsButton = ({ rowData }: ActionMenuProps) => {
     const { data: user, isLoading: UserLoading } = useMe();
     const [editOpen, setEditOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
+    const [viewOpen, setViewOpen] = useState(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
 return (
     <div>
@@ -32,6 +33,14 @@ return (
                 align="end"
                 className="w-32 p-2 flex flex-col gap-1">
 
+                 {user?.groups?.some(group => allowedTechGroups.includes(group)) && 
+                    <button
+                    className="text-sm text-gray-900 hover:bg-gray-100 rounded px-2 py-1 text-left cursor-pointer"
+                    onClick={() => {setViewOpen(true); setSelectedUser(rowData);} }>
+                        View
+                    </button>
+                }
+
                 {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && 
                     <button
                     className="text-sm text-blue-600 hover:bg-blue-50 rounded px-2 py-1 text-left cursor-pointer"
@@ -39,6 +48,7 @@ return (
                         Edit
                     </button>
                 }
+                
 
                 {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && 
                     <button
@@ -50,8 +60,9 @@ return (
             </PopoverContent>
         </Popover>
 
-         <EditUserDialog open={editOpen} setOpen={setEditOpen}  user={selectedUser}/>
-         {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <DeleteUserDialog open={deleteOpen} setOpen={setDeleteOpen}  user={selectedUser}/>}
+        <ViewUserDialog open={viewOpen} setOpen={setViewOpen}  user={selectedUser}/>
+        <EditUserDialog open={editOpen} setOpen={setEditOpen}  user={selectedUser}/>
+        {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <DeleteUserDialog open={deleteOpen} setOpen={setDeleteOpen}  user={selectedUser}/>}
     </div>
     )
 }

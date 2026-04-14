@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import AddUser from './AddStaff'
 import EditStaff from './EditStaff'
 import { getErrorMessage } from "@/helper"
+import ViewStaff from "./ViewStaff"
 
 interface EditUserDialogProps {
   open: boolean
@@ -47,6 +48,29 @@ export function AddUserDialog() {
   )
 }
 
+
+export function ViewUserDialog({ open, setOpen, user }: EditUserDialogProps) {
+
+  return (
+    <div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="">
+          <DialogHeader>
+            <DialogTitle>View User</DialogTitle>
+          </DialogHeader>
+
+          <ViewStaff
+            defaultValues={user ?? undefined}
+            onCancel={() => setOpen(false)}
+            onSave={() => setOpen(false)}
+          />
+
+        </DialogContent>
+      </Dialog>
+    </div>
+    
+  )
+}
 
 export function EditUserDialog({ open, setOpen, user }: EditUserDialogProps) {
 

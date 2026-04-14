@@ -7,10 +7,10 @@ import { useState } from 'react'
 import { useMe } from '@/hooks/users/useUsers'
 
 
-const InfoDetails = ({heading, info, loading, isFetching}: InfoDetailsProps) => {
+const InfoDetails = ({heading, info, loading, isFetching, Capitalize}: InfoDetailsProps) => {
     return (
         <div className='flex gap-x-2'>
-            {loading || isFetching ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p>{info}</p></>}
+            {loading || isFetching ? <div className="h-6 w-68 bg-black/10  animate-pulse rounded" /> : <><h6 className='font-semibold'>{heading}: </h6> <p className={`${Capitalize && "capitalize"}`}>{info}</p></>}
         </div>
     )
 }
@@ -33,7 +33,7 @@ const GeneralInfo = () => {
                 <InfoDetails heading='Last Name' info={user?.last_name ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
                 <InfoDetails heading='Email' info={user?.email ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
                 <InfoDetails heading='Phone Number' info={user?.phone_number ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
-                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={UserLoading} isFetching={UserFetching}/>
+                <InfoDetails heading='Gender' info={user?.gender ?? "unknown"} loading={UserLoading} isFetching={UserFetching} Capitalize={true}/>
             </div>
         </div>
     </div>
