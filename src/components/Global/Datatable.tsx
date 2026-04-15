@@ -31,7 +31,7 @@ const Datatable = <T,>({data, columns, isLoading, pagination, setPagination,tota
         getCoreRowModel: getCoreRowModel(),
     })
   return (
-    <div className={`flex flex-col gap-y-5 ${noHeight ? "" : "min-h-127"}`}>
+    <div className={`flex flex-col gap-y-15 ${noHeight ? "" : "min-h-127"}`}>
 
         <div className="overflow-x-auto">
             <Table className="table-auto border border-gray-200 bg-white">

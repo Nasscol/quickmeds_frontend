@@ -20,7 +20,7 @@ interface BatchCardProps {
   batch: Partial<BatchType>
 }
 
-export const BatchCards = ({batch }: BatchCardProps) => {
+export const BatchCards = ({batch}: BatchCardProps) => {
   const { data: user, isLoading: UserLoading } = useMe();
   const [editOpen, setEditOpen] = useState<boolean>(false)
   const [viewOpen, setViewOpen] = useState<boolean>(false)
@@ -236,8 +236,8 @@ export default function Batches() {
             </div>
 
             
-          <div className='max-w-350 mx-auto min-h-247'>
-            <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative">
+          <div className='max-w-350 pb-10 mx-auto'>
+            <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative min-h-247">
                 {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
                       batches.map((batch) => (
                         <BatchCards key={batch.id} batch={batch} />
