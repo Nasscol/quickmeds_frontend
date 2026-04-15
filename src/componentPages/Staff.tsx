@@ -4,7 +4,7 @@ import { Main } from '@/components/Staff'
 
 const Staff = () => {
   return (
-    <div>
+    <div className='pb-6'>
         <DashHeading Title='Staff'/>
         <Main />
     </div>

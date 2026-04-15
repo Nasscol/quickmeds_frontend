@@ -57,7 +57,7 @@ const onSubmit = async (data: User) => {
            onSave()
           },
         onError: (error) => {
-          const message = getErrorMessage(error, "Profile Image was not updated!");
+          const message = getErrorMessage(error, "User was not created!");
           toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
           ShowErrorMessage(true);
         }

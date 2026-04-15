@@ -4,7 +4,7 @@ import { Main } from '@/components/Batch'
 
 const Batch = () => {
   return (
-    <div>
+    <div className='pb-6'>
         <DashHeading Title='Inventory'/>
         <Main />
     </div>

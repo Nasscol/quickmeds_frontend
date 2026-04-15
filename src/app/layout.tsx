@@ -6,7 +6,6 @@ import { Providers } from "./provider";
 import 'primeicons/primeicons.css';
 import "./globals.css";
 import { cookies } from "next/headers";
-import { env } from "@/config/env";
 
 
 const geistSans = Geist({

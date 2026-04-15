@@ -4,7 +4,7 @@ import { useManufacturers } from '@/hooks/inventory/useManufacturers'
 import { allowedTechGroups, ManufacturerSearchQuery, ManufacturersType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getColumns } from './Columns'
 import { AddManufacturesDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
@@ -12,6 +12,9 @@ import TextSearchFields from './SearchFields'
 import { useAuth } from '@/context/authContext'
 import Datatable from '../Global/Datatable'
 import { useMe } from '@/hooks/users/useUsers'
+import { getErrorMessage } from '@/helper'
+
+import { toast } from 'sonner'
 
 export default function ManufacturerTable() {
    const { data: user, isLoading: UserLoading } = useMe();
@@ -24,7 +27,7 @@ export default function ManufacturerTable() {
   const [searchQuery, setSearchQuery] = useState<ManufacturerSearchQuery>({name: undefined, country: undefined, email: undefined, contact: undefined});
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
 
-  const { data, isLoading } = useManufacturers({page: pagination.pageIndex + 1, ...searchQuery})
+  const { data, isLoading, error } = useManufacturers({page: pagination.pageIndex + 1, ...searchQuery})
   const manufacturers: ManufacturersType[] = data?.results ?? []
   const totalItems = data?.count ?? 0
 
@@ -36,6 +39,13 @@ export default function ManufacturerTable() {
 
     setSearchQuery({ name: undefined, country: undefined, email: undefined, contact: undefined })
   }
+
+    useEffect(() => {
+      if (error) {
+        const message = getErrorMessage(error, "Unauthorized Access!");
+        toast.error(message);
+      }
+    }, [error]);
 
   return (
     <div>

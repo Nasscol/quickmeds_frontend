@@ -3,13 +3,15 @@
 import { allowedAdminOnlyGroup, UserRoleQuery, UserRoleType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getColumns } from './Columns'
 import { AddRoleDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
 import { useMe, useUserRoles } from '@/hooks/users/useUsers'
 import Datatable from '../Global/Datatable'
+import { getErrorMessage } from '@/helper'
+import { toast } from 'sonner'
 
 export default function RolesTable() {
   const { data: user, isLoading: UserLoading } = useMe();
@@ -17,7 +19,7 @@ export default function RolesTable() {
   const [name, setName] = useState<string | undefined>(undefined)
   const [searchQuery, setSearchQuery] = useState<UserRoleQuery>()
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
-  const { data, isLoading, isError } = useUserRoles({page: pagination.pageIndex + 1, ...searchQuery})
+  const { data, isLoading, error } = useUserRoles({page: pagination.pageIndex + 1, ...searchQuery})
   const roles: UserRoleType[] = data?.results ?? []
 
   const totalItems = data?.count ?? 0
@@ -26,6 +28,13 @@ export default function RolesTable() {
     setName(undefined)
     setSearchQuery({role: undefined})
   }
+
+  useEffect(() => {
+      if (error) {
+        const message = getErrorMessage(error, "Unauthorized Access!");
+        toast.error(message);
+      }
+    }, [error]);
 
   return (
     <div>

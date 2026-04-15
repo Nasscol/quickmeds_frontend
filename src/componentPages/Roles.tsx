@@ -4,7 +4,7 @@ import { Main } from '@/components/Roles'
 
 const Roles = () => {
   return (
-    <div>
+    <div className='pb-6'>
         <DashHeading Title='Roles'/>
         <Main />
     </div>

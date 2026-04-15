@@ -9,6 +9,7 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Sale from "./Sale";
 import SaleHistory from "./SaleHistory";
+import UnauthorizedPage from "./UnauthorizedPage";
 
 export {
     Dashboard,
@@ -22,4 +23,5 @@ export {
     Profile,
     Sale,
     SaleHistory,
+    UnauthorizedPage
 }

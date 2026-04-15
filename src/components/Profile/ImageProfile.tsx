@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '@/context/authContext'
 import Image, { StaticImageData } from 'next/image'
 import Profile_Pic from "@/assets/profile pics/profile_placeholder.png";
@@ -8,10 +8,16 @@ import { Pencil } from 'lucide-react';
 import { useMe } from '@/hooks/users/useUsers';
 
 const ImageProfile = () => {
-    const { data: user, isLoading: UserLoading } = useMe();
+    const { data: user, isLoading: UserLoading, isFetching: UserFetching } = useMe();
     const [image, setImage] = useState<File | string | undefined | StaticImageData>(user?.profile_image ?? undefined);
     const [isProfilePicLoaded, setIsProfilePicLoaded] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false)
+
+    useEffect(() => {
+        if(user){
+            setImage(user?.profile_image as string)
+        }
+    }, [user])
 
   return (
         <div className='rounded-lg shadow bg-white p-6 flex justify-center items-center w-80'>
@@ -19,7 +25,7 @@ const ImageProfile = () => {
 
                 <div className='size-40 overflow-hidden relative mb-4 '>
                     <div className='rounded-full border-4 border-blue-200 w-full h-full relative overflow-hidden'>
-                        {UserLoading ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={(image as string || image as StaticImageData) ?? ""} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>}
+                        {UserLoading || UserFetching ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={(image as string || image as StaticImageData)} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>}
                     </div>
                     <button onClick={() => setOpen(true)} className="absolute z-20 bottom-0 right-2 text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-(--blue-150) rounded-full cursor-pointer p-2 transition-colors">
                         <Pencil size={16} />

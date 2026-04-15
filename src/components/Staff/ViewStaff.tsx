@@ -22,7 +22,7 @@ export default function ViewStaff({ defaultValues, onCancel, onSave }: EditUserF
         <div>
            <div className='size-40 mx-auto mb-3 rounded-full border-4 border-blue-200 relative overflow-hidden'>
              {!isProfilePicLoaded && <div className="w-full h-full bg-black/10 animate-pulse rounded" />} 
-             <Image src={(image as string || image as StaticImageData) ?? ""} alt={defaultValues?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>
+             <Image src={(image as string || image as StaticImageData)} alt={defaultValues?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>
           </div>
 
           <div>

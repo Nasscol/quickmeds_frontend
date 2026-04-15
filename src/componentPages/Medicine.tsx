@@ -4,7 +4,7 @@ import { Main } from '@/components/Medicine'
 
 const Medicine = () => {
   return (
-    <div>
+    <div className='pb-6'>
         <DashHeading Title='Medicine'/>
         <Main />
     </div>

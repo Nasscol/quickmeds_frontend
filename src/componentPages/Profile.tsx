@@ -4,7 +4,7 @@ import { DashHeading } from '@/components/Global'
 
 const Profile = () => {
   return (
-    <div>
+    <div className='pb-6'>
         <DashHeading Title='Profile'/>
         <Main />
     </div>
