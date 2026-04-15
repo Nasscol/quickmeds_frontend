@@ -9,7 +9,7 @@ import Weekly_Items from '@/charts/Weekly_Items'
 const Dashboard = () => {
   
   return (
-    <section className='pb-6'>
+    <section className='pb-20'>
       
       <div className='mb-5'>
         <DashHeading Title='Dashboard' />

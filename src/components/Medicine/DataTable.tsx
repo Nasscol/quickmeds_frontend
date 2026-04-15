@@ -3,7 +3,7 @@
 import { allowedTechGroups, MedicineSearchQuery, MedicineType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getColumns } from './Columns'
 import { AddMedicineDialog } from './QuickActions'
 import TextSearchFields, { ReactNumberSearchField } from './SearchFields'
@@ -12,6 +12,8 @@ import { useAuth } from '@/context/authContext'
 import { useMedicines } from '@/hooks/inventory/useMedicine'
 import Datatable from '../Global/Datatable'
 import { useMe } from '@/hooks/users/useUsers'
+import { getErrorMessage } from '@/helper'
+import { toast } from 'sonner'
 
 export default function MedicineTable() {
   const { data: user, isLoading: UserLoading } = useMe();
@@ -27,7 +29,7 @@ export default function MedicineTable() {
   const [manufacturer, setManufacturer] = useState<string | undefined>(undefined)
   const [searchQuery, setSearchQuery] = useState<MedicineSearchQuery>({name: undefined, generic_name: undefined, dosage_form: undefined, strength: undefined, strength_unit: undefined, manufacturer: undefined, strength_min: undefined, strength_max: undefined});
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
-  const { data, isLoading, isError } = useMedicines({page: pagination.pageIndex + 1, ...searchQuery})
+  const { data, isLoading, error } = useMedicines({page: pagination.pageIndex + 1, ...searchQuery})
   const medicine: MedicineType[] = data?.results ?? []
   const totalItems = data?.count ?? 0
 
@@ -43,6 +45,13 @@ export default function MedicineTable() {
 
     setSearchQuery({ name: undefined, generic_name: undefined, dosage_form: undefined, strength: undefined, strength_unit: undefined, manufacturer: undefined, strength_min: undefined, strength_max: undefined })
   }
+
+  useEffect(() => {
+      if (error) {
+        const message = getErrorMessage(error, "Something went wrong!");
+        toast.error(message);
+      }
+    }, [error]);
 
   return (
     <div>

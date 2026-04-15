@@ -1,7 +1,7 @@
 'use client'
 
 import { allowedAdminOnlyGroup, allowedTechGroups, BatchSearchQuery, BatchType } from '@/interfaces'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AddBatchDialog, DeleteBatchDialog, EditBatchDialog, ViewBatchDialog } from './QuickActions'
 import TextSearchFields, { DateSearchFields, NumberSearchFields } from './SearchFields'
 import { Search, XCircle } from 'lucide-react'
@@ -13,6 +13,8 @@ import LoadingSpinner from '../Global/LoadingSpinner'
 import { ReactNumberSearchField } from '../Medicine/SearchFields'
 import { useAuth } from '@/context/authContext'
 import { useMe } from '@/hooks/users/useUsers'
+import { getErrorMessage } from '@/helper'
+import { toast } from 'sonner'
 
 interface BatchCardProps {
   batch: Partial<BatchType>
@@ -139,7 +141,7 @@ export default function Batches() {
     expiry_date_to: undefined
   });
 
-  const { data, isLoading } = useBatches({page: page, ...searchQuery})
+  const { data, isLoading, error } = useBatches({page: page, ...searchQuery})
 
   const batches: BatchType[] = data?.results ?? []
 
@@ -174,6 +176,13 @@ export default function Batches() {
       expiry_date_to: undefined
     })
   }
+
+  useEffect(() => {
+      if (error) {
+        const message = getErrorMessage(error, "Something went wrong!");
+        toast.error(message);
+      }
+  }, [error]);
 
   return (
     <div>

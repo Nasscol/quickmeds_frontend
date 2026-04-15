@@ -144,8 +144,7 @@ const SideBar = () => {
        log_out.mutate(undefined, {
           onSuccess: () => {
             toast.success("Logged out successfully");
-            router.refresh();
-            router.push("/login");
+            router.replace("/login");
           },
           onError: (error: any) => {
             const message = getErrorMessage(error, "Unable to logout!");

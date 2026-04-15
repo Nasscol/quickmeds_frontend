@@ -4,7 +4,7 @@ import React from 'react'
 
 const Sale = () => {
   return (
-     <div className='pb-6'>
+     <div className='pb-20'>
         <DashHeading Title='Sale'/>
         <Main />
     </div>

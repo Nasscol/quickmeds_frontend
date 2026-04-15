@@ -47,7 +47,7 @@ const NavBar = () => {
     }, [user])
 
   return (
-    <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5 z-9999'>
+    <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5'>
         <div className='flex items-center gap-x-2'>
             <div className='size-10 relative'>
                 {!isLogoLoaded && <div className="absolute inset-0 bg-black/10 animate-pulse rounded z-5" />}   

@@ -4,7 +4,7 @@ import { useWholesalers } from '@/hooks/inventory/useWholesalers'
 import { allowedAdminOnlyGroup, allowedTechGroups, ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getColumns } from './Columns'
 import { AddWholesalerDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
@@ -12,6 +12,8 @@ import TextSearchFields from './SearchFields'
 import Datatable from '../Global/Datatable'
 import { useAuth } from '@/context/authContext'
 import { useMe } from '@/hooks/users/useUsers'
+import { getErrorMessage } from '@/helper'
+import { toast } from 'sonner'
 
 export default function WholesalerTable() {
   const { data: user, isLoading: UserLoading } = useMe();
@@ -24,7 +26,7 @@ export default function WholesalerTable() {
   const [searchQuery, setSearchQuery] = useState<ManufacturerSearchQuery>({name: undefined, country: undefined, email: undefined, contact: undefined});
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
 
-  const { data, isLoading } = useWholesalers({page: pagination.pageIndex + 1, ...searchQuery})
+  const { data, isLoading, error } = useWholesalers({page: pagination.pageIndex + 1, ...searchQuery})
   const wholesalers: WholesalerType[] = data?.results ?? []
   const totalItems = data?.count ?? 0
 
@@ -36,6 +38,13 @@ export default function WholesalerTable() {
 
     setSearchQuery({ name: undefined, country: undefined, email: undefined, contact: undefined })
   }
+
+  useEffect(() => {
+    if (error) {
+      const message = getErrorMessage(error, "Something went wrong!");
+      toast.error(message);
+    }
+  }, [error]);
 
   return (
     <div>

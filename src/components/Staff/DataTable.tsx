@@ -44,7 +44,7 @@ export default function UserTable() {
   
   useEffect(() => {
     if (error) {
-      const message = getErrorMessage(error, "Unauthorized Access!");
+      const message = getErrorMessage(error, "Something went wrong!");
       toast.error(message);
     }
   }, [error]);
