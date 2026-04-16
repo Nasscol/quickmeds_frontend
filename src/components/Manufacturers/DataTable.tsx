@@ -9,10 +9,9 @@ import { getColumns } from './Columns'
 import { AddManufacturesDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
-import { useAuth } from '@/context/authContext'
-import Datatable from '../Global/Datatable'
-import { useMe } from '@/hooks/users/useUsers'
 import { getErrorMessage } from '@/helper'
+import { useMe } from '@/hooks/users/useUsers'
+import Datatable from '../Global/Datatable'
 
 import { toast } from 'sonner'
 

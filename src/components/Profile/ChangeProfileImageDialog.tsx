@@ -1,5 +1,5 @@
-import { User } from '@/interfaces'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { User } from '@/interfaces'
 import ChangeImageForm from './ChangeImageForm'
 
 interface ProfileImageProps {

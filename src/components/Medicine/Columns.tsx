@@ -1,10 +1,10 @@
 'use client'
 
-import { ColumnDef } from '@tanstack/react-table'
-import { allowedTechGroups, MedicineType, User } from '@/interfaces'
-import { ActionsButton } from './ActionsButton'
+import { allowedTechGroups, MedicineType, User } from '@/interfaces';
+import { ColumnDef } from '@tanstack/react-table';
 import { format, parseISO } from "date-fns";
-import SortableHeader from '../Global/SortableHeader'
+import SortableHeader from '../Global/SortableHeader';
+import { ActionsButton } from './ActionsButton';
 
 export const getColumns = (user?: User): ColumnDef<MedicineType>[] => {
   const isAuthorized = user?.groups?.some(group => allowedTechGroups.includes(group));

@@ -2,7 +2,7 @@
 
 import { OptionType } from "@/interfaces";
 import { useEffect, useState } from "react";
-import { Control, Controller, FieldErrors, useFormContext } from "react-hook-form";
+import { Controller, FieldErrors } from "react-hook-form";
 import AsyncSelect from "react-select/async";
 
 

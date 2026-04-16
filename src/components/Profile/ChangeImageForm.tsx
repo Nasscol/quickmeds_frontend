@@ -1,5 +1,5 @@
 import { getErrorMessage } from '@/helper';
-import { useUpdateMe, useUpdateUser } from '@/hooks/users/useUsers';
+import { useUpdateMe } from '@/hooks/users/useUsers';
 import { User } from '@/interfaces';
 import { EditProfileImage, EditProfileImageFormData } from '@/schema/changeProfileImageSchema';
 import { zodResolver } from '@hookform/resolvers/zod';

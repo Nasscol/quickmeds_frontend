@@ -1,20 +1,17 @@
 'use client'
 
-import { useDosageForms } from "@/hooks/inventory/useDosageForms"
-import { useManufacturers } from "@/hooks/inventory/useManufacturers"
+import { env } from "@/config/env"
+import { getErrorMessage } from "@/helper"
 import { useAddMedicine } from "@/hooks/inventory/useMedicine"
-import { useStrengthUnits } from "@/hooks/inventory/useStrengthUnits"
 import { CreateMedicineType, ManufacturersType, OptionType } from "@/interfaces"
+import api from "@/lib/axios"
 import { MedicineFormData, medicineSchema } from "@/schema/medicineSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { AsyncDropdown, Dropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
+import { AsyncDropdown, ImageField, InputField, ReactNumberField, TextField } from "../Global/Form"
 import LoadingSpinner from "../Global/LoadingSpinner"
-import { getErrorMessage } from "@/helper"
-import { env } from "@/config/env"
-import api from "@/lib/axios"
 
 
 interface AddMedicineFormProps {

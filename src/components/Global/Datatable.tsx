@@ -1,8 +1,8 @@
 "use client"
-import React, { useState } from 'react'
-import {flexRender,getCoreRowModel, getPaginationRowModel, useReactTable, getSortedRowModel, SortingState, ColumnDef, PaginationState, Updater} from '@tanstack/react-table'
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import LoadingSpinner from '../Global/LoadingSpinner'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, SortingState, Updater, useReactTable } from '@tanstack/react-table';
+import { useState } from 'react';
+import LoadingSpinner from '../Global/LoadingSpinner';
 
 interface DataTableTypes<T>{
     data: T[] 

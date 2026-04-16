@@ -1,11 +1,10 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import { useAuth } from '@/context/authContext'
-import Image, { StaticImageData } from 'next/image'
 import Profile_Pic from "@/assets/profile pics/profile_placeholder.png";
-import ChangeProfileImageDialog from './ChangeProfileImageDialog';
-import { Pencil } from 'lucide-react';
 import { useMe } from '@/hooks/users/useUsers';
+import { Pencil } from 'lucide-react';
+import Image, { StaticImageData } from 'next/image';
+import { useEffect, useState } from 'react';
+import ChangeProfileImageDialog from './ChangeProfileImageDialog';
 
 const ImageProfile = () => {
     const { data: user, isLoading: UserLoading, isFetching: UserFetching } = useMe();

@@ -1,10 +1,9 @@
 "use client"
-import { useAuth } from '@/context/authContext'
+import { useMe } from '@/hooks/users/useUsers'
 import { InfoDetailsProps } from '@/interfaces'
 import { Pencil } from "lucide-react"
-import { EditGeneralInfo } from './EditInfoDialog'
 import { useState } from 'react'
-import { useMe } from '@/hooks/users/useUsers'
+import { EditGeneralInfo } from './EditInfoDialog'
 
 
 const InfoDetails = ({heading, info, loading, isFetching, Capitalize}: InfoDetailsProps) => {

@@ -3,12 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { allowedAdminOnlyGroup, CreateMedicineType, User } from "@/interfaces"
+import { useMe } from "@/hooks/users/useUsers"
+import { allowedAdminOnlyGroup, CreateMedicineType } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteMedicineDialog, EditMedicineDialog } from "./QuickActions"
-import { useAuth } from "@/context/authContext"
-import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: any

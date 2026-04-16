@@ -1,6 +1,6 @@
 "use client"
-import { useCountries } from '@/hooks/useCountries'
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { useCountries } from '@/hooks/useCountries';
+import { Controller, FieldErrors } from "react-hook-form";
 import Select from 'react-select';
 
 interface DropdownOption {
@@ -14,8 +14,6 @@ interface DropdownList {
   required?: boolean;
   control: any
   register: any;
-  // options: DropdownOption[];
-  //value: DropdownOption | null;
   isLoading?: boolean;
   placeholder?: string;
   errors?: FieldErrors

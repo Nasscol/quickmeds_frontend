@@ -8,12 +8,11 @@ import { getColumns } from './Columns'
 import { AddMedicineDialog } from './QuickActions'
 import TextSearchFields, { ReactNumberSearchField } from './SearchFields'
 
-import { useAuth } from '@/context/authContext'
-import { useMedicines } from '@/hooks/inventory/useMedicine'
-import Datatable from '../Global/Datatable'
-import { useMe } from '@/hooks/users/useUsers'
 import { getErrorMessage } from '@/helper'
+import { useMedicines } from '@/hooks/inventory/useMedicine'
+import { useMe } from '@/hooks/users/useUsers'
 import { toast } from 'sonner'
+import Datatable from '../Global/Datatable'
 
 export default function MedicineTable() {
   const { data: user, isLoading: UserLoading } = useMe();

@@ -1,5 +1,6 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { getErrorMessage } from "@/helper"
 import { useDeleteManufacturer } from '@/hooks/inventory/useManufacturers'
 import { ManufacturersType } from '@/interfaces'
 import { Trash } from "lucide-react"
@@ -7,7 +8,6 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddManufacturers from './AddManufacturers'
 import EditManufacturers from './EditManufacturers '
-import { getErrorMessage } from "@/helper"
 
 interface EditManufacturesDialogProps {
   open: boolean

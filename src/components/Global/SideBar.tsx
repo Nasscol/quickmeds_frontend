@@ -1,29 +1,24 @@
 "use client"
-import { usePathname } from "next/navigation";
-import Admin_icon from "@/assets/Icons/admin-2.png"
-import Dashboard_icon from "@/assets/Icons/dashboard.png"
-import Inventory_icon from "@/assets/Icons/inventory.png"
-import Manufacturers_icon from "@/assets/Icons/manufacturers-2.png"
-import Medicine_icon from "@/assets/Icons/medicine.png"
-import POS_icon from "@/assets/Icons/pos.png"
-import Reports_icon from "@/assets/Icons/reports.png"
-import Settings_icon from "@/assets/Icons/settings-2.png"
-import User_icon from "@/assets/Icons/user-1.png"
-import Wholesale_icon from "@/assets/Icons/wholesale.png"
-import Collapse_icon from "@/assets/Icons/sidebar-1.png"
-import LogoutIcon from "@/assets/Icons/logout-1.png"
-import Logo from "@/assets/Logo/Logo-2.png"
-import { useAuth } from '@/context/authContext'
-import { allowedAdminOnlyGroup, allowedTechGroups, SidebarLink } from '@/interfaces'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from "react"
-import { env } from "@/config/env"
-import api from "@/lib/axios"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-import { useLogoutUser, useMe } from "@/hooks/users/useUsers";
+import Admin_icon from "@/assets/Icons/admin-2.png";
+import Dashboard_icon from "@/assets/Icons/dashboard.png";
+import Inventory_icon from "@/assets/Icons/inventory.png";
+import LogoutIcon from "@/assets/Icons/logout-1.png";
+import Manufacturers_icon from "@/assets/Icons/manufacturers-2.png";
+import Medicine_icon from "@/assets/Icons/medicine.png";
+import POS_icon from "@/assets/Icons/pos.png";
+import Reports_icon from "@/assets/Icons/reports.png";
+import Collapse_icon from "@/assets/Icons/sidebar-1.png";
+import User_icon from "@/assets/Icons/user-1.png";
+import Wholesale_icon from "@/assets/Icons/wholesale.png";
+import Logo from "@/assets/Logo/Logo-2.png";
 import { getErrorMessage } from "@/helper";
+import { useLogoutUser, useMe } from "@/hooks/users/useUsers";
+import { allowedAdminOnlyGroup, allowedTechGroups, SidebarLink } from '@/interfaces';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const SideBarNav: SidebarLink[]  = [
     {link_name: "Dashboard", link: "/dashboard", icon: Dashboard_icon},

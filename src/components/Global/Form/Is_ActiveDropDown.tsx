@@ -1,6 +1,5 @@
 "use client"
-import { useCountries } from '@/hooks/useCountries'
-import { Controller, Control, FieldErrors, useForm } from "react-hook-form";
+import { Controller, FieldErrors } from "react-hook-form";
 import Select from 'react-select';
 
 interface DropdownList {

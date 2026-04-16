@@ -1,6 +1,6 @@
 'use client'
 
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { Controller, FieldErrors } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 
 

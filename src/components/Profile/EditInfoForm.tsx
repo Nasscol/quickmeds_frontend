@@ -1,6 +1,7 @@
 'use client'
 
-import { useUpdateMe, useUpdateUser } from "@/hooks/users/useUsers"
+import { getErrorMessage } from "@/helper"
+import { useUpdateMe } from "@/hooks/users/useUsers"
 import { User } from "@/interfaces"
 import { EditUserFormData, EditUserSchema } from "@/schema/editUserSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -10,7 +11,6 @@ import { toast } from "sonner"
 import { ContactField, InputField } from "../Global/Form"
 import GenderDropDown from "../Global/Form/GenderDropdown"
 import LoadingSpinner from "../Global/LoadingSpinner"
-import { getErrorMessage } from "@/helper"
 
 interface EditUserFormProps {
   defaultValues?: Partial<User>

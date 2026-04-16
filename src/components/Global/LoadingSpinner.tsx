@@ -1,5 +1,4 @@
-import React from 'react'
-import {BarLoader} from "react-spinners"
+import { BarLoader } from "react-spinners"
 
 const LoadingSpinner = () => {
   return (

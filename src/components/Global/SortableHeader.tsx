@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react"
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 const SortableHeader = ({ column, title }: { column: any; title: string }) => {
   const s = column.getIsSorted()

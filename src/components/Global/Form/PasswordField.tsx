@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from "react"
-import { FieldErrors } from "react-hook-form"
 import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { FieldErrors } from "react-hook-form";
 
 interface FormInputProps {
   label: string

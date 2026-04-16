@@ -3,12 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { ManufacturersType } from "@/interfaces"
+import { useMe } from "@/hooks/users/useUsers"
+import { allowedAdminOnlyGroup, ManufacturersType } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteManufacturesDialog, EditManufacturesDialog } from "./QuickActions"
-import { useMe } from "@/hooks/users/useUsers"
-import { allowedAdminOnlyGroup } from "@/interfaces"
 
 interface ActionMenuProps {
   rowData: ManufacturersType

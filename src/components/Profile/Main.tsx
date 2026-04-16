@@ -1,7 +1,6 @@
-import React from 'react'
-import ImageProfile from './ImageProfile'
-import GeneralInfo from './GeneralInfo'
 import ChangePassword from './ChangePassword'
+import GeneralInfo from './GeneralInfo'
+import ImageProfile from './ImageProfile'
 
 const Main = () => {
   return (

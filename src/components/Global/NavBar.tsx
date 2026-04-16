@@ -1,7 +1,6 @@
 "use client"
 import Logo from "@/assets/Logo/Logo.png";
 import Profile_Pic from "@/assets/profile pics/profile_placeholder.png";
-import { useAuth } from "@/context/authContext";
 import { useMe } from "@/hooks/users/useUsers";
 import Image, { StaticImageData } from 'next/image';
 import Link from "next/link";

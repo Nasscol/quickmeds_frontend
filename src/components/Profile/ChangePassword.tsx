@@ -1,16 +1,14 @@
 "use client"
-import React, { useState } from 'react'
-import { useAuth } from '@/context/authContext'
-import { Pencil } from "lucide-react"
-import { InputField, PasswordField } from '../Global/Form'
-import { ChangePasswordFormData, changePasswordSchema } from '@/schema/changePasswordSchema'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { getErrorMessage } from '@/helper'
 import { useChangePassword } from '@/hooks/users/useUsers'
 import { ChangePasswordType } from '@/interfaces'
-import { getErrorMessage } from '@/helper'
-import LoadingSpinner from '../Global/LoadingSpinner'
+import { ChangePasswordFormData, changePasswordSchema } from '@/schema/changePasswordSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Pencil } from "lucide-react"
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { PasswordField } from '../Global/Form'
+import LoadingSpinner from '../Global/LoadingSpinner'
 
 const ChangePassword = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ChangePasswordFormData>({
