@@ -168,6 +168,7 @@ export type BatchSearchQuery = {
   expiry_date?: string
   expiry_date_from?: string
   expiry_date_to?: string
+  is_expired?: boolean
 }
 
 export type User = {
@@ -205,6 +206,7 @@ export type UserSearchQuery = {
   email?: string
   phone_number?: string
   gender?: "male" | "female" | string | null
+  is_active?: boolean
 }
 
 export type UserRoleType = {

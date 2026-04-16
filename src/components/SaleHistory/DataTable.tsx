@@ -5,7 +5,7 @@ import { SaleHistoryType, SaleSearchQuery, Status_choices, StatusChoice } from '
 import { SaleFormData, saleSchema } from '@/schema/saleSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PaginationState } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import Datatable from '../Global/Datatable'
@@ -49,6 +49,13 @@ const DataTable = () => {
 
       setSearchQuery({id: undefined, sold_by: undefined, total_max: undefined, total_min: undefined, sold_from: undefined, sold_to: undefined, status: undefined})
     }
+
+    useEffect(() => {
+      setPagination(prev => ({
+        ...prev,
+        pageIndex: 0,
+      }));
+    }, [searchQuery]);
 
     const Options = Status_choices.map((item) => ({ label: item, value: item }));
 

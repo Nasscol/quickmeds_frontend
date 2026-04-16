@@ -1,7 +1,7 @@
 'use client'
 
-import { ColumnDef } from '@tanstack/react-table'
 import { TopMedicineDataType } from '@/interfaces'
+import { ColumnDef } from '@tanstack/react-table'
 
 export const columns: ColumnDef<TopMedicineDataType>[] = [
   {

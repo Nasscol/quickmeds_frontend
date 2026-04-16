@@ -40,6 +40,13 @@ export default function ManufacturerTable() {
     setSearchQuery({ name: undefined, country: undefined, email: undefined, contact: undefined })
   }
 
+  useEffect(() => {
+    setPagination(prev => ({
+      ...prev,
+      pageIndex: 0,
+    }));
+  }, [searchQuery]);
+
     useEffect(() => {
       if (error) {
         const message = getErrorMessage(error, "Something went wrong!");

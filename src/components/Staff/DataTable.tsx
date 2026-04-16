@@ -12,6 +12,8 @@ import { useMe, useUsers } from '@/hooks/users/useUsers'
 import Datatable from '../Global/Datatable'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/helper'
+import { IsActiveDropDown } from '../Global/Form'
+import { useForm } from 'react-hook-form'
 
 export default function UserTable() {
   const { data: user, isLoading: UserLoading } = useMe();
@@ -23,11 +25,16 @@ export default function UserTable() {
   const [email, setEmail] = useState<string | undefined>(undefined)
   const [phone_number, setPhoneNumber] = useState<string | undefined>(undefined)
   const [gender, setGender] = useState<string| undefined>(undefined)
-  const [searchQuery, setSearchQuery] = useState<UserSearchQuery>({search: undefined, first_name: undefined, last_name: undefined, username: undefined, phone_number: undefined, gender: undefined});
+  const [is_active, setIs_Active] = useState<boolean | undefined>(undefined)
+
+  const [searchQuery, setSearchQuery] = useState<UserSearchQuery>({search: undefined, first_name: undefined, last_name: undefined, username: undefined, phone_number: undefined, gender: undefined, is_active: undefined});
   const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10})
+
   const { data, isLoading, error } = useUsers({page: pagination.pageIndex + 1, ...searchQuery})
   const users: User[] = data?.results ?? []
   const totalItems = data?.count ?? 0
+
+  const { control, reset, formState: { errors } } = useForm<UserSearchQuery>({})
 
   const clearSearchQueries = () => {
     setSearch(undefined)
@@ -37,9 +44,19 @@ export default function UserTable() {
     setEmail(undefined)
     setPhoneNumber(undefined)
     setGender(undefined)
+    setIs_Active(undefined)
 
-    setSearchQuery({search: undefined, first_name: undefined, last_name: undefined, username: undefined, phone_number: undefined, gender: undefined})
+    reset()
+
+    setSearchQuery({search: undefined, first_name: undefined, last_name: undefined, username: undefined, phone_number: undefined, gender: undefined, is_active: undefined})
   }
+
+  useEffect(() => {
+  setPagination(prev => ({
+    ...prev,
+    pageIndex: 0,
+  }));
+}, [searchQuery]);
 
   
   useEffect(() => {
@@ -52,7 +69,7 @@ export default function UserTable() {
   return (
     <div>
           <div className='flex justify-between items-end mb-5'>
-              <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({search, first_name, last_name, phone_number, email, username, gender})}} className='flex flex-col gap-x-3 gap-y-5'>
+              <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({search, first_name, last_name, phone_number, email, username, gender, is_active})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end'>
                   <TextSearchFields label='First Name' name='first_name' value={first_name} onChange={setFirstName}/>
                   <TextSearchFields label='Last Name' name='last_name' value={last_name} onChange={setLastName}/>
@@ -60,7 +77,7 @@ export default function UserTable() {
                   <TextSearchFields label='Email' name='email' value={email} onChange={setEmail}/>
                   <ContactSearchField label='Phone Number' name='phone_number' value={phone_number} onChange={setPhoneNumber}/>
                   <TextSearchFields label='Gender' name='email' value={gender} onChange={setGender}/>
-                  
+                  <IsActiveDropDown label="Status" name="is_active" placeholder="Select a status" control={control} errors={errors} onSelect={setIs_Active}/>
 
 
                   <div className='ml-5 flex gap-x-3'>

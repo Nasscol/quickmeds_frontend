@@ -47,6 +47,13 @@ export default function MedicineTable() {
   }
 
   useEffect(() => {
+    setPagination(prev => ({
+      ...prev,
+      pageIndex: 0,
+    }));
+  }, [searchQuery]);
+
+  useEffect(() => {
       if (error) {
         const message = getErrorMessage(error, "Something went wrong!");
         toast.error(message);

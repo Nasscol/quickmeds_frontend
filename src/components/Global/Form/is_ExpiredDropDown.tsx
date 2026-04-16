@@ -19,12 +19,12 @@ interface DropdownList {
 
 
 
-const IsActiveDropDown = ({required, name, label, control, errors, onSelect, form=false,  placeholder = ""}: DropdownList) => {
+const IsExpiredDropDown = ({required, name, label, control, errors, form=false,  onSelect, placeholder = ""}: DropdownList) => {
 
       const error = errors?.[name]
       const options = [ 
-        { label: "Active", value: true }, 
-        { label: "Not Active", value: false } ];
+        { label: "Expired", value: true }, 
+        { label: "Not Expired", value: false } ];
     
   return (
      <div className={`relative ${form ? "pb-2" : ""} min-w-40`}>
@@ -42,6 +42,7 @@ const IsActiveDropDown = ({required, name, label, control, errors, onSelect, for
                   placeholder={placeholder}
                   onChange={(selectedOption: any) => {
                     const val = selectedOption?.value ?? null;
+                    
                     onSelect?.(selectedOption?.value)
 
                     onChange(val);       
@@ -57,4 +58,4 @@ const IsActiveDropDown = ({required, name, label, control, errors, onSelect, for
   )
 }
 
-export default IsActiveDropDown
+export default IsExpiredDropDown

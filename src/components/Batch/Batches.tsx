@@ -1,20 +1,22 @@
 'use client'
 
 import { allowedAdminOnlyGroup, allowedTechGroups, BatchSearchQuery, BatchType } from '@/interfaces'
+import { Search, XCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { AddBatchDialog, DeleteBatchDialog, EditBatchDialog, ViewBatchDialog } from './QuickActions'
-import TextSearchFields, { DateSearchFields, NumberSearchFields } from './SearchFields'
-import { Search, XCircle } from 'lucide-react'
+import TextSearchFields, { DateSearchFields } from './SearchFields'
 
+import { getErrorMessage } from '@/helper'
 import { useBatches } from '@/hooks/inventory/useBatch'
+import { useMe } from '@/hooks/users/useUsers'
 import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { Pagination } from '../Global'
+import IsExpiredDropDown from '../Global/Form/is_ExpiredDropDown'
 import LoadingSpinner from '../Global/LoadingSpinner'
 import { ReactNumberSearchField } from '../Medicine/SearchFields'
-import { useAuth } from '@/context/authContext'
-import { useMe } from '@/hooks/users/useUsers'
-import { getErrorMessage } from '@/helper'
-import { toast } from 'sonner'
+
 
 interface BatchCardProps {
   batch: Partial<BatchType>
@@ -133,13 +135,18 @@ export default function Batches() {
   const [expiry_date_from, setExpiry_date_from] = useState<string | undefined>(undefined)
   const [expiry_date_to, setExpiry_date_to] = useState<string | undefined>(undefined)
 
+  const [is_expired, setIs_Expired] = useState<boolean | undefined>(undefined)
+
+
   const [searchQuery, setSearchQuery] = useState<BatchSearchQuery>({ 
     search: undefined, batch_number: undefined, medicine: undefined, medicine_generic: undefined, wholesaler: undefined, purchase_price: undefined, 
     purchase_price_maximum: undefined, purchase_price_minimum: undefined, selling_price_maximum: undefined, selling_price_minimum: undefined,
     selling_price_per_unit: undefined, quantity_received: undefined, quantity_received_max: undefined, quantity_received_min: undefined, 
     quantity_remaining: undefined, quantity_remaining_max: undefined, quantity_remaining_min: undefined, expiry_date: undefined, expiry_date_from: undefined,
-    expiry_date_to: undefined
+    expiry_date_to: undefined, is_expired: undefined,
   });
+
+  const { control, reset, formState: { errors } } = useForm<BatchSearchQuery>({})
 
   const { data, isLoading, error } = useBatches({page: page, ...searchQuery})
 
@@ -166,14 +173,16 @@ export default function Batches() {
     setExpiry_date(undefined)
     setExpiry_date_from(undefined)
     setExpiry_date_to(undefined)
+    setIs_Expired(undefined)
 
-
+    reset()
+    
     setSearchQuery({ 
       search: undefined, batch_number: undefined, wholesaler: undefined, purchase_price: undefined, 
       purchase_price_maximum: undefined, purchase_price_minimum: undefined, selling_price_maximum: undefined, selling_price_minimum: undefined,
       selling_price_per_unit: undefined, quantity_received: undefined, quantity_received_max: undefined, quantity_received_min: undefined, 
       quantity_remaining: undefined, quantity_remaining_max: undefined, quantity_remaining_min: undefined, expiry_date: undefined, expiry_date_from: undefined,
-      expiry_date_to: undefined
+      expiry_date_to: undefined, is_expired: undefined
     })
   }
 
@@ -187,7 +196,7 @@ export default function Batches() {
   return (
     <div>
           <div className='flex justify-between items-end mb-15 max-w-350 mx-auto'>
-              <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({batch_number, search, wholesaler, purchase_price, purchase_price_maximum, purchase_price_minimum, selling_price_maximum, selling_price_minimum, selling_price_per_unit, quantity_received, quantity_received_max, quantity_received_min, quantity_remaining, quantity_remaining_max, quantity_remaining_min, expiry_date, expiry_date_from, expiry_date_to})}} className='flex flex-col gap-x-3 gap-y-5'>
+              <form onSubmit={(e) => {e.preventDefault(); setPage(1); setSearchQuery({batch_number, search, wholesaler, purchase_price, purchase_price_maximum, purchase_price_minimum, selling_price_maximum, selling_price_minimum, selling_price_per_unit, quantity_received, quantity_received_max, quantity_received_min, quantity_remaining, quantity_remaining_max, quantity_remaining_min, expiry_date, expiry_date_from, expiry_date_to, is_expired})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Batch Number' name='batch_number' value={batch_number} onChange={setBatchNumber}/>
                   <TextSearchFields label='Medicine' name='medicine' value={search} onChange={setSearch}/>
@@ -218,7 +227,7 @@ export default function Batches() {
                   <DateSearchFields label='Expiry Date From' name='expiry_date_from' value={expiry_date_from} onChange={setExpiry_date_from}/>
                   <p className='mb-1'>{" - "}</p>
                   <DateSearchFields label='Expiry Date To' name='expiry_date_to' value={expiry_date_to} onChange={setExpiry_date_to}/>
-
+                  <IsExpiredDropDown name='is_expired' label='Expiry Status' placeholder="Select expired status" onSelect={setIs_Expired} control={control} errors={errors} />
 
                   <div className='ml-5 flex gap-x-3'>
                     <button type='submit' className=' cursor-pointer text-gray-700 bg-gray-200 hover:bg-blue-100 rounded-full p-2 transition-colors'>

@@ -31,26 +31,11 @@ interface AddBatchFormProps {
   onSave: () => void;
 }
 
-export default function AddBatch({
-  defaultValues,
-  onCancel,
-  onSave,
-}: AddBatchFormProps) {
-  const [medicineName, setMedicineName] = useState<string | undefined>(
-    undefined,
-  );
-  const [wholesalerName, setWholesalerName] = useState<string | undefined>(
-    undefined,
-  );
+export default function AddBatch({ defaultValues, onCancel, onSave }: AddBatchFormProps) {
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false);
   const inventoryAPI = env.inventoryApi;
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<BatchFormData>({
+  const { register, handleSubmit, control, formState: { errors } } = useForm<BatchFormData>({
     defaultValues,
     resolver: zodResolver(batchSchema),
   });
@@ -58,10 +43,8 @@ export default function AddBatch({
   const addBatch = useAddBatch();
 
 
-  const loadMedicineOptions = async (
-    inputValue: string,
-  ): Promise<OptionType<MedicineType>[]> => {
-    const res = await api.get(`${inventoryAPI}/medicine-summary/`, {
+  const loadMedicineOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => { 
+      const res = await api.get(`${inventoryAPI}/medicine-summary/`, {
       params: { search: inputValue },
     });
 
@@ -71,9 +54,7 @@ export default function AddBatch({
     }));
   };
 
-  const loadWholesalerOptions = async (
-    inputValue: string,
-  ): Promise<OptionType<MedicineType>[]> => {
+  const loadWholesalerOptions = async (inputValue: string): Promise<OptionType<MedicineType>[]> => {
     const res = await api.get(`${inventoryAPI}/wholesalers/`, {
       params: { name: inputValue },
     });

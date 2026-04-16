@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from "react"
 import Image, { StaticImageData } from "next/image"
+import { useState } from "react"
 type KpiCardProps = {
   label: string
   value: string | number

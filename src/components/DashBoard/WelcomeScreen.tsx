@@ -1,23 +1,17 @@
 "use client"
-import DashBoardVector from "@/assets/dashboard/quickmeds-dash-1.jpg"
-import Cash from "@/assets/Icons/cash-2.svg"
-import Medicine from "@/assets/Icons/medicine-3.svg"
 import Transactions from "@/assets/Icons/cart-1.svg"
+import Cash from "@/assets/Icons/cash-2.svg"
 import Avg_Transactions from "@/assets/Icons/growth-1.svg"
-import { useAuth } from '@/context/authContext'
-import Image from 'next/image'
-import KpiCard from './KPICard'
-import { useState } from "react"
+import Medicine from "@/assets/Icons/medicine-3.svg"
 import { useDashboardDailyKPI } from "@/hooks/dashboard/useDashboard"
 import { useMe } from "@/hooks/users/useUsers"
+import KpiCard from './KPICard'
 
 const WelcomeScreen = () => {
   const { data: user, isLoading: UserLoading, isFetching: UserFetching } = useMe();
   const {data, isLoading: KPILoading, isFetching: KPIfetching} = useDashboardDailyKPI()
 
   
-
-  // const [isLoaded, setIsLoaded] = useState<boolean>(false)
   return (
     <div className='bg-white rounded-lg border border-gray-100 p-6 flex flex-col lg:flex-row justify-between'>
         <div>

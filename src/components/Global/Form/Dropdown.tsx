@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 interface DropdownOption {
   label: string;
-  value: string;
+  value: string | boolean;
 }
 
 interface DropdownList {
