@@ -34,6 +34,8 @@ export const BatchCards = ({batch}: BatchCardProps) => {
   
 
   return (
+    <div>
+
     <div className='flex flex-col gap-y-2 w-60 h-max bg-white rounded-lg shadow p-5 relative'>
       {batch.is_expiring_soon && <div className='bg-orange-700 text-gray-100 text-[0.7rem] rounded-xl px-3 py-1 w-max absolute bottom-2 right-2 cursor-default'>Expires in {batch.is_expiring_soon} days</div>}
       {batch.is_expired && <div className='bg-red-800 text-gray-100 text-[0.7rem] rounded-xl absolute px-3 py-1 w-max bottom-2 right-2 cursor-default'>Expired</div>}
@@ -64,7 +66,7 @@ export const BatchCards = ({batch}: BatchCardProps) => {
       </div>
 
       {user ? user?.groups?.some(group => allowedAdminOnlyGroup.includes(group))? 
-      <div className='mt-2 flex gap-x-5 text-xs items-center justify-center'>
+      <div className='mt-2 pb-5 flex gap-x-5 text-xs items-center justify-center'>
         <button onClick={() => setEditOpen(true)} className='px-4 py-1 bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer transition-colors'>
           Edit
         </button>
@@ -76,7 +78,7 @@ export const BatchCards = ({batch}: BatchCardProps) => {
         </button>
       </div>
       : user?.groups?.some(group => allowedTechGroups.includes(group)) ? 
-        <div className='mt-2 flex gap-x-5 text-xs items-center justify-center'>
+        <div className='mt-2 pb-5  flex gap-x-5 text-xs items-center justify-center'>
         <button onClick={() => setEditOpen(true)} className='px-4 py-1 bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer transition-colors'>
           Edit
         </button>
@@ -85,23 +87,22 @@ export const BatchCards = ({batch}: BatchCardProps) => {
         </button>
       </div>
       :
-      <div className='mt-2 flex text-xs items-center justify-center'>
+      <div  className='mt-2 pb-5  flex gap-x-5 text-xs items-center justify-center'>
         <button onClick={() => setViewOpen(true)} className='px-4 py-1 bg-gray-800 hover:bg-gray-900 text-white rounded-lg cursor-pointer transition-colors'>
           View
         </button>
       </div>
         :
-        <div className='mt-2 flex text-xs items-center justify-center'>
+        <div className='mt-2 pb-5 flex text-xs items-center justify-center'>
         <button disabled className='px-4 py-1 bg-red-800 hover:bg-red-900 disabled:opacity-50 text-white rounded-lg cursor-pointer transition-colors'>
           Not Authorized
         </button>
       </div>
       }
 
-      
+    </div>
 
-
-      {user?.groups?.some(group => allowedTechGroups.includes(group)) && <EditBatchDialog open={editOpen} setOpen={setEditOpen} batch={batch}/>}
+     {user?.groups?.some(group => allowedTechGroups.includes(group)) && <EditBatchDialog open={editOpen} setOpen={setEditOpen} batch={batch}/>}
       <ViewBatchDialog open={viewOpen} setOpen={setViewOpen} batch={batch}/>
       {user?.groups?.some(group => allowedAdminOnlyGroup.includes(group)) && <DeleteBatchDialog open={deleteOpen} setOpen={setDeleteOpen} batch={batch}/>}
     </div>
