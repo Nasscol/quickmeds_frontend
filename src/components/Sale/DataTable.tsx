@@ -70,7 +70,7 @@ const DataTable = () => {
 
 
     const addSales = useAddSale()
-    const { data: stock, error: stockError } = useSaleStockAvailable(selectedMedicine?.id)
+    const { data: stock, isLoading: stockLoading, isFetching: stockFetching, error: stockError } = useSaleStockAvailable(selectedMedicine?.id)
     const stockAvailable = stock?.available_stock
     
     
@@ -200,7 +200,7 @@ const DataTable = () => {
 
                       <div className='h-12'>
                         <h6 className="capitalize flex text-sm mb-1 font-medium text-gray-700">Stock Available:</h6>
-                        <p>{stockAvailable ? `${Number(stockAvailable).toLocaleString('en-US')}` : ""}</p>
+                        {stockLoading || stockFetching ? <div className="h-6 w-7 bg-black/10 animate-pulse rounded mt-1" /> : <p className='w-max'>{stockAvailable ? `${Number(stockAvailable).toLocaleString('en-US')}` : ""}</p>}
                       </div>
 
                     <div className="flex justify-end gap-2 mt-4">
