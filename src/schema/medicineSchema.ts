@@ -4,7 +4,7 @@ export const medicineSchema = zod.object({
   name: zod.string().nonempty({ message: "Name is required" }).max(100, { message: "Name can't be more than 100 characters" }),
   generic_name: zod.string().max(100, { message: "Generic Name can't be more than 100 characters" }).optional(),
   dosage_form: zod.string().max(50, { message: "Dosage Form can't be more than 50 characters" }).nullable().optional(),
-  strength: zod.number().optional(),
+  strength: zod.number().max(9999.99, {error: "Strength limit: 9,999.99"}).optional(),
   strength_unit: zod.string().max(20, { message: "Strength unit can't be more than 20 characters" }).nullable().optional(),
   description: zod.string().max(200, { message: "Description can't be more than 200 characters" }).optional(),
   manufacturer: zod.string({ message: "Manufacturer is required" }).nonempty({ message: "Manufacturer is required" }).max(100, { message: "Manufacturer can't be more than 100 characters" }),

@@ -27,6 +27,17 @@ export function useSale(id: string) {
   })
 }
 
+export function useSaleStockAvailable(id?: string) {
+  return useQuery({
+    queryKey: ["stock_available", id],
+    queryFn: async () => {const res = await api.get(`${salesAPI}/stock/${id}/`)
+      return res.data
+    },
+    enabled: !!id,
+    staleTime: 1000 * 60 * 60,
+  })
+}
+
 export function useAddSale() {
   const queryClient = useQueryClient()
 
@@ -37,6 +48,7 @@ export function useAddSale() {
     },
     onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["sales"] })
+        queryClient.invalidateQueries({ queryKey: ["stock_available"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_kpi"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_weeklySales"] })
         queryClient.invalidateQueries({ queryKey: ["dashboard_monthlySales"] })

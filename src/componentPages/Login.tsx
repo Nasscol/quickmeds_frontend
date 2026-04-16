@@ -61,7 +61,7 @@ const Login = () => {
                 <PasswordField name='password' label='Password' register={register} errors={errors}/>
 
                 <button type='submit' className='text-sm mt-2 px-5 py-2 bg-blue-800 text-white rounded hover:bg-blue-900 transition-colors cursor-pointer'>Login</button>
-                <p className='text-blue-700  hover:underline text-xs cursor-pointer'>Forgot password?</p>
+                {/* <p className='text-blue-700  hover:underline text-xs cursor-pointer'>Forgot password?</p> */}
             </form>
           </div>
 

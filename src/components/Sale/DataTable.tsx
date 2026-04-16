@@ -1,6 +1,6 @@
 "use client"
 import { env } from '@/config/env'
-import { useAddSale } from '@/hooks/sales/useSales'
+import { useAddSale, useSaleStockAvailable } from '@/hooks/sales/useSales'
 import { MedicineType, OptionType, SaleMedicineType } from '@/interfaces'
 import api from '@/lib/axios'
 import { SaleFormData, saleSchema } from '@/schema/saleSchema'
@@ -70,6 +70,16 @@ const DataTable = () => {
 
 
     const addSales = useAddSale()
+    const { data: stock, error: stockError } = useSaleStockAvailable(selectedMedicine?.id)
+    const stockAvailable = stock?.available_stock
+    
+    
+    useEffect(() => {
+      if(stockError){
+        const message = getErrorMessage(stockError, "Transaction failed!");
+        toast.error(<span style={{ whiteSpace: "pre-line" }}>{message}</span>);
+      }
+    }, [stockError])
 
     const onSubmit = (data: any) => {
 
@@ -77,11 +87,17 @@ const DataTable = () => {
         toast.error(`Out of stock: ${selectedMedicine?.name}`)
         return
       }
+
+      const quantity = Number(data.quantity)
+      if(quantity > stockAvailable){
+           toast.error(<span style={{ whiteSpace: "pre-line" }}>{`Not Enough Stock. \nOnly ${stockAvailable} units available in stock.`}</span>);
+        return
+      }
       
         const medicine_id = selectedMedicine?.id
         const medicine_name = selectedMedicine?.name
         const generic_name = selectedMedicine?.generic_name
-        const quantity = Number(data.quantity)
+        
         const dosage_instruction = data.dosage_instruction
         const strength = Number(selectedMedicine?.strength)
         const strength_unit = selectedMedicine?.strength_unit
@@ -99,9 +115,7 @@ const DataTable = () => {
       reset()
       setSelectedMedicine(undefined)
     }
-
-   
-
+  
 
     async function submitSale(){
      if (!items || items.length === 0) {
@@ -182,6 +196,11 @@ const DataTable = () => {
                       <div className='h-12'>
                         <h6 className="capitalize flex text-sm mb-1 font-medium text-gray-700">Unit Price:</h6>
                         <p>{selectedMedicine?.current_price ? `UGX ${Number(selectedMedicine?.current_price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ""}</p>
+                      </div>
+
+                      <div className='h-12'>
+                        <h6 className="capitalize flex text-sm mb-1 font-medium text-gray-700">Stock Available:</h6>
+                        <p>{stockAvailable ? `${Number(stockAvailable).toLocaleString('en-US')}` : ""}</p>
                       </div>
 
                     <div className="flex justify-end gap-2 mt-4">
