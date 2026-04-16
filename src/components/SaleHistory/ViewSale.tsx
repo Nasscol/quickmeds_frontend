@@ -1,6 +1,6 @@
 'use client'
 
-import { InfoDetailsProps, SaleHistoryType } from "@/interfaces"
+import { InfoDetailsProps, SaleHistoryType } from "@/interfaces";
 import { format, parseISO } from "date-fns";
 
 interface ViewSaleProps {

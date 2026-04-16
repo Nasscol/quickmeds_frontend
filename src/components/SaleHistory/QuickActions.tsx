@@ -1,12 +1,12 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { getErrorMessage } from "@/helper";
 import { useArchiveSales } from "@/hooks/sales/useSales";
 import { SaleHistoryType } from '@/interfaces';
 import { Archive } from "lucide-react";
 import { toast } from 'sonner';
 import LoadingSpinner from "../Global/LoadingSpinner";
 import ViewSale from "./ViewSale";
-import { getErrorMessage } from "@/helper";
 
 interface ViewSaleDialogProps {
   open: boolean

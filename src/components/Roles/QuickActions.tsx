@@ -1,5 +1,6 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { getErrorMessage } from "@/helper"
 import { useDeleteUserRole } from '@/hooks/users/useUsers'
 import { UserRoleType } from '@/interfaces'
 import { Trash } from "lucide-react"
@@ -7,7 +8,6 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddRole from './AddRole'
 import EditRole from './EditRole'
-import { getErrorMessage } from "@/helper"
 
 interface EditUserRoleProps {
   open: boolean

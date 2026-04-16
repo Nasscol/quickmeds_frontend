@@ -3,12 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { useAuth } from "@/context/authContext"
-import { allowedAdminOnlyGroup, allowedTechGroups, SaleHistoryType } from "@/interfaces"
+import { useMe } from "@/hooks/users/useUsers"
+import { allowedTechGroups, SaleHistoryType } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteSaleDialog, UnAarchiveSaleDialog, ViewSaleDialog } from "./QuickActions"
-import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: SaleHistoryType

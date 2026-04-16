@@ -1,8 +1,6 @@
 "use client";
-import { env } from "@/config/env";
 import { fetchMe } from "@/hooks/users/useUsers";
-import { AuthContextType, AuthProviderType, User } from "@/interfaces";
-import api from "@/lib/axios";
+import { AuthContextType, AuthProviderType } from "@/interfaces";
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 

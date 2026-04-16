@@ -3,11 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { useMe } from "@/hooks/users/useUsers"
 import { allowedAdminOnlyGroup, UserRoleType } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteUserDialog, EditUserDialog } from "./QuickActions"
-import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: any

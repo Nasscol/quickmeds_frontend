@@ -1,6 +1,6 @@
+import { env } from "@/config/env";
 import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
-import { env } from "@/config/env"
 
 const inventoryAPI = env.inventoryApi
 

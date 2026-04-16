@@ -1,9 +1,9 @@
 'use client'
 
-import { User } from "@/interfaces"
-import { useState } from "react"
-import Image, { StaticImageData } from 'next/image'
 import Profile_Pic from "@/assets/profile pics/profile_placeholder.png";
+import { User } from "@/interfaces";
+import Image, { StaticImageData } from 'next/image';
+import { useState } from "react";
 
 interface EditUserFormProps {
   defaultValues?: Partial<User>

@@ -1,8 +1,8 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { EditsaleItemsType, saleItemsType } from '@/interfaces'
-import EditSaleForm from "./EditSaleForm"
+import { EditsaleItemsType } from '@/interfaces'
 import { Dispatch, SetStateAction } from "react"
+import EditSaleForm from "./EditSaleForm"
 
 interface EditSaleDialogProps {
   open: boolean

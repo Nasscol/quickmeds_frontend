@@ -1,9 +1,7 @@
-import { useAuth } from "@/context/authContext"
-import { EditsaleItemsType, EditSaleType, saleItemsType, SaleMedicineType } from "@/interfaces"
+import { EditsaleItemsType } from "@/interfaces"
 import { Pencil, Trash } from "lucide-react"
 import { Dispatch, SetStateAction, useState } from "react"
 import { EditSaleDialog } from "./QuickActions"
-import { set } from "date-fns"
 
 interface ActionMenuProps {
   rowData: any

@@ -1,7 +1,6 @@
 import { env } from "@/config/env"
-import { PaginatedResponse, SaleHistoryType, SaleSearchQuery, SaleType } from "@/interfaces"
 import { api } from "@/lib/axios"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 
 const salesAPI = env.salesApi
 

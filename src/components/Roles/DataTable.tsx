@@ -8,10 +8,10 @@ import { getColumns } from './Columns'
 import { AddRoleDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
-import { useMe, useUserRoles } from '@/hooks/users/useUsers'
-import Datatable from '../Global/Datatable'
 import { getErrorMessage } from '@/helper'
+import { useMe, useUserRoles } from '@/hooks/users/useUsers'
 import { toast } from 'sonner'
+import Datatable from '../Global/Datatable'
 
 export default function RolesTable() {
   const { data: user, isLoading: UserLoading } = useMe();

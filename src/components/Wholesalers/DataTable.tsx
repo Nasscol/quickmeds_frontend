@@ -1,7 +1,7 @@
 'use client'
 
 import { useWholesalers } from '@/hooks/inventory/useWholesalers'
-import { allowedAdminOnlyGroup, allowedTechGroups, ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
+import { allowedTechGroups, ManufacturerSearchQuery, WholesalerType } from '@/interfaces'
 import { PaginationState } from '@tanstack/react-table'
 import { Search, XCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -9,11 +9,10 @@ import { getColumns } from './Columns'
 import { AddWholesalerDialog } from './QuickActions'
 import TextSearchFields from './SearchFields'
 
-import Datatable from '../Global/Datatable'
-import { useAuth } from '@/context/authContext'
-import { useMe } from '@/hooks/users/useUsers'
 import { getErrorMessage } from '@/helper'
+import { useMe } from '@/hooks/users/useUsers'
 import { toast } from 'sonner'
+import Datatable from '../Global/Datatable'
 
 export default function WholesalerTable() {
   const { data: user, isLoading: UserLoading } = useMe();

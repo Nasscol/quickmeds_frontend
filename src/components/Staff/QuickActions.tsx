@@ -1,5 +1,6 @@
 'use client'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { getErrorMessage } from "@/helper"
 import { useDeleteUser } from '@/hooks/users/useUsers'
 import { User } from '@/interfaces'
 import { Trash } from "lucide-react"
@@ -7,7 +8,6 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import AddUser from './AddStaff'
 import EditStaff from './EditStaff'
-import { getErrorMessage } from "@/helper"
 import ViewStaff from "./ViewStaff"
 
 interface EditUserDialogProps {

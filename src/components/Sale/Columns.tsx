@@ -2,9 +2,9 @@
 
 import { SaleMedicineType } from '@/interfaces'
 import { ColumnDef } from '@tanstack/react-table'
+import { Dispatch, SetStateAction } from 'react'
 import SortableHeader from '../Global/SortableHeader'
 import { ActionsButton } from './ActionsButton'
-import { Dispatch, SetStateAction } from 'react'
 
 interface EditSaleButtons {
   onDelete: (row: any) => void

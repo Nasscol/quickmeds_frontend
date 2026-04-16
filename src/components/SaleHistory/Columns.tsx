@@ -2,9 +2,9 @@
 
 import { SaleHistoryType } from '@/interfaces'
 import { ColumnDef } from '@tanstack/react-table'
+import { format, parseISO } from "date-fns"
 import SortableHeader from '../Global/SortableHeader'
 import { ActionsButton } from './ActionsButton'
-import { format, parseISO } from "date-fns";
 
 export const columns: ColumnDef<SaleHistoryType>[] = [
   {

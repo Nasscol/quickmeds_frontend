@@ -3,11 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { useMe } from "@/hooks/users/useUsers"
 import { allowedAdminOnlyGroup, ManufacturersType, WholesalerType } from "@/interfaces"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 import { DeleteWholesalerDialog, EditWholesalersDialog } from "./QuickActions"
-import { useMe } from "@/hooks/users/useUsers"
 
 interface ActionMenuProps {
   rowData: ManufacturersType
