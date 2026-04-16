@@ -1,4 +1,3 @@
-import { error } from "console"
 import * as zod from "zod"
 
 export const CreateUserSchema = zod.object({

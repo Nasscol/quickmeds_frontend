@@ -20,9 +20,7 @@ export interface PaginatedResponse<T> {
 }
 
 export interface AuthContextType {
-  // user?: User;
   loading: boolean;
-  // setUser: (user: User | undefined) => void;
 }
 
 export interface AuthProviderType {

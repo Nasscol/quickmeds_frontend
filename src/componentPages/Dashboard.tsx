@@ -1,10 +1,9 @@
-import React from 'react'
-import {TopMedicineTable, WelcomeScreen } from '@/components/DashBoard'
-import { DashHeading } from '@/components/Global'
-import Weekly_Sales from '@/charts/Weekly_Sales'
-import Top_Selling_Medicine from '@/charts/Top_Selling_Medicine'
 import Monthly_Sales from '@/charts/Monthly_Sales'
+import Top_Selling_Medicine from '@/charts/Top_Selling_Medicine'
 import Weekly_Items from '@/charts/Weekly_Items'
+import Weekly_Sales from '@/charts/Weekly_Sales'
+import { WelcomeScreen } from '@/components/DashBoard'
+import { DashHeading } from '@/components/Global'
 
 const Dashboard = () => {
   

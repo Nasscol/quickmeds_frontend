@@ -28,17 +28,3 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
-
-
-// TESTING IF TOKEN IS BEING GRABBED FROM THE COOKIES 
-// export function proxy(request: NextRequest) {
-// const token = request.cookies.get('access_token');
-// const cookie = request.cookies.get('access_token');
-
-//   
-//   );
-//   
-
-//   return NextResponse.next();
-
-// }
