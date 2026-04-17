@@ -13,6 +13,7 @@ interface FormInputProps {
 
 export default function ContactField({ label, required, name, placeholder, register, errors }: FormInputProps) {
   const error = errors?.[name]
+   const field = register(name); 
 
   return (
     <div className="relative pb-2">
@@ -25,13 +26,14 @@ export default function ContactField({ label, required, name, placeholder, regis
         id={name}
         type="text"
         placeholder={placeholder}
-        {...register(name)}
+        {...field}
         onChange={(e) => {
             const value = e.target.value
               .replace(/[^\d+]/g, "") 
               .replace(/(?!^)\+/g, "")
               .slice(0, 15);
             e.target.value = value;
+            field.onChange(e);
           }}
         className={`w-full border rounded px-3 py-2  focus:border-blue-800 text-sm
             ${error ? "border-red-500" : "border-gray-300"} outline-none`}/>
