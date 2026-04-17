@@ -3,7 +3,7 @@
 import { getErrorMessage } from "@/helper"
 import { useUpdateMe } from "@/hooks/users/useUsers"
 import { User } from "@/interfaces"
-import { EditUserFormData, EditUserSchema } from "@/schema/editUserSchema"
+import { EditUserProfileFormData, EditUserProfileSchema } from "@/schema/editUserProfileSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -19,11 +19,10 @@ interface EditUserFormProps {
 }
 
 export default function EditInfoForm({ defaultValues, onCancel, onSave }: EditUserFormProps) {
-  const [image, setImage] = useState<File | string | undefined>(defaultValues?.profile_image ?? undefined);
   const [ErrorMessage, ShowErrorMessage] = useState<boolean>(false)
-  const { register, handleSubmit, control, formState: { errors } } = useForm<EditUserFormData>({
-    defaultValues: {...defaultValues, profile_image: undefined, role: defaultValues?.groups?.[0]},
-    resolver: zodResolver(EditUserSchema),
+  const { register, handleSubmit, control, formState: { errors } } = useForm<EditUserProfileFormData>({
+    defaultValues: {...defaultValues},
+    resolver: zodResolver(EditUserProfileSchema),
   })
 
   const editUser = useUpdateMe();
@@ -33,6 +32,7 @@ export default function EditInfoForm({ defaultValues, onCancel, onSave }: EditUs
 
 const onSubmit = async (data: User) => {
   
+  console.log("Data being sent: ", data)
   if(editUser.isPending){
     return
   }
