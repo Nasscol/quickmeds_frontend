@@ -32,7 +32,7 @@ export default function EditInfoForm({ defaultValues, onCancel, onSave }: EditUs
 
 const onSubmit = async (data: User) => {
   
-  console.log("Data being sent: ", data)
+  
   if(editUser.isPending){
     return
   }
