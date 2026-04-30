@@ -43,7 +43,7 @@ const NavBar = () => {
         if(user){
             setImage(user?.profile_image as string)
         }
-    }, [user])
+    }, [user, UserLoading, UserFetching])
 
   return (
     <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5'>

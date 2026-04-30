@@ -16,7 +16,7 @@ const ImageProfile = () => {
         if(user){
             setImage(user?.profile_image as string)
         }
-    }, [user])
+    }, [user, UserLoading, UserFetching])
 
   return (
         <div className='rounded-lg shadow bg-white p-6 flex justify-center items-center w-80'>
