@@ -149,7 +149,7 @@ export default function Batches() {
 
   const { control, reset, formState: { errors } } = useForm<BatchSearchQuery>({})
 
-  const { data, isLoading, error } = useBatches({page: page, ...searchQuery})
+  const { data, isLoading, isFetching, error } = useBatches({page: page, ...searchQuery})
 
   const batches: BatchType[] = data?.results ?? []
 
@@ -248,7 +248,7 @@ export default function Batches() {
             
           <div className='max-w-350 pb-10 mx-auto'>
             <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative min-h-247">
-                {isLoading ? (<LoadingSpinner />) : batches.length > 0 ? (
+                {isLoading || isFetching ? (<LoadingSpinner />) : batches.length > 0 ? (
                       batches.map((batch) => (
                         <BatchCards key={batch.id} batch={batch} />
                       ))
