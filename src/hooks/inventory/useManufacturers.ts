@@ -52,6 +52,7 @@ export function useUpdateManufacturer() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["manufacturers"] })
       queryClient.invalidateQueries({ queryKey: ["manufacturer", data.id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
@@ -66,6 +67,7 @@ export function useDeleteManufacturer() {
    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["manufacturers"] })
       queryClient.invalidateQueries({ queryKey: ["manufacturer", id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
