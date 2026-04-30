@@ -37,13 +37,8 @@ const NavBar = () => {
     const { data: user, isLoading: UserLoading, isFetching: UserFetching } = useMe();
     const [isLogoLoaded, setIsLogoLoaded] = useState<boolean>(false)
     const [isProfilePicLoaded, setIsProfilePicLoaded] = useState<boolean>(false)
-    const [image, setImage] = useState<File | string | undefined | StaticImageData>(user?.profile_image ?? undefined);
-
-    useEffect(() => {
-        if(user){
-            setImage(user?.profile_image as string)
-        }
-    }, [user, UserLoading, UserFetching])
+    // const [image, setImage] = useState<File | string | undefined | StaticImageData>(user?.profile_image ?? undefined);
+    const imageSrc = user?.profile_image as string ?? Profile_Pic;
 
   return (
     <div className='bg-white shadow-xs flex items-center justify-between py-2 px-5'>
@@ -61,7 +56,7 @@ const NavBar = () => {
             <Link href={"/profile"} className='flex items-center gap-x-4 pl-4 rounded-full bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors'>
                 {UserLoading || UserFetching ? <div className="h-4 w-28 bg-blue-200/40 animate-pulse rounded" /> : <h6 className='text-sm'>{user ? `${user.first_name} ${user.last_name}` : "Unknown"}</h6>}
                 <div className='relative rounded-full size-10 overflow-hidden'>
-                    {UserLoading || UserFetching ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={(image as string || image as StaticImageData)} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>}
+                    {UserLoading || UserFetching ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={imageSrc} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)}/>}
                 </div>
             </Link>
         </div>
