@@ -52,6 +52,7 @@ export function useUpdateWholesaler() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["wholesalers"] })
       queryClient.invalidateQueries({ queryKey: ["wholesaler", data.id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
@@ -66,6 +67,7 @@ export function useDeleteWholesaler() {
    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["wholesalers"] })
       queryClient.invalidateQueries({ queryKey: ["wholesaler", id] })
+      queryClient.invalidateQueries({ queryKey: ["batches"] })
     },
   })
 }
