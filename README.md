@@ -49,6 +49,7 @@ Run:
 ```powershell
 .\start.ps1
 ```
+Make sure to update .env file with your credentials.
 
 ## License
 Distributed under the MIT License.
