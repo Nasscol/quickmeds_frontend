@@ -16,7 +16,7 @@ QuickMeds is a pharmacy management web application for tracking inventory, sales
 ## Backend
 [Quick Meds Backend](https://github.com/SimonDdungu/quickmeds-backend)
 
-## Login Details
+## Production Login Details
 - Cashier  
 Username: grace_dest  
 Password: grace12345
