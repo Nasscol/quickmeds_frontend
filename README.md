@@ -25,6 +25,31 @@ Password: grace12345
 Username: brain_mu  
 Password brianbrian
 
+## Cloning Project
+### Pre-requisite
+- Node.js installed and Configured
+- Pnpm installed and Configured
+
+### Instructions
+
+#### Clone the repository
+```bash
+git clone https://github.com/SimonDdungu/quickmeds-frontend.git
+
+cd quickmeds-frontend/
+```
+
+#### Linux
+Run: 
+```bash
+./start.sh
+```
+#### Windows
+Run: 
+```powershell
+.\start.ps1
+```
+
 ## License
 Distributed under the MIT License.
 
