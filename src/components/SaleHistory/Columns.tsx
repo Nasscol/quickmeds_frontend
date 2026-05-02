@@ -13,7 +13,7 @@ export const columns: ColumnDef<SaleHistoryType>[] = [
     cell: ({ getValue }) => {
       const value = String(getValue() ?? "");
       return (
-        <div className="max-w-70 truncate" title={value}>
+        <div className="max-w-30 xl:max-w-70 truncate" title={value}>
           {value}
         </div>
       );

@@ -41,7 +41,7 @@ const Login = () => {
   }
     
   return (
-    <div className='w-screen flex-1 flex justify-center items-center relative '>
+    <div className='hidden w-screen flex-1 lg:flex justify-center items-center relative '>
       <div className='w-full h-full absolute inset-0 bg-black/60 z-20'></div>
       <Image src={Cover} alt='Quick Meds Login Cover' fill placeholder='blur' className='w-full h-full object-cover'/>
       <div className='z-999'>

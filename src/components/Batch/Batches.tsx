@@ -196,7 +196,7 @@ export default function Batches() {
 
   return (
     <div>
-          <div className='flex justify-between items-end mb-15 max-w-350 mx-auto'>
+          <div className='flex flex-col xl:flex-row justify-between gap-y-5 items-end mb-15 max-w-350 mx-auto'>
               <form onSubmit={(e) => {e.preventDefault(); setPage(1); setSearchQuery({batch_number, search, wholesaler, purchase_price, purchase_price_maximum, purchase_price_minimum, selling_price_maximum, selling_price_minimum, selling_price_per_unit, quantity_received, quantity_received_max, quantity_received_min, quantity_remaining, quantity_remaining_max, quantity_remaining_min, expiry_date, expiry_date_from, expiry_date_to, is_expired})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Batch Number' name='batch_number' value={batch_number} onChange={setBatchNumber}/>
@@ -205,7 +205,7 @@ export default function Batches() {
                   <ReactNumberSearchField label='Purchase price' name='purchase_price' value={purchase_price} onChange={setPurchase_price}/>
                   <ReactNumberSearchField label='Selling price' name='selling_price_per_unit' value={selling_price_per_unit} onChange={setSelling_price_per_unit}/>
 
-                  <div className='flex gap-3 items-end'>
+                  <div className='flex flex-wrap gap-3 items-end'>
                   <ReactNumberSearchField label='Purchase price Min' name='purchase_price_minimum' value={purchase_price_minimum} onChange={setPurchase_price_minimum}/>
                   <p className='mb-1'>{" - "}</p>
                   <ReactNumberSearchField label='Purchase price Max' name='purchase_price_maximum' value={purchase_price_maximum} onChange={setPurchase_price_maximum}/>
@@ -247,7 +247,7 @@ export default function Batches() {
 
             
           <div className='max-w-350 pb-10 mx-auto'>
-            <div className="flex flex-row flex-wrap gap-x-4 gap-y-6 relative min-h-247">
+            <div className="flex flex-row justify-center items-center flex-wrap gap-x-4 gap-y-6 relative min-h-247">
                 {isLoading || isFetching ? (<LoadingSpinner />) : batches.length > 0 ? (
                       batches.map((batch) => (
                         <BatchCards key={batch.id} batch={batch} />

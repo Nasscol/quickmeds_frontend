@@ -54,7 +54,7 @@ export function EditBatchDialog({ open, setOpen, batch }: EditBatchDialogProps) 
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl z">
+        <DialogContent className="!max-w-4xl ">
           <DialogHeader>
             <DialogTitle>Edit Batch</DialogTitle>
           </DialogHeader>

@@ -70,7 +70,7 @@ const onSubmit = async (data: User) => {
         {ErrorMessage && <p className="text-center text-red-500 text-sm absolute top-3 left-0 w-full">Sorry, something went wrong!</p>}
 
        
-        <div className="flex justify-start items-center">
+        <div className="flex flex-col xl:flex-row gap-y-5  justify-start items-center">
 
           <div className="border-r pr-4 gap-y-4 flex flex-col">
           

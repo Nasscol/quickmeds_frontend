@@ -68,7 +68,7 @@ export default function UserTable() {
 
   return (
     <div>
-          <div className='flex justify-between items-end mb-5'>
+          <div className='flex flex-col xl:flex-row gap-y-5 justify-between items-end mb-5'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({search, first_name, last_name, phone_number, email, username, gender, is_active})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end'>
                   <TextSearchFields label='First Name' name='first_name' value={first_name} onChange={setFirstName}/>

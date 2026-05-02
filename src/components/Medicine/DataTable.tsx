@@ -61,7 +61,7 @@ export default function MedicineTable() {
 
   return (
     <div>
-          <div className='flex justify-between items-end mb-5 max-w-350 mx-auto'>
+          <div className='flex flex-col xl:flex-row justify-between gap-y-5 items-end mb-5 max-w-350 mx-auto'>
               <form onSubmit={(e) => {e.preventDefault(); setSearchQuery({name, generic_name, dosage_form, strength, manufacturer, strength_max, strength_min, strength_unit})}} className='flex flex-col gap-x-3 gap-y-5'>
                 <div className='flex flex-wrap gap-3  items-end max-w-6xl'>
                   <TextSearchFields label='Name' name='name' value={name} onChange={setName}/>

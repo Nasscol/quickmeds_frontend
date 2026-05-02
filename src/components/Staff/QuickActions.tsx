@@ -33,7 +33,7 @@ export function AddUserDialog() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="!max-w-3xl xl:!max-w-6xl ">
           <DialogHeader>
             <DialogTitle>Create User</DialogTitle>
           </DialogHeader>
@@ -77,7 +77,7 @@ export function EditUserDialog({ open, setOpen, user }: EditUserDialogProps) {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="!max-w-3xl xl:!max-w-6xl ">
           <DialogHeader>
             <DialogTitle>Edit User</DialogTitle>
           </DialogHeader>

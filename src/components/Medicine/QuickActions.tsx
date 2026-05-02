@@ -32,7 +32,7 @@ export function AddMedicineDialog() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="!max-w-3xl xl:!max-w-6xl">
           <DialogHeader>
             <DialogTitle>Add Medicine</DialogTitle>
           </DialogHeader>
@@ -53,7 +53,7 @@ export function EditMedicineDialog({ open, setOpen, medicine }: EditMedicineDial
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-6xl ">
+        <DialogContent className="!max-w-3xl xl:!max-w-6xl">
           <DialogHeader>
             <DialogTitle>Edit Medicine</DialogTitle>
           </DialogHeader>

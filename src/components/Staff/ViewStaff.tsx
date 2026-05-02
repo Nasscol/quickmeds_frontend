@@ -13,7 +13,8 @@ onSave: () => void
 
 export default function ViewStaff({ defaultValues, onCancel, onSave }: EditUserFormProps) {
   const [isProfilePicLoaded, setIsProfilePicLoaded] = useState<boolean>(false)
-  const [image, setImage] = useState<File | string | undefined | StaticImageData>(defaultValues?.profile_image ?? undefined);
+  
+  const imageSrc = defaultValues?.profile_image as string ?? Profile_Pic;
 
   
 
@@ -22,7 +23,7 @@ export default function ViewStaff({ defaultValues, onCancel, onSave }: EditUserF
         <div>
            <div className='size-40 mx-auto mb-3 rounded-full border-4 border-blue-200 relative overflow-hidden'>
              {!isProfilePicLoaded && <div className="w-full h-full bg-black/10 animate-pulse rounded" />} 
-             <Image src={(image as string || image as StaticImageData)} alt={defaultValues?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} onError={() => setImage(Profile_Pic)}/>
+             <Image src={imageSrc} alt={defaultValues?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)} />
           </div>
 
           <div>

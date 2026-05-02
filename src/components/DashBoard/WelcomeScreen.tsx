@@ -21,7 +21,7 @@ const WelcomeScreen = () => {
           
           {UserLoading || UserFetching ? <div className="h-4 w-24 bg-black/10 animate-pulse rounded mt-1" /> : <h6 className='text-xs'>{user ? `${user.groups}` : "Unknown"}</h6>}
 
-          <div className='flex flex-col lg:flex-row gap-5 mt-10 justify-center items-center lg:justify-start lg:items-start'>
+          <div className='flex flex-col lg:flex-row gap-5 flex-wrap mt-10 justify-center items-center lg:justify-start lg:items-start'>
             <div className="flex flex-col md:flex-row gap-5">
               <KpiCard label="Today's Revenue" value={data?.daily_revenue.value ?? 0} percentage_change={data?.daily_revenue.change_percentage ?? 0} icon={Cash} isMoney={true} isLoading={KPILoading} isFetching={KPIfetching}/>
               <KpiCard label='Avg Transactions' value={data?.average_transaction.value ?? 0} percentage_change={data?.average_transaction.change_percentage ?? 0} icon={Avg_Transactions} isMoney={true} isLoading={KPILoading} isFetching={KPIfetching}/>
