@@ -41,7 +41,7 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-title" content="QuickMeds" />
          <meta name="theme-color" content="black"/>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative  bg-gray-100`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} overscroll-none antialiased relative  bg-gray-100`}>
           
           <Providers>
             <AuthProvider token={hasRefreshToken}>

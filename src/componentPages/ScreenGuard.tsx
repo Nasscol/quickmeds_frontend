@@ -22,7 +22,7 @@ export default function ScreenGuard({children}: { children: React.ReactNode }) {
 
    if (isSmall) {
     return (
-      <div className="w-screen h-dvh bg-black text-gray-100 flex justify-center items-center text-center text-sm">
+      <div className="w-screen h-screen overflow-hidden bg-black text-gray-100 flex justify-center items-center text-center text-sm">
         <div>
           <p>For the best user experience, <br/>please open this web application on a larger screen.</p>
           <p>{"(e.g. a laptop, a desktop, a monitor)"}</p>

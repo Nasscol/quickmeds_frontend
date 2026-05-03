@@ -197,6 +197,6 @@
   scrollbar-width: none;
 }
 
-body {
+html, body {
   margin: 0;
 }
