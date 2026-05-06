@@ -147,7 +147,7 @@ const DataTable = () => {
 
   return (
     <div>
-        <div className='flex flex-row gap-5 flex-wrap justify-center'>
+        <div className='flex lg:flex-col xl:flex-row gap-5  justify-center'>
             <div className='w-full max-w-300 flex flex-col relative'>
               {addSales.isPending && <LoadingSpinner />}
               <div className='overflow-y-auto h-110' ref={containerRef}>

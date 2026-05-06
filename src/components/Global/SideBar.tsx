@@ -56,7 +56,7 @@ const SideBarLinks = ({link_name, link, icon, isActive, options, isCollapsed, se
             <div className="block">
                 {/* Parent item */}
         <div onClick={() => { if (hasDropDownList) { setOpen(!open); } if (hasDropDownList && isCollapsed && setIsCollapsed) { setOpen(true); setIsCollapsed(false);}} } 
-                    className={`${isCollapsed ? "w-full" : "min-w-50"}   ${isActive ? "bg-gray-200" : "hover:bg-gray-200"} 
+                    className={`${isCollapsed ? "w-full" : "xl:min-w-50"}   ${isActive ? "bg-gray-200" : "hover:bg-gray-200"} 
                     cursor-pointer rounded-lg transition-all`}>
                        
 
@@ -149,7 +149,7 @@ const SideBar = () => {
 
 
 return (
-      <div className={`px-4 pt-5 pb-10 ${isCollapsed ? "w-20" : "w-58"} h-screen  bg-white hidden lg:block  overflow-y-auto scrollbar-hide z-40 transition-all duration-300 ease-in-out`}>
+      <div className={`px-4 pt-5 pb-10 ${isCollapsed ? "w-20" : "w-47 xl:w-58"} h-screen  bg-white hidden lg:block  overflow-y-auto scrollbar-hide z-40 transition-all duration-300 ease-in-out`}>
         <div className="relative mb-6 size-6 ml-auto cursor-pointer">
           {!isCollapseLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse rounded z-5" />}   
           <Image src={Collapse_icon} alt='Collapse sidebar' onClick={() => setIsCollapsed(!isCollapsed)} className={`w-full h-full ${isCollapseLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsCollapseLoaded(true)}/>
