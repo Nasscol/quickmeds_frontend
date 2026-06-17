@@ -61,19 +61,7 @@ const Login = () => {
                 <PasswordField name='password' label='Password' register={register} errors={errors}/>
 
                 <button type='submit' className='text-sm mt-2 px-5 py-2 bg-blue-800 text-white rounded hover:bg-blue-900 transition-colors cursor-pointer'>Login</button>
-                <div className='text-xs cursor-default border rounded-lg p-3 border-2'>
-                  <p>Demo accounts:</p>
-                  <p>Cashier</p>
-                  <div className="text-blue-700 flex flex-row justify-between items-center">
-                  <p>Username: grace_dest</p>
-                  <p>Password: grace12345</p>
-                  </div>
-                  <p>Technician</p>
-                  <div className="text-blue-700 flex flex-row justify-between items-center">
-                  <p>Username: brian_mu</p>
-                  <p>Password: brianbrian</p>
-                  </div>
-                </div>
+                
                 {/* <p className='text-blue-700  hover:underline text-xs cursor-pointer'>Forgot password?</p> */}
             </form>
           </div>
