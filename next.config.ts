@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       // Production API
      {
         protocol: "https",
-        hostname: "kmmrgijtqahiilujqbck.supabase.co",
+        hostname: "gxznivbgxcitminxrcdt.storage.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
     ],
