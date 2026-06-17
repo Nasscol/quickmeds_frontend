@@ -19,7 +19,7 @@ const ImageProfile = () => {
 
                 <div className='size-40 overflow-hidden relative mb-4 '>
                     <div className='rounded-full border-4 border-blue-200 w-full h-full relative overflow-hidden'>
-                        {UserLoading || UserFetching ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={imageSrc} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)}/>}
+                        {UserLoading || UserFetching ? <div className="w-full h-full bg-black/10 animate-pulse rounded" /> : <Image src={user?.profile_image as string} alt={user?.username ?? "unknown user"} fill  className={`object-cover ${isProfilePicLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsProfilePicLoaded(true)}/>}
                     </div>
                     <button onClick={() => setOpen(true)} className="absolute z-20 bottom-0 right-2 text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-(--blue-150) rounded-full cursor-pointer p-2 transition-colors">
                         <Pencil size={16} />
