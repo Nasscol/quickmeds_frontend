@@ -71,7 +71,7 @@ const Login = () => {
               <div className='w-full h-full absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-50'></div>
               <Image src={LoginCover} alt='Quick Meds' fill placeholder="blur" className={`w-full h-full object-cover ${isBannerLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} onLoad={() => setIsBannerLoaded(true)}/>
               <div className='relative z-120 text-white mt-auto p-3 text-sm'>
-                <p>{`" Your Reliable Medical Supply & Distribution System "`}</p>
+                <p>{`" Your Medical Inventory & Sales Management System "`}</p>
               </div>
             </div>
           </div>
